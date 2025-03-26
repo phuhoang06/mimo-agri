@@ -1,0 +1,676 @@
+/*************************************************************
+ * 1. Định nghĩa biến màu (CSS Variables)
+ *    Bạn chỉ cần thay đổi ở đây để đổi màu toàn bộ
+ *************************************************************/
+ :root {
+    --brand-green: #0A923C;       /* Màu xanh chủ đạo */
+    --brand-green-dark: #087a2f;  /* Xanh đậm hơn (hover) */
+    --text-dark: #333;            /* Màu chữ chính */
+    --bg-light: #f5f5f5;          /* Màu nền chính */
+    --white: #ffffff;
+    --icon-color: #333;           /* Màu icon default */
+    --highlight-red: #d50000;     /* Màu đỏ hotline (nếu muốn) */
+}
+
+/*************************************************************
+ * 2. Thiết lập mặc định cho toàn trang
+ *************************************************************/
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;               /* Giảm xuống 16px để gọn */
+    line-height: 1.5;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+
+h1 { font-size: 1.8rem; } /* Adjust for mobile */
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.3rem; }
+
+@media (min-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+}
+
+/*************************************************************
+ * 3. Top Bar (Địa chỉ + Email + MXH)
+ *************************************************************/
+.top-bar {
+    background-color: var(--white);
+    padding: 5px 0;               /* Giảm padding */
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;              /* Smaller text for mobile */
+}
+
+@media (min-width: 768px) {
+    .top-bar {
+        font-size: 14px;          /* Larger on desktop */
+    }
+}
+
+.top-bar .icon-color {
+    color: var(--icon-color);
+}
+
+.top-bar a i {
+    color: var(--icon-color);
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: var(--icon-color);
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+/*************************************************************
+ * 4. Header Bar (Logo | Search | Hotline)
+ *************************************************************/
+.header-bar {
+    background-color: var(--white);
+    padding: 8px 0; /* Giảm padding */
+    border-bottom: 1px solid #ddd;
+}
+
+.logo-wrap {
+    min-width: 120px; /* Smaller for mobile */
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .logo-wrap {
+        min-width: 160px;
+    }
+}
+
+.logo-img {
+    height: 35px;
+    width: 35px;
+    border: 2px solid var(--brand-green);
+    border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+    .logo-img {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+.search-bar {
+    max-width: 100%; /* Full width on mobile */
+    margin: 8px 0;
+}
+
+@media (min-width: 768px) {
+    .search-bar {
+        max-width: 500px;
+        margin: 0;
+    }
+}
+
+.search-input {
+    border: 1px solid var(--brand-green);
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+    font-size: 14px;
+}
+
+.btn-search {
+    border: 1px solid var(--brand-green);
+    border-radius: 0 20px 20px 0;
+    background-color: var(--white);
+    color: var(--brand-green);
+}
+
+.btn-search:hover {
+    background-color: var(--brand-green);
+    color: var(--white);
+}
+
+.hotline-wrap {
+    min-width: 140px;
+    font-size: 12px;
+}
+
+@media (min-width: 768px) {
+    .hotline-wrap {
+        min-width: 160px;
+        font-size: 14px;
+    }
+}
+
+.hotline-label {
+    color: var(--brand-green);
+    font-weight: 600;
+}
+
+.hotline-number {
+    font-weight: bold;
+    color: var(--highlight-red);
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    .hotline-number {
+        font-size: 16px;
+    }
+}
+
+.icon-color {
+    color: var(--brand-green);
+}
+
+/*************************************************************
+ * 5. Menu Bar (Navbar)
+ *************************************************************/
+.menu-bar {
+    background-color: var(--brand-green);
+    padding: 0;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--white) !important;
+    font-size: 13px;
+    padding: 10px 10px;
+}
+
+@media (min-width: 768px) {
+    .navbar-dark .navbar-nav .nav-link {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+    background-color: var(--brand-green-dark) !important;
+    color: var(--white) !important;
+}
+
+.navbar-toggler {
+    border-color: var(--white);
+    padding: 6px 8px;
+    margin: 5px 0;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' "
+    + "xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23ffffff' "
+    + "stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' "
+    + "d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Dropdown */
+.navbar-dark .dropdown-menu {
+    border-radius: 0;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/*************************************************************
+ * 6. Footer
+ *************************************************************/
+.footer {
+    background-color: var(--brand-green);
+    padding: 10px 0;
+}
+
+.footer p {
+    color: var(--white);
+    margin: 0;
+    font-size: 14px;
+}
+
+/*************************************************************
+ * 7. Card / Khác (tuỳ chọn)
+ *************************************************************/
+.card {
+    background-color: #fff;
+    border: none;
+    height: 100%;
+}
+
+.card.mb-3 {
+    background-color: #f9f9f9;
+}
+
+#bannerCarousel img {
+    height: 200px; /* Smaller height on mobile */
+    width: 100%;
+    object-fit: cover; /* Ensure images cover the area properly */
+}
+  
+@media (min-width: 768px) {
+    #bannerCarousel img {
+        height: 17rem; /* Original height on desktop */
+    }
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+    border-radius: 50%;
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+    width: 25px;
+    height: 25px;
+}
+
+@media (min-width: 768px) {
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+  
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    opacity: 0.4;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: black;
+    border: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+    .carousel-indicators [data-bs-target] {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Đặt kích thước cố định cho hình ảnh trong phần tin tức */
+.card img {
+    width: 100%;
+    height: 80px; /* Smaller on mobile */
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .card img {
+        height: 100px; /* Original size on desktop */
+    }
+}
+
+/* Hiệu ứng nổi lên khi di chuột vào hình ảnh */
+.card img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Định dạng hình ảnh sản phẩm */
+.product-card img {
+    width: 100%;
+    height: 150px; /* Smaller on mobile */
+    object-fit: contain;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .product-card img {
+        height: 200px; /* Original size on desktop */
+    }
+}
+
+/* Hiệu ứng nổi lên khi di chuột vào hình ảnh sản phẩm */
+.product-card img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Đảm bảo hình ảnh sản phẩm trong block lấp đầy không gian */
+#topProductsCarousel .product-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Căn giữa nội dung trong card */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 10px; /* Smaller padding on mobile */
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .product-card {
+        padding: 12px; /* Original padding on desktop */
+    }
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.product-card .card-img-top {
+    width: 100%;
+    height: 140px; /* Smaller on mobile */
+    object-fit: cover;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+@media (min-width: 768px) {
+    .product-card .card-img-top {
+        height: 180px; /* Original size on desktop */
+    }
+}
+
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+}
+
+.product-card .card-title {
+    font-size: 0.9rem; /* Smaller on mobile */
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+@media (min-width: 768px) {
+    .product-card .card-title {
+        font-size: 1rem; /* Original size on desktop */
+    }
+}
+
+.product-card .rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.product-card .price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.product-card .btn {
+    width: 100%;
+    font-size: 0.85rem; /* Smaller on mobile */
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+    .product-card .btn {
+        font-size: 0.9rem; /* Original size on desktop */
+        margin-top: 12px;
+    }
+}
+
+.row.g-2 {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.row.g-2 > [class*='col-'] {
+    padding-right: 8px;
+    padding-left: 8px;
+    margin-bottom: 16px; /* Add spacing between cards */
+}
+
+/* Tiktok button */
+#tiktok-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+#tiktok-btn:hover {
+    background-color: #333;
+}
+
+/* Facebook button */
+#facebook-btn {
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+#facebook-btn:hover {
+    background-color: #145dbf;
+}
+
+/* Zalo button */
+#chat-btn {
+    background-color: #fff;
+    color: #0078ff;
+    border: 1px solid #0078ff;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+#chat-btn:hover {
+    background-color: #f0f8ff;
+    color: #0056b3;
+}
+
+/* Hotline button */
+#hotline-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+#hotline-btn:hover {
+    background-color: #b02a37;
+}
+
+/* Bao bọc danh mục */
+.category-container {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 10px; /* Smaller on mobile */
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .category-container {
+        padding: 16px; /* Original size on desktop */
+        margin-bottom: 24px;
+    }
+}
+
+/* Tiêu đề danh mục */
+.category-title {
+    font-size: 1.3rem; /* Smaller on mobile */
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+@media (min-width: 768px) {
+    .category-title {
+        font-size: 1.5rem; /* Original size on desktop */
+        margin-bottom: 16px;
+    }
+}
+
+/* Card sản phẩm - duplicating for compatibility */
+.product-card {
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* New responsive styles for chat widget */
+#chat-widget {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#chat-widget button {
+    margin-bottom: 8px;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+@media (max-width: 576px) {
+    #chat-widget {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    #chat-widget button {
+        transform: scale(0.85);
+        transform-origin: right bottom;
+    }
+}
+
+/* Video section responsive */
+.ratio-16x9 iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Footer responsive improvements */
+@media (max-width: 767px) {
+    footer h5 {
+        font-size: 1.1rem;
+        margin-top: 15px;
+    }
+    
+    footer p, footer li {
+        font-size: 0.9rem;
+    }
+    
+    footer .list-unstyled li {
+        margin-bottom: 5px;
+    }
+}
+
+/* Order page responsive improvements */
+@media (max-width: 767px) {
+    .card-header h4 {
+        font-size: 1.2rem;
+    }
+    
+    .form-label {
+        font-size: 0.9rem;
+    }
+    
+    #confirmOrder {
+        margin-top: 10px;
+    }
+}
+
+/* Video carousel in sidebar adjustments */
+#videoCarousel .ratio {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#videoCarousel .carousel-indicators {
+  margin-bottom: 0;
+}
+
+#videoCarousel .carousel-control-prev-icon,
+#videoCarousel .carousel-control-next-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Featured news styling */
+.featured-news-title {
+  position: relative;
+  padding-left: 15px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.featured-news-title:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background-color: var(--brand-green);
+  border-radius: 2px;
+}
+
+/* Mobile optimization for featured news */
+@media (max-width: 767px) {
+  .featured-news-container {
+    margin-top: 1rem;
+  }
+}
