@@ -1,18 +1,16 @@
 import React from 'react';
-import { Container, Carousel, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 import NewsCard from '../components/NewsCard';
-import VideoCarousel from '../components/VideoCarousel';
-import { topSellingProducts, newProducts } from '../utils/products';
-
-// Import banner images
-import banner1 from '../assets/banner/banner1.png';
-import banner2 from '../assets/banner/banner2.png';
-import banner3 from '../assets/banner/banner3.png';
-import banner4 from '../assets/banner/banner4.png';
-import banner5 from '../assets/banner/banner5.png';
+import { 
+  allProducts,
+  topSellingProducts, 
+  newProducts,
+  getUniqueProducts 
+} from '../utils/products';
 
 // Import news images 
 import news1 from '../assets/hot_new/new1.png';
@@ -24,147 +22,133 @@ function Home() {
     { img: news2, title: 'Lưu ý khi mua hàng', description: 'Mô tả ngắn về tin tức 2...' },
   ];
 
+  // Loại bỏ trùng lặp để hiển thị trang "Tất cả sản phẩm"
+  const uniqueProducts = getUniqueProducts(allProducts);
+  
   return (
     <>
       <Header />
-      <Container fluid className="mt-4 px-3 px-md-4">
-        <Row className="g-3">
-          <Col md={8}>
-            <Carousel id="bannerCarousel" interval={3000}>
-              <Carousel.Item>
-                <img src={banner1} className="d-block w-100" alt="Banner 1" />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img src={banner2} className="d-block w-100" alt="Banner 2" />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img src={banner3} className="d-block w-100" alt="Banner 3" />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img src={banner4} className="d-block w-100" alt="Banner 4" />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img src={banner5} className="d-block w-100" alt="Banner 5" />
-              </Carousel.Item>
-            </Carousel>
-          </Col>
-          <Col md={4}>
-            <div className="category-container">
-              <h5 className="category-title mb-3">Video</h5>
-              <VideoCarousel />
-            </div>
-          </Col>
-        </Row>
-      </Container>
-
+      
+      {/* SẢN PHẨM BÁN CHẠY */}
       <section id="top-selling" className="mt-5">
         <Container fluid className="px-3 px-md-4">
           <div className="category-container">
-            <h2 className="category-title">Top bán chạy</h2>
+            <h2 className="category-title">SẢN PHẨM BÁN CHẠY</h2>
             <Row className="g-3">
-              {topSellingProducts.map((product, index) => (
-                <ProductCard key={index} product={product} />
+              {topSellingProducts.slice(0, 5).map((product, index) => (
+                <ProductCard key={index} product={product} className="col-6 col-sm-4 col-md-3 col-lg-2-4" />
               ))}
             </Row>
           </div>
         </Container>
       </section>
 
-      <section id="rau-an-la" className="mt-5">
+      {/* TẤT CẢ SẢN PHẨM */}
+      <section id="all-products" className="mt-5">
         <Container fluid className="px-3 px-md-4">
           <div className="category-container">
-            <h2 className="category-title">Rau ăn lá</h2>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h2 className="category-title mb-0">TẤT CẢ SẢN PHẨM</h2>
+              <Button as={Link} to="/san-pham" variant="outline-success" size="sm">xem thêm</Button>
+            </div>
             <Row className="g-3">
-              {newProducts.map((product, index) => (
-                <ProductCard key={index} product={product} />
+              {uniqueProducts.slice(0, 10).map((product, index) => (
+                <ProductCard key={index} product={product} className="col-6 col-sm-4 col-md-3 col-lg-2-4" />
               ))}
             </Row>
           </div>
         </Container>
       </section>
 
-      <section id="tintuc" className="mt-5">
+      {/* VIDEO SECTION */}
+      <section id="video-section" className="mt-5">
         <Container fluid className="px-3 px-md-4">
           <div className="category-container">
-            <h2 className="category-title">Tin tức mới</h2>
-            <Carousel id="newsCarousel" interval={3000}>
-              <Carousel.Item>
-                <Row className="g-3">
-                  <Col md={4}>
-                    <div className="card product-card">
-                      <img src={news1} className="card-img-top" alt="Tin tức 1" loading="lazy" />
-                      <div className="card-body">
-                        <h5 className="card-title">Tin tức 1</h5>
-                        <p className="card-text">Mô tả ngắn về tin tức.</p>
-                        <a href="#" className="btn btn-primary">Xem thêm</a>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col md={4}>
-                    <div className="card product-card">
-                      <img src={news2} className="card-img-top" alt="Tin tức 2" loading="lazy" />
-                      <div className="card-body">
-                        <h5 className="card-title">Tin tức 2</h5>
-                        <p className="card-text">Mô tả ngắn về tin tức.</p>
-                        <a href="#" className="btn btn-primary">Xem thêm</a>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col md={4}>
-                    <div className="card product-card">
-                      <img src={news1} className="card-img-top" alt="Tin tức 3" loading="lazy" />
-                      <div className="card-body">
-                        <h5 className="card-title">Tin tức 3</h5>
-                        <p className="card-text">Mô tả ngắn về tin tức.</p>
-                        <a href="#" className="btn btn-primary">Xem thêm</a>
-                      </div>
-                    </div>
-                  </Col>
-                </Row>
-              </Carousel.Item>
-            </Carousel>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h2 className="category-title mb-0">VIDEO</h2>
+              <Button variant="outline-success" size="sm">xem thêm</Button>
+            </div>
+            <div className="mb-4">
+              <div className="ratio ratio-16x9">
+                <iframe 
+                  src="https://www.youtube.com/embed/osD0RAxQsbE" 
+                  title="YouTube video" 
+                  allowFullScreen>
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* HƯỚNG DẪN VÀ CHĂM SÓC */}
+      <section id="guides-care" className="mt-5">
+        <Container fluid className="px-3 px-md-4">
+          <div className="category-container">
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h2 className="category-title mb-0">HƯỚNG DẪN VÀ CHĂM SÓC</h2>
+              <Button variant="outline-success" size="sm">xem thêm</Button>
+            </div>
             
-            <div className="mt-4">
-              <h5 className="featured-news-title mb-3">Tin nổi bật</h5>
-              <Row className="g-3 featured-news-container">
-                {newsData.map((news, index) => (
-                  <Col md={6} key={index}>
-                    <NewsCard news={news} />
-                  </Col>
-                ))}
-              </Row>
-            </div>
+            <Row className="g-3">
+              <Col md={3}>
+                <div className="guide-card p-3 border rounded h-100">
+                  <img src={require('../assets/product/product1.png')} alt="Hướng dẫn" className="w-100 mb-2" style={{height: '120px', objectFit: 'cover'}} />
+                  <h5 className="guide-title">Tiêu đề bài viết</h5>
+                </div>
+              </Col>
+              <Col md={3}>
+                <div className="guide-card p-3 border rounded h-100">
+                  <img src={require('../assets/product/product2.png')} alt="Hướng dẫn" className="w-100 mb-2" style={{height: '120px', objectFit: 'cover'}} />
+                  <h5 className="guide-title">Tiêu đề bài viết</h5>
+                </div>
+              </Col>
+              <Col md={3}>
+                <div className="guide-card p-3 border rounded h-100">
+                  <img src={require('../assets/product/product3.png')} alt="Hướng dẫn" className="w-100 mb-2" style={{height: '120px', objectFit: 'cover'}} />
+                  <h5 className="guide-title">Tiêu đề bài viết</h5>
+                </div>
+              </Col>
+              <Col md={3}>
+                <div className="guide-card p-3 border rounded h-100">
+                  <img src={require('../assets/product/product4.png')} alt="Hướng dẫn" className="w-100 mb-2" style={{height: '120px', objectFit: 'cover'}} />
+                  <h5 className="guide-title">Tiêu đề bài viết</h5>
+                </div>
+              </Col>
+            </Row>
           </div>
         </Container>
       </section>
 
-      <section id="gioi-thieu" className="mt-5">
+      {/* FOOTER INFO SECTION */}
+      <section id="footer-info" className="mt-5 mb-5">
         <Container fluid className="px-3 px-md-4">
-          <div className="category-container">
-            <h2 className="category-title">Giới thiệu</h2>
-            <div className="p-4 bg-light rounded shadow">
-              <p className="text-muted">
-                Kính chào quý khách đến với <strong>Mimo - Agriculture</strong>! Chúng tôi tự hào là đơn vị cung cấp các sản phẩm nông nghiệp chất lượng cao, bao gồm hạt giống, phân bón hữu cơ và vật tư nông nghiệp, góp phần vào sự phát triển bền vững và thịnh vượng của nền nông nghiệp Việt Nam...
-              </p>
-              <h5 className="mt-4">Hạt giống</h5>
-              <p>Chúng tôi cung cấp đa dạng các loại hạt giống chất lượng, được tuyển chọn kỹ lưỡng từ các nhà cung cấp uy tín trong và ngoài nước...</p>
-              <h5 className="mt-4">Phân bón hữu cơ</h5>
-              <p>Với xu hướng nông nghiệp xanh và bền vững, Mimo - Agriculture đặc biệt chú trọng đến các sản phẩm phân bón hữu cơ...</p>
-              <h5 className="mt-4">Vật tư nông nghiệp</h5>
-              <p>Bên cạnh hạt giống và phân bón, Mimo - Agriculture còn cung cấp đầy đủ các loại vật tư nông nghiệp cần thiết...</p>
-              <h5 className="mt-4">Cam kết của chúng tôi</h5>
-              <ul>
-                <li>Chất lượng vượt trội: Cung cấp các sản phẩm có nguồn gốc rõ ràng, được kiểm định chất lượng nghiêm ngặt.</li>
-                <li>Giá cả cạnh tranh: Mang đến những sản phẩm chất lượng với mức giá hợp lý nhất trên thị trường.</li>
-                <li>Tư vấn tận tâm: Đội ngũ nhân viên giàu kinh nghiệm luôn sẵn sàng hỗ trợ khách hàng.</li>
-                <li>Hướng đến tương lai xanh: Góp phần vào sự phát triển của nền nông nghiệp bền vững.</li>
-              </ul>
-              <h5 className="mt-4">Tầm nhìn và sứ mệnh</h5>
-              <p><strong>Tầm nhìn:</strong> Trở thành một trong những đơn vị hàng đầu tại Việt Nam trong lĩnh vực cung cấp sản phẩm và giải pháp nông nghiệp chất lượng cao.<br />
-                <strong>Sứ mệnh:</strong> Mang đến những sản phẩm và dịch vụ tốt nhất, hỗ trợ nhà nông sản xuất hiệu quả, bền vững và tạo ra những nông sản an toàn, chất lượng cho cộng đồng.</p>
-              <p className="text-center mt-4"><strong>Hãy liên hệ với Mimo - Agriculture ngay hôm nay để được tư vấn và trải nghiệm những sản phẩm nông nghiệp chất lượng hàng đầu!</strong></p>
-            </div>
-          </div>
+          <Row>
+            <Col md={4} className="mb-4">
+              <div className="info-card p-3 border rounded h-100">
+                <h4 className="text-center mb-3">VỀ CHÚNG TÔI</h4>
+                <p>MiMo Agriculture là đơn vị chuyên cung cấp các giải pháp nông nghiệp thông minh.</p>
+                <p>Chúng tôi luôn cố gắng mang đến những sản phẩm chất lượng hàng đầu, giúp quý khách tiết kiệm chi phí và gia tăng năng suất trồng trọt.</p>
+              </div>
+            </Col>
+            <Col md={4} className="mb-4">
+              <div className="info-card p-3 border rounded h-100">
+                <h4 className="text-center mb-3">CHÍNH SÁCH BÁN HÀNG</h4>
+                <p>Cam kết đổi 1 đền 1 nếu có lỗi từ NSX.</p>
+                <p>Nhận phí vận chuyển cho đơn hàng từ 200k.</p>
+                <p>Hỗ trợ trả lời mọi thắc mắc liên hệ qua số hotline 0853.991.995 hoặc nhắn tin qua Zalo để được hỗ trợ.</p>
+              </div>
+            </Col>
+            <Col md={4} className="mb-4">
+              <div className="info-card p-3 border rounded h-100">
+                <h4 className="text-center mb-3">LIÊN HỆ</h4>
+                <p>Hotline: 0853.991.995</p>
+                <p>Zalo: 0853.991.995</p>
+                <p>Fanpage: <a href="https://www.facebook.com/www.mimo.agri" target="_blank" rel="noopener">link Fanpage</a></p>
+                <p>Youtube: <a href="https://www.youtube.com/@MiMoAgriculture" target="_blank" rel="noopener">link Youtube</a></p>
+              </div>
+            </Col>
+          </Row>
         </Container>
       </section>
 

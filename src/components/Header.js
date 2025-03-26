@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navbar, Nav, NavDropdown, Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useCart } from '../utils/CartManager';
@@ -7,6 +7,28 @@ import logoImg from '../assets/icon/logo.png';
 
 function Header() {
   const { cart, showCart } = useCart();
+
+  useEffect(() => {
+    // Khởi tạo carousel khi component được render
+    const carouselElement = document.getElementById('bannerCarousel');
+    if (carouselElement) {
+      // Tạo một object mới để lưu cài đặt
+      const options = {
+        interval: 3000,
+        ride: true,
+        pause: false
+      };
+      
+      // Cập nhật thuộc tính data-bs-* cho carousel
+      Object.keys(options).forEach(key => {
+        carouselElement.setAttribute(`data-bs-${key}`, options[key]);
+      });
+      
+      // Kích hoạt carousel bằng cách gửi sự kiện
+      const event = new Event('slid.bs.carousel');
+      carouselElement.dispatchEvent(event);
+    }
+  }, []);
 
   return (
     <div className="header-bar">
@@ -31,7 +53,6 @@ function Header() {
           <div className="social-icons mt-1">
             <a href="https://www.facebook.com/www.mimo.agri" target="_blank" rel="noopener"><i className="fab fa-facebook mx-1"></i></a>
             <a href="https://www.tiktok.com/@mimo.agriculture" target="_blank" rel="noopener"><i className="fab fa-tiktok mx-1"></i></a>
-            <a href="#" target="_blank" rel="noopener"><i className="fab fa-pinterest mx-1"></i></a>
             <a href="https://www.youtube.com/@MiMoAgriculture" target="_blank" rel="noopener"><i className="fab fa-youtube mx-1"></i></a>
           </div>
         </Container>
@@ -65,35 +86,120 @@ function Header() {
           </div>
         </div>
       </Container>
-      <div className="menu-bar">
-        <Container>
-          <Navbar expand="lg" className="navbar-dark p-0">
-            <Navbar.Toggle aria-controls="navbarMenu" />
-            <Navbar.Collapse id="navbarMenu">
-              <Nav className="text-uppercase fw-bold mx-auto">
-                <Nav.Link as={Link} to="/" className="nav-link">Trang chủ</Nav.Link>
-                <Nav.Link href="#gioi-thieu" className="nav-link">Giới thiệu</Nav.Link>
-                <NavDropdown title="Sản phẩm" id="productDropdown">
-                  <NavDropdown.Item href="#top-selling">Top bán chạy</NavDropdown.Item>
-                  <NavDropdown.Item href="#rau-an-la">Rau ăn lá</NavDropdown.Item>
-                </NavDropdown>
-                <Nav.Link href="#" className="nav-link">Hình ảnh bàn giao</Nav.Link>
-                <Nav.Link href="#tintuc" className="nav-link">Tin tức</Nav.Link>
-                <Nav.Link href="#video" className="nav-link">Video</Nav.Link>
-                <Nav.Link href="#" className="nav-link">Tuyển dụng</Nav.Link>
-                <Nav.Link href="#" className="nav-link">Liên hệ</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-            <div className="ms-auto d-flex">
-              <Button id="cartButton" variant="outline-light" className="position-relative ms-2" onClick={showCart}>
-                <i className="fas fa-shopping-cart"></i>
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cart.length}</span>
-              </Button>
-            </div>
-          </Navbar>
+      
+      {/* Thanh menu chính theo thiết kế mới */}
+      <div className="main-menu bg-success">
+        <Container className="d-flex align-items-center">
+          <Nav className="horizontal-nav mx-4">
+            <Nav.Link as={Link} to="/" className="text-white">TRANG CHỦ</Nav.Link>
+            <Nav.Link as={Link} to="/san-pham" className="text-white">SẢN PHẨM</Nav.Link>
+            <Nav.Link as={Link} to="/tai-lieu-ky-thuat" className="text-white">TÀI LIỆU KỸ THUẬT</Nav.Link>
+            <Nav.Link as={Link} to="/lien-he-mua-hang" className="text-white">LIÊN HỆ MUA HÀNG</Nav.Link>
+          </Nav>
+          
+          <div className="ms-auto">
+            <Button id="cartButton" variant="outline-light" className="position-relative" onClick={showCart}>
+              <i className="fas fa-shopping-cart"></i>
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cart.length}</span>
+            </Button>
+          </div>
         </Container>
       </div>
+      
+      <div className="content-area">
+        <Container fluid className="p-0">
+          <div className="row g-0">
+            <div className="col-lg-3 category-sidebar">
+              <div className="sidebar-menu bg-white">
+                <div className="category-header bg-success text-white p-3">
+                  <i className="fas fa-bars me-2"></i>
+                  <span>DANH MỤC SẢN PHẨM</span>
+                </div>
+                <ul className="category-menu-list">
+                  <li className="menu-item">
+                    <Link to="/san-pham#bay-ruoi-vang" className="menu-link">Bầy Ruồi Vàng - Côn Trùng</Link>
+                  </li>
+                  <li className="menu-item">
+                    <Link to="/san-pham#hat-giong-mua-he" className="menu-link">Hạt Giống Mùa Hè</Link>
+                  </li>
+                  <li className="menu-item">
+                    <Link to="/san-pham#hat-giong-mua-thu" className="menu-link">Hạt Giống Mùa Thu</Link>
+                  </li>
+                  <li className="menu-item">
+                    <Link to="/san-pham#hat-giong-mua-dong" className="menu-link">Hạt Giống Mùa Đông</Link>
+                  </li>
+                  <li className="menu-item">
+                    <Link to="/san-pham#dung-cu-cuoc-xeng-keo" className="menu-link">Dụng Cụ Cuốc - Xẻng - Kéo</Link>
+                  </li>
+                  <li className="menu-item">
+                    <Link to="/san-pham#voi-tuoi-cay" className="menu-link">Vòi Tưới Cây</Link>
+                  </li>
+                  <li className="menu-item">
+                    <Link to="/san-pham#dat-phan-bon-thuoc" className="menu-link">Đất - Phân Bón - Thuốc</Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-lg-9 main-content">
+              <div className="carousel-container mt-3">
+                <div id="bannerCarousel" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                  <div className="carousel-indicators">
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" aria-label="Slide 1" aria-current="false"></button>
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2" aria-current="false"></button>
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="Slide 3" aria-current="true" className="active"></button>
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="3" aria-label="Slide 4" aria-current="false"></button>
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="4" aria-label="Slide 5" aria-current="false"></button>
+                  </div>
+                  <div className="carousel-inner">
+                    <div className="carousel-item">
+                      <img className="d-block w-100" alt="Banner 1" src="/static/media/banner1.2994d618770a556921ea.png" />
+                    </div>
+                    <div className="carousel-item">
+                      <img className="d-block w-100" alt="Banner 2" src="/static/media/banner2.3c1e7939f3b6dd892ba3.png" />
+                    </div>
+                    <div className="active carousel-item">
+                      <img className="d-block w-100" alt="Banner 3" src="/static/media/banner3.cf59588abf3de3fdf211.png" />
+                    </div>
+                    <div className="carousel-item">
+                      <img className="d-block w-100" alt="Banner 4" src="/static/media/banner4.9ede27c59a2ef83d113e.png" />
+                    </div>
+                    <div className="carousel-item">
+                      <img className="d-block w-100" alt="Banner 5" src="/static/media/banner5.9e8e39ea457ae571caaf.png" />
+                    </div>
+                  </div>
+                  <a className="carousel-control-prev" role="button" data-bs-target="#bannerCarousel" data-bs-slide="prev" href="#">
+                    <span aria-hidden="true" className="carousel-control-prev-icon"></span>
+                    <span className="visually-hidden">Previous</span>
+                  </a>
+                  <a className="carousel-control-next" role="button" data-bs-target="#bannerCarousel" data-bs-slide="next" href="#">
+                    <span aria-hidden="true" className="carousel-control-next-icon"></span>
+                    <span className="visually-hidden">Next</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </div>
+      
       <CartModal />
+      
+      {/* Thêm script để đảm bảo carousel hoạt động */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            document.addEventListener('DOMContentLoaded', function() {
+              var carousel = document.getElementById('bannerCarousel');
+              if (carousel) {
+                new bootstrap.Carousel(carousel, {
+                  interval: 3000,
+                  ride: 'carousel'
+                });
+              }
+            });
+          `
+        }}
+      />
     </div>
   );
 }

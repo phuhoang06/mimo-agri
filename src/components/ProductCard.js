@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useCart } from '../utils/CartManager';
 
-function ProductCard({ product }) {
+function ProductCard({ product, className = "col-6 col-md-4 col-lg-3" }) {
   const { addToCart } = useCart();
 
   const stars = Array.from({ length: 5 }, (_, i) => (
@@ -10,9 +10,11 @@ function ProductCard({ product }) {
   ));
 
   return (
-    <div className="col-6 col-md-4 col-lg-3">
+    <div className={className}>
       <Card className="product-card h-100">
-        <Card.Img variant="top" src={product.img} alt={product.title} loading="lazy" />
+        <div className="product-img-wrapper">
+          <Card.Img variant="top" src={product.img} alt={product.title} loading="lazy" />
+        </div>
         <Card.Body>
           <Card.Title>{product.title}</Card.Title>
           <div className="rating">{stars}<span className="small ms-1">({product.reviews})</span></div>

@@ -183,7 +183,99 @@ h3 { font-size: 1.3rem; }
  *************************************************************/
 .menu-bar {
     background-color: var(--brand-green);
-    padding: 0;
+    padding: 15px 0;
+}
+
+/* Product Categories Styles */
+.product-categories {
+    background-color: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.category-header {
+    background-color: var(--brand-green);
+    color: var(--white);
+    padding: 10px 15px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+}
+
+.category-list {
+    list-style: none;
+    padding: 10px 15px;
+    margin: 0;
+}
+
+.category-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.category-list li:last-child {
+    border-bottom: none;
+}
+
+.category-list a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.category-list a:hover {
+    color: var(--brand-green);
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    background-color: var(--white);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.breadcrumb-nav .nav-link {
+    color: #333;
+    text-decoration: none;
+    padding: 0 5px;
+}
+
+.breadcrumb-nav .nav-link:hover {
+    color: var(--brand-green);
+}
+
+/* Banner Placeholder */
+.banner-container {
+    margin-top: 15px;
+}
+
+.banner-placeholder {
+    background-color: #e9ecef;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 40px 20px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 18px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .product-categories {
+        margin-bottom: 15px;
+    }
+    
+    .breadcrumb-nav {
+        font-size: 12px;
+        padding: 6px 10px;
+        flex-wrap: wrap;
+    }
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -212,10 +304,7 @@ h3 { font-size: 1.3rem; }
 }
 
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' "
-    + "xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23ffffff' "
-    + "stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' "
-    + "d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
 /* Dropdown */
@@ -325,7 +414,8 @@ h3 { font-size: 1.3rem; }
 /* Định dạng hình ảnh sản phẩm */
 .product-card img {
     width: 100%;
-    height: 150px; /* Smaller on mobile */
+    height: auto;
+    aspect-ratio: 1/1;
     object-fit: contain;
     background-color: #f8f8f8;
     border: 1px solid #ddd;
@@ -335,7 +425,7 @@ h3 { font-size: 1.3rem; }
 
 @media (min-width: 768px) {
     .product-card img {
-        height: 200px; /* Original size on desktop */
+        aspect-ratio: 1/1;
     }
 }
 
@@ -348,7 +438,7 @@ h3 { font-size: 1.3rem; }
 /* Đảm bảo hình ảnh sản phẩm trong block lấp đầy không gian */
 #topProductsCarousel .product-card img {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 0;
     margin: 0;
@@ -384,14 +474,14 @@ h3 { font-size: 1.3rem; }
 
 .product-card .card-img-top {
     width: 100%;
-    height: 140px; /* Smaller on mobile */
-    object-fit: cover;
+    aspect-ratio: 1/1;
+    object-fit: contain;
     border-bottom: 1px solid #f0f0f0;
 }
 
 @media (min-width: 768px) {
     .product-card .card-img-top {
-        height: 180px; /* Original size on desktop */
+        aspect-ratio: 1/1;
     }
 }
 
@@ -673,4 +763,210 @@ h3 { font-size: 1.3rem; }
   .featured-news-container {
     margin-top: 1rem;
   }
+}
+
+/* Thiết kế menu mới theo mẫu */
+.main-menu {
+  padding: 0;
+  border-radius: 0;
+  background-color: var(--brand-green);
+}
+
+.category-toggle-btn {
+  color: white;
+  font-weight: bold;
+  padding: 12px 15px;
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.category-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Menu ngang chính */
+.horizontal-nav {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.horizontal-nav .nav-link {
+  padding: 12px 15px;
+  font-weight: 600;
+  font-size: 14px;
+  color: white !important;
+  transition: background-color 0.2s;
+  text-transform: uppercase;
+}
+
+.horizontal-nav .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar Categories */
+.content-area {
+  margin-top: 15px;
+}
+
+.category-sidebar {
+  padding-right: 15px;
+}
+
+.sidebar-menu {
+  border: 1px solid #e5e5e5;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.category-header {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  text-align: left;
+  margin: 0;
+}
+
+.category-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-link {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.menu-link:hover {
+  background-color: #f9f9f9;
+  color: var(--brand-green);
+}
+
+/* Carousel */
+.carousel-container {
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .category-sidebar {
+    padding-right: 0;
+    margin-bottom: 15px;
+  }
+  
+  .horizontal-nav {
+    flex-direction: column;
+  }
+  
+  .horizontal-nav .nav-link {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Styles cho trang Products */
+.sidebar-block {
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+}
+
+.sidebar-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--brand-green);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.price-range {
+  margin-bottom: 15px;
+}
+
+.nav-tabs .nav-link {
+  color: #555;
+  font-weight: 600;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--brand-green);
+  border-bottom-color: var(--brand-green);
+}
+
+.nav-tabs .nav-link:hover:not(.active) {
+  border-color: transparent;
+  color: var(--brand-green);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .sidebar-block {
+    margin-bottom: 15px;
+  }
+}
+
+/* Custom 5-column layout (col-lg-2-4 = 20% width) */
+.col-lg-2-4 {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+@media (min-width: 992px) {
+  .col-lg-2-4 {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+}
+
+/* Also add support for medium screens */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .col-md-2-4 {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+}
+
+/* And small screens if needed */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .col-sm-2-4 {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+}
+
+.product-img-wrapper {
+    width: 100%;
+    position: relative;
+    padding-top: 100%; /* Tạo hình vuông theo tỷ lệ 1:1 */
+    overflow: hidden;
+}
+
+.product-img-wrapper .card-img-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 5px;
+    background-color: #f8f8f8;
 }
