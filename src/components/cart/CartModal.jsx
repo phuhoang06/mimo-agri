@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { useCart } from '../utils/CartManager';
+import { useCart } from '../../utils/CartManager';
 import { Link } from 'react-router-dom';
 
 function CartModal() {
@@ -48,4 +48,4 @@ function CartModal() {
   );
 }
 
-export default CartModal;
+export default CartModal; 

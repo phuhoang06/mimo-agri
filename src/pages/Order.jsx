@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/header/Header.jsx';
+import Footer from '../components/footer/Footer.jsx';
 import { useCart } from '../utils/CartManager';
 import axios from 'axios';
 
@@ -207,4 +207,4 @@ function Order() {
   );
 }
 
-export default Order;
+export default Order; 

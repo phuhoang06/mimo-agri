@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Tab, Nav } from 'react-bootstrap';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import ProductCard from '../components/ProductCard';
+import Header from '../components/header/Header.jsx';
+import Footer from '../components/footer/Footer.jsx';
+import ProductCard from '../components/product/ProductCard.jsx';
 import { 
   allProducts, 
   topSellingProducts, 
@@ -200,8 +200,7 @@ function Products() {
                       </Row>
                     ) : (
                       <div className="text-center py-5">
-                        <h4>Không tìm thấy sản phẩm nào</h4>
-                        <p>Vui lòng thử lại với từ khóa khác hoặc điều chỉnh bộ lọc của bạn</p>
+                        <p className="text-muted">Không tìm thấy sản phẩm nào phù hợp với bộ lọc đã chọn.</p>
                       </div>
                     )}
                   </Tab.Pane>
@@ -217,4 +216,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default Products; 

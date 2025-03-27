@@ -1,8 +1,8 @@
 import React from 'react';
-import tiktokIcon from '../assets/icon/tiktok.png';
-import facebookIcon from '../assets/icon/facebook.png';
-import zaloIcon from '../assets/icon/zalo.png';
-import supportIcon from '../assets/icon/support-icon.png';
+import tiktokIcon from '../../assets/icon/tiktok.png';
+import facebookIcon from '../../assets/icon/facebook.png';
+import zaloIcon from '../../assets/icon/zalo.png';
+import supportIcon from '../../assets/icon/support-icon.png';
 
 function ChatWidget() {
   return (
@@ -43,4 +43,4 @@ function ChatWidget() {
   );
 }
 
-export default ChatWidget;
+export default ChatWidget; 

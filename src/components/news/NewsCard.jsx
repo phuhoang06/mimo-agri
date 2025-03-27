@@ -19,4 +19,4 @@ function NewsCard({ news }) {
   );
 }
 
-export default NewsCard;
+export default NewsCard; 

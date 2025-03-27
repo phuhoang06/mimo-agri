@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import ProductCard from '../components/ProductCard';
-import NewsCard from '../components/NewsCard';
+import Header from '../components/header/Header.jsx';
+import Footer from '../components/footer/Footer.jsx';
+import ProductCard from '../components/product/ProductCard.jsx';
+import NewsCard from '../components/news/NewsCard.jsx';
+import VideoCarousel from '../components/video/VideoCarousel.jsx';
 import { 
   allProducts,
   topSellingProducts, 
@@ -69,13 +70,7 @@ function Home() {
               <Button variant="outline-success" size="sm">xem thêm</Button>
             </div>
             <div className="mb-4">
-              <div className="ratio ratio-16x9">
-                <iframe 
-                  src="https://www.youtube.com/embed/osD0RAxQsbE" 
-                  title="YouTube video" 
-                  allowFullScreen>
-                </iframe>
-              </div>
+              <VideoCarousel />
             </div>
           </div>
         </Container>
@@ -157,4 +152,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Home; 

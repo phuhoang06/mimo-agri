@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { useCart } from '../utils/CartManager';
+import { useCart } from '../../utils/CartManager';
 
 function ProductCard({ product, className = "col-6 col-md-4 col-lg-3" }) {
   const { addToCart } = useCart();
@@ -33,4 +33,4 @@ function ProductCard({ product, className = "col-6 col-md-4 col-lg-3" }) {
   );
 }
 
-export default ProductCard;
+export default ProductCard; 

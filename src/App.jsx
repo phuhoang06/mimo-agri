@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './utils/CartManager';
-import Home from './pages/Home';
-import Order from './pages/Order';
-import Products from './pages/Products';
-import ChatWidget from './components/ChatWidget';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Thêm Bootstrap CSS
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Thêm Bootstrap JavaScript
+import Home from './pages/Home.jsx';
+import Order from './pages/Order.jsx';
+import Products from './pages/Products.jsx';
+import ChatWidget from './components/chat/ChatWidget.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
 import './styles.css';
 
 function App() {
