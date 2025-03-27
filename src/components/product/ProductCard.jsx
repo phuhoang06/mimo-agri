@@ -17,9 +17,7 @@ function ProductCard({ product, className = "col-6 col-md-4 col-lg-3" }) {
         </div>
         <Card.Body>
           <Card.Title>{product.title}</Card.Title>
-          <div className="rating">{stars}<span className="small ms-1">({product.reviews})</span></div>
-          <p className="card-text small text-muted">{product.sold} đã bán</p>
-          <div className="price">
+          <div className="price price-container">
             <span className="text-danger fw-bold">{product.price.toLocaleString()}₫</span>
             <span className="text-muted text-decoration-line-through small ms-2">{product.oldPrice.toLocaleString()}₫</span>
             <span className="text-success small ms-2">-{Math.round((1 - product.price / product.oldPrice) * 100)}%</span>

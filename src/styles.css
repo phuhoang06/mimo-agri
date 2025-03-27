@@ -452,8 +452,8 @@ h3 { font-size: 1.3rem; }
     justify-content: space-between;
     align-items: center;
     border: 1px solid #f0f0f0;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
     overflow: hidden;
     background-color: #fff;
@@ -469,7 +469,7 @@ h3 { font-size: 1.3rem; }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .product-card .card-img-top {
@@ -640,30 +640,63 @@ h3 { font-size: 1.3rem; }
     }
 }
 
-/* Card sản phẩm - duplicating for compatibility */
-.product-card {
-    border: 1px solid #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-    overflow: hidden;
-    background-color: #fff;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
 /* New responsive styles for chat widget */
 #chat-widget {
     position: fixed;
     bottom: 15px;
-    right: 15px;
+    left: 15px;
     z-index: 9999;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
+    pointer-events: none; /* Make the container not block interactions */
+}
+
+#chat-widget > * {
+    pointer-events: auto; /* Restore pointer events for children */
+}
+
+#chat-widget.collapsed .widget-items {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+#chat-widget.expanded .widget-items {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.widget-items {
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.toggle-btn-container {
+    margin-bottom: 10px;
+}
+
+.toggle-btn {
+    width: 50px;
+    height: 50px;
+    background-color: var(--brand-green);
+    color: white;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--brand-green-dark);
 }
 
 #chat-widget button {
@@ -675,12 +708,18 @@ h3 { font-size: 1.3rem; }
 @media (max-width: 576px) {
     #chat-widget {
         bottom: 10px;
-        right: 10px;
+        left: 10px;
     }
     
     #chat-widget button {
         transform: scale(0.85);
-        transform-origin: right bottom;
+        transform-origin: left bottom;
+    }
+    
+    .toggle-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.25rem;
     }
 }
 
@@ -865,17 +904,53 @@ h3 { font-size: 1.3rem; }
 
 /* Responsive */
 @media (max-width: 991px) {
-  .category-sidebar {
-    padding-right: 0;
-    margin-bottom: 15px;
+  .main-menu-bar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
   }
   
-  .horizontal-nav {
+  .menu-category-title {
+    position: static;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  
+  .main-navigation {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .nav-links {
     flex-direction: column;
   }
   
-  .horizontal-nav .nav-link {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  .nav-links li {
+    width: 100%;
+  }
+  
+  .nav-links a {
+    padding: 10px;
+    justify-content: center;
+  }
+  
+  .sidebar-categories {
+    position: static;
+    width: 100%;
+    display: none;
+    max-height: none;
+    box-shadow: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .main-menu-wrapper:hover .sidebar-categories {
+    display: none;
+  }
+  
+  /* For mobile, let's show categories when clicking on the title */
+  .sidebar-categories.show {
+    display: block;
   }
 }
 
@@ -970,3 +1045,1016 @@ h3 { font-size: 1.3rem; }
     padding: 5px;
     background-color: #f8f8f8;
 }
+
+/* Product Image Wrapper Mobile Optimization */
+@media (max-width: 576px) {
+    .product-img-wrapper {
+        padding-top: 90%; /* Giảm chiều cao trên mobile */
+    }
+
+    .product-img-wrapper .card-img-top {
+        padding: 3px; /* Giảm padding */
+    }
+}
+
+@media (min-width: 577px) and (max-width: 767px) {
+    .product-img-wrapper {
+        padding-top: 95%;
+    }
+
+    .product-img-wrapper .card-img-top {
+        padding: 4px;
+    }
+}
+
+/* Styles to match the design in the image */
+
+/* Menu Layout */
+.menu-layout {
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #009933;
+  min-height: 250px;
+  color: white;
+}
+
+.sidebar-header {
+  font-weight: bold;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+.sidebar-links {
+  list-style-type: none;
+  padding: 0 15px;
+  margin: 0;
+}
+
+.sidebar-links li {
+  margin-bottom: 10px;
+}
+
+.sidebar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.sidebar-links a:hover {
+  text-decoration: underline;
+}
+
+/* Horizontal Menu */
+.horizontal-menu {
+  background-color: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.horizontal-menu ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.horizontal-menu li {
+  margin-right: 30px;
+}
+
+.horizontal-menu a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.horizontal-menu a:hover {
+  color: #009933;
+}
+
+/* Simple Banner */
+.simple-banner {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 30px;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  color: #666;
+  font-size: 18px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .horizontal-menu ul {
+    flex-direction: column;
+  }
+  
+  .horizontal-menu li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .sidebar {
+    min-height: auto;
+    margin-bottom: 15px;
+  }
+  
+  .simple-banner {
+    min-height: 150px;
+  }
+}
+
+/* Cải thiện giao diện cho combined-menu */
+.combined-menu {
+  width: 100%;
+  background-color: #009933;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.combined-menu .sidebar-header {
+  color: white;
+  font-weight: bold;
+  padding: 14px 18px;
+  font-size: 16px;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.combined-menu .horizontal-menu {
+  background-color: #009933;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.combined-menu .horizontal-menu ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.combined-menu .horizontal-menu li {
+  margin-right: 30px;
+  position: relative;
+}
+
+.combined-menu .horizontal-menu li:after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+.combined-menu .horizontal-menu li:hover:after {
+  width: 100%;
+}
+
+.combined-menu .horizontal-menu a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  padding: 14px 0;
+  display: block;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.combined-menu .horizontal-menu a:hover {
+  color: #ffffff;
+}
+
+/* Sidebar body */
+.sidebar-body {
+  background-color: #009933;
+  min-height: 250px;
+  color: white;
+  padding-top: 0;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+
+.sidebar-links {
+  list-style-type: none;
+  padding: 10px 18px;
+  margin: 0;
+}
+
+.sidebar-links li {
+  margin-bottom: 12px;
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.sidebar-links li:hover {
+  transform: translateX(3px);
+}
+
+.sidebar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+  padding: 3px 0;
+  transition: all 0.2s ease;
+}
+
+.sidebar-links a:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+/* Simple Banner */
+.simple-banner {
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  padding: 30px;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  color: #555;
+  font-size: 18px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .combined-menu .horizontal-menu ul {
+    flex-direction: column;
+    padding: 10px 0;
+  }
+  
+  .combined-menu .horizontal-menu li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .combined-menu .horizontal-menu li:after {
+    display: none;
+  }
+  
+  .combined-menu .sidebar-header {
+    text-align: center;
+    justify-content: center;
+    padding: 12px;
+  }
+  
+  .sidebar-body {
+    min-height: auto;
+    margin-bottom: 15px;
+  }
+  
+  .simple-banner {
+    min-height: 150px;
+  }
+}
+
+/* New green layout styles */
+
+.green-layout {
+  width: 100%;
+}
+
+/* Green header with menu */
+.green-header {
+  background-color: #009933;
+  padding: 15px 0;
+  color: white;
+}
+
+.header-title {
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
+
+.header-menu {
+  display: flex;
+  align-items: center;
+}
+
+.horizontal-nav {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.horizontal-nav li {
+  margin-right: 25px;
+}
+
+.horizontal-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.horizontal-nav a:hover {
+  text-decoration: underline;
+}
+
+/* Sidebar categories */
+.sidebar-content {
+  background-color: #009933;
+  padding: 20px 15px;
+  min-height: 400px;
+  color: white;
+}
+
+.category-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-list li {
+  margin-bottom: 15px;
+}
+
+.category-list a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.category-list a:hover {
+  text-decoration: underline;
+}
+
+/* Livestream banner */
+.livestream-banner {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  padding: 0;
+  height: 100%;
+  min-height: 400px;
+  position: relative;
+  background-image: linear-gradient(to right, white 40%, #009933 40%);
+  overflow: hidden;
+}
+
+.banner-content {
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+
+.livestream-info {
+  width: 50%;
+  padding: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.livestream-title {
+  font-size: 48px;
+  color: #FF8A00;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.livestream-time {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.calendar-icon {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.video-title {
+  font-size: 48px;
+  color: #009933;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.discount-badge {
+  position: absolute;
+  right: 20px;
+  bottom: 50px;
+  background-color: #009933;
+  color: white;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.banner-images {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+}
+
+.vegetable-image {
+  width: 100%;
+  height: 100%;
+  background-color: #009933;  /* Green background instead of image */
+  position: relative;
+}
+
+/* Add images and vegetables to the right side */
+.vegetable-image:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://via.placeholder.com/500x300/009933/ffffff?text=Vegetables') no-repeat;
+  background-position: right bottom;
+  background-size: contain;
+}
+
+.logo-overlay {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.brand-logo {
+  width: 80px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .horizontal-nav {
+    flex-direction: column;
+  }
+  
+  .horizontal-nav li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .green-header {
+    padding: 10px 0;
+  }
+  
+  .livestream-banner {
+    min-height: 300px;
+    background-image: linear-gradient(to bottom, white 40%, #009933 40%);
+  }
+  
+  .banner-content {
+    flex-direction: column;
+  }
+  
+  .livestream-info {
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .banner-images {
+    position: relative;
+    width: 100%;
+    height: 200px;
+  }
+  
+  .livestream-title, .video-title {
+    font-size: 32px;
+  }
+  
+  .discount-badge {
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+    right: 10px;
+    bottom: 30px;
+  }
+}
+
+/* CSS cho giao diện MainMenu mới */
+
+/* Menu bar chính */
+.main-menu-wrapper {
+  background-color: #00a917;
+  padding: 0;
+  position: relative;
+  z-index: 1000;
+}
+
+.main-menu-wrapper.scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Add padding to body only when menu is fixed */
+body.menu-fixed {
+  padding-top: 45px; /* Height of main-menu-wrapper */
+}
+
+.main-menu-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 60px;
+}
+
+/* Tiêu đề danh mục */
+.menu-category-title {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0 94px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Navigation chính */
+.main-navigation {
+  margin-left: 405px; /* Tăng từ 200px lên 250px để tạo khoảng cách lớn hơn */
+  height: 100%;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.nav-links li {
+  margin: 0;
+  height: 100%;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  padding: 0 15px;
+  height: 100%;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Sidebar danh mục */
+.sidebar-categories {
+  background-color: white;
+  border: 1px solid #eee;
+  padding: 0;
+}
+
+.category-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.category-links li {
+  border-bottom: 1px solid #eee;
+}
+
+.category-links li:last-child {
+  border-bottom: none;
+}
+
+.category-links a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.category-links a:hover {
+  background-color: #f9f9f9;
+}
+
+/* Cart Button Styles */
+.cart-button {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cart-btn {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff0000;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive adjustments for cart button */
+@media (max-width: 991px) {
+  .cart-button {
+    position: static;
+    transform: none;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+/* Badge HOT */
+.hot-badge {
+  background-color: #ff0000;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+/* Mobile-specific UI adjustments */
+@media (max-width: 768px) {
+  /* Prevent scroll event handlers from triggering menu display */
+  body {
+    overflow-y: auto !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  body.menu-fixed {
+    padding-top: 0 !important;
+  }
+  
+  /* Hide MainMenu completely on mobile */
+  .main-menu-wrapper {
+    display: none !important;
+  }
+  
+  .sidebar-categories {
+    display: none !important;
+  }
+  
+  /* Ensure products are always 2 per row on mobile */
+  .category-container .row .col-6,
+  .product-page .row .col-6,
+  [class*="col-6"] {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+  
+  /* Make product cards more compact on mobile */
+  .product-card {
+    margin-bottom: 10px;
+  }
+  
+  .product-card .card-body {
+    padding: 6px 4px;
+  }
+  
+  .product-card .card-title {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    -webkit-line-clamp: 2;
+    max-height: 2.4rem;
+    overflow: hidden;
+  }
+  
+  /* Adjust button size on mobile */
+  .product-card .btn {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    margin-top: 6px;
+  }
+  
+  /* Fix price display on mobile */
+  .product-card .price {
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 0.85rem;
+  }
+  
+  /* Disable scroll event listeners */
+  html.mobile-device * {
+    scroll-behavior: auto !important;
+  }
+  
+  /* Hide cart in the menu */
+  .main-menu-bar .cart-button {
+    display: none !important;
+  }
+  
+  /* Make sure chat widget with cart button is shown */
+  #chat-widget {
+    display: flex !important;
+  }
+  
+  /* Adjust top padding for new mobile menu button */
+  .header-bar {
+    padding-top: 10px;
+  }
+  
+  /* Add mobile detection class to html element */
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  html:not(.mobile-detected) {
+    opacity: 0;
+  }
+  
+  html.mobile-detected {
+    opacity: 1;
+  }
+}
+
+/* Mobile menu button and navigation */
+.mobile-menu-button {
+  position: absolute;
+  top: auto;
+  bottom: -45px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: var(--brand-green);
+  color: white;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  z-index: 1020;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0 0 0 15px;
+}
+
+.mobile-menu-button:hover {
+  background-color: var(--brand-green-dark);
+}
+
+.mobile-menu-button i {
+  font-size: 20px;
+}
+
+.mobile-menu {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-radius: 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  z-index: 1010;
+  padding: 0;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.mobile-nav-links li {
+  padding: 0;
+  width: 100%;
+}
+
+.mobile-nav-links a {
+  display: block;
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  width: 100%;
+}
+
+.mobile-nav-links li:last-child a {
+  border-bottom: none;
+}
+
+.mobile-nav-links a:hover,
+.mobile-nav-links a:active {
+  background-color: #f8f8f9;
+  color: var(--brand-green);
+}
+
+/* Update mobile view adjustments for the new menu bar */
+@media (max-width: 768px) {
+  /* Mobile search container styling */
+  .mobile-search-container {
+    margin-bottom: 45px !important;
+    position: relative;
+  }
+  
+  /* Position the menu button below the search bar */
+  .mobile-menu-button {
+    position: absolute;
+    top: auto;
+    bottom: -45px;
+    left: 0;
+    width: 100vw; /* Full viewport width */
+    margin-left: calc(-50vw + 50%); /* Adjust for container padding */
+  }
+  
+  /* Adjust menu dropdown position */
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin-top: 45px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+  
+  /* Remove padding from header on mobile */
+  .header-bar {
+    padding-bottom: 0;
+  }
+}
+
+/* ProductPage Mobile Specific Styles */
+.mobile-category-dropdown {
+  margin-bottom: 15px;
+  padding: 0 10px;
+}
+
+.mobile-category-dropdown .form-select {
+  background-color: white;
+  border-color: var(--brand-green);
+  color: var(--brand-green);
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+.mobile-category-dropdown .form-select:focus {
+  border-color: var(--brand-green);
+  box-shadow: 0 0 0 0.25rem rgba(10, 146, 60, 0.25);
+}
+
+.category-description {
+  font-size: 14px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .category-description {
+    font-size: 13px;
+  }
+  
+  .category-container {
+    padding: 12px;
+  }
+  
+  .category-title {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+}
+
+/* Cart button in chat widget */
+#cart-btn {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+#cart-btn:hover {
+  background-color: #218838;
+}
+
+/* Price container styles */
+.price-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 768px) {
+  /* Fix price display on mobile */
+  .product-card .price-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  
+  .product-card .price-container .text-danger {
+    width: 100%;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+  
+  .product-card .price-container .text-muted,
+  .product-card .price-container .text-success {
+    font-size: 0.7rem;
+    margin-left: 0 !important;
+  }
+  
+  .product-card .price-container .text-muted {
+    order: 2;
+  }
+  
+  .product-card .price-container .text-success {
+    order: 1;
+    margin-bottom: 2px;
+  }
+}
+
+/* Update mobile view adjustments for the new menu bar */
+@media (max-width: 768px) {
+  /* Mobile search container styling */
+  .mobile-search-container {
+    margin-bottom: 45px !important;
+    position: relative;
+  }
+  
+  /* Position the menu button below the search bar */
+  .mobile-menu-button {
+    position: absolute;
+    top: auto;
+    bottom: -45px;
+    left: 0;
+    width: 100vw; /* Full viewport width */
+    margin-left: calc(-50vw + 50%); /* Adjust for container padding */
+  }
+  
+  /* Adjust menu dropdown position */
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin-top: 45px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+  
+  /* Remove padding from header on mobile */
+  .header-bar {
+    padding-bottom: 0;
+  }
+}
+

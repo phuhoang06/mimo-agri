@@ -1,10 +1,16 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useCart } from '../../utils/CartManager';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function CartModal() {
   const { cart, showModal, hideCart, removeFromCart, clearCart, groupItems, updateQuantity } = useCart();
+  const navigate = useNavigate();
+
+  const handleOrderClick = () => {
+    hideCart(); // Hide the cart modal first
+    navigate('/order'); // Navigate to order page
+  };
 
   return (
     <Modal show={showModal} onHide={hideCart} size="lg">
@@ -42,7 +48,7 @@ function CartModal() {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="danger" onClick={clearCart}><i className="fas fa-trash me-2"></i>Xóa giỏ hàng</Button>
-        <Button as={Link} to="/order" variant="success"><i className="fas fa-check me-2"></i>Tiến hành đặt hàng</Button>
+        <Button onClick={handleOrderClick} variant="success"><i className="fas fa-check me-2"></i>Tiến hành đặt hàng</Button>
       </Modal.Footer>
     </Modal>
   );
