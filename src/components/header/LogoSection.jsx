@@ -42,8 +42,8 @@ function LogoSection({ isMobile, mobileMenuOpen, toggleMobileMenu }) {
         </div>
         <div className="col-6 col-md-3 col-lg-3 text-center order-md-3 d-none d-md-block">
           <div className="shipping-wrap d-flex align-items-center">
-          <img src={shiper} alt="Shipping" className="shipping-icon me-2" style={{ maxWidth: '24px' }} />
-            <span className="shipping-text small">Miễn phí vận chuyển cho đơn hàng từ 200k</span><img src={shiper} alt="Shipping" className="shipping-icon me-2" style={{ maxWidth: '24px' }} />
+            <img src={shiper} alt="Shipping" className="shipping-icon me-2" style={{ maxWidth: '24px' }} />
+            <span className="shipping-text small">Miễn phí vận chuyển cho đơn hàng từ 200k</span>
           </div>
         </div>
         <div className="col-6 col-md-2 col-lg-2 text-end order-2 order-md-4 mb-2 mb-md-0">
