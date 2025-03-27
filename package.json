@@ -17,7 +17,10 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+<<<<<<< HEAD
+=======
   
+>>>>>>> 1350c65b6bc4633b9c1a31db530acf47eaf62d56
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
