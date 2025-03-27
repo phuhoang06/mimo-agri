@@ -12,7 +12,7 @@ function TopBar() {
             <span className="d-inline d-md-none">Hà Đông, Hà Nội</span>
           </span>
           <span className="me-3 mb-1">
-            <i className="fas fa-phone-alt icon-color me-1"></i> 085 399 1995
+            <i className="fas fa-phone icon-color me-1"></i> 085 399 1995
           </span>
           <span className="me-3 mb-1">
             <i className="fas fa-envelope icon-color me-1"></i> mimoagriculture@gmail.com 

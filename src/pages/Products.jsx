@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Form, Button, Tab, Nav } from 'react-bootstrap';
 import Header from '../components/header/Header.jsx';
 import Footer from '../components/footer/Footer.jsx';
@@ -21,6 +21,7 @@ function Products() {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000000 });
   const [sortBy, setSortBy] = useState('default');
   const [activeCategory, setActiveCategory] = useState('all');
+  const productListRef = useRef(null);
   
   // Loại bỏ các sản phẩm trùng lặp
   const uniqueProducts = getUniqueProducts(allProducts);
@@ -45,6 +46,13 @@ function Products() {
         if (category) {
           const categoryProducts = getProductsByCategory(hash);
           setFilteredProducts(categoryProducts);
+          
+          // Scroll to product list after category change
+          setTimeout(() => {
+            if (productListRef.current) {
+              productListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 200);
         }
       }
     };
@@ -83,6 +91,13 @@ function Products() {
     }
     
     setFilteredProducts(results);
+    
+    // Scroll to product list after applying filters
+    setTimeout(() => {
+      if (productListRef.current) {
+        productListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 200);
   };
 
   // Áp dụng bộ lọc khi có thay đổi
@@ -93,13 +108,20 @@ function Products() {
   // Chọn danh mục
   const handleCategorySelect = (categoryId) => {
     setActiveCategory(categoryId);
+    
+    // Scroll to product list after category selection
+    setTimeout(() => {
+      if (productListRef.current) {
+        productListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 200);
   };
 
   return (
     <>
       <Header />
       
-      <Container fluid className="mt-4 px-3 px-md-4">
+      <Container fluid className="page-content-container mt-4 px-3 px-md-4">
         <Row>
           {/* Sidebar - Bộ lọc */}
           <Col lg={3} className="mb-4">
@@ -170,7 +192,7 @@ function Products() {
           </Col>
 
           {/* Nội dung chính - Hiển thị sản phẩm */}
-          <Col lg={9}>
+          <Col lg={9} ref={productListRef}>
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h2 className="m-0">Tất cả sản phẩm</h2>
               <div>

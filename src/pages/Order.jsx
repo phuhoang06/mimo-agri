@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import Header from '../components/header/Header.jsx';
 import Footer from '../components/footer/Footer.jsx';
@@ -11,12 +11,29 @@ function Order() {
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const [selectedItems, setSelectedItems] = useState(new Set());
+  const customerFormRef = useRef(null);
 
   useEffect(() => {
     if (cart.length === 0) {
       alert("Giỏ hàng trống! Vui lòng thêm sản phẩm vào giỏ hàng.");
       window.location.href = "/";
+      return;
     }
+    
+    // Auto-select all items in cart
+    const allItems = new Set(groupItems().map(item => item.title));
+    setSelectedItems(allItems);
+    
+    // Scroll to customer form
+    if (customerFormRef.current) {
+      customerFormRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Focus on the first input field
+      setTimeout(() => {
+        const firstInput = customerFormRef.current.querySelector('input');
+        if (firstInput) firstInput.focus();
+      }, 500);
+    }
+    
     axios.get('https://provinces.open-api.vn/api/?depth=3')
       .then(response => setCities(response.data))
       .catch(error => console.error('Error fetching cities:', error));
@@ -104,7 +121,7 @@ function Order() {
       <Container className="my-5">
         <Row>
           <Col md={8}>
-            <Card className="shadow-sm">
+            <Card className="shadow-sm" ref={customerFormRef}>
               <Card.Header className="bg-success text-white">
                 <h4 className="mb-0"><i className="fas fa-user me-2"></i>Thông tin khách hàng</h4>
               </Card.Header>
@@ -157,32 +174,29 @@ function Order() {
           <Col md={4}>
             <Card className="shadow-sm">
               <Card.Header className="bg-primary text-white">
-                <h4 className="mb-0"><i className="fas fa-shopping-cart me-2"></i>Giỏ hàng</h4>
+                <h4 className="mb-0"><i className="fas fa-shopping-cart me-2"></i>Tóm tắt đơn hàng</h4>
               </Card.Header>
               <Card.Body>
-                <div id="orderItems">
+                <h5>Sản phẩm đã chọn</h5>
+                <div id="orderSummary">
                   {groupItems().map((item, index) => (
-                    <div className="mb-3" key={index}>
+                    <div className="mb-2" key={index}>
                       <div className="d-flex align-items-center">
                         <Form.Check
                           type="checkbox"
                           id={`item-${index}`}
                           className="me-2"
+                          checked={selectedItems.has(item.title)}
                           onChange={(e) => {
                             if (e.target.checked) selectedItems.add(item.title);
                             else selectedItems.delete(item.title);
                             setSelectedItems(new Set(selectedItems));
                           }}
                         />
-                        <div className="flex-grow-1">
-                          <h6 className="mb-0">{item.title}</h6>
-                          <div className="d-flex justify-content-between align-items-center">
-                            <div className="input-group" style={{ width: '120px' }}>
-                              <Button variant="outline-secondary" size="sm" onClick={() => updateQuantity(index, -1)}>-</Button>
-                              <Form.Control type="number" className="text-center" value={item.quantity} min="1" max="99" onChange={(e) => updateQuantity(index, e.target.value)} />
-                              <Button variant="outline-secondary" size="sm" onClick={() => updateQuantity(index, 1)}>+</Button>
-                            </div>
-                            <span className="text-success">{(item.price * item.quantity).toLocaleString()}₫</span>
+                        <div>
+                          <span className="fw-bold">{item.title}</span>
+                          <div>
+                            <span>{item.quantity} x {item.price.toLocaleString()}₫</span>
                           </div>
                         </div>
                       </div>

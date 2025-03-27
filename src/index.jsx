@@ -1,10 +1,29 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
 import reportWebVitals from './reportWebVitals';
+import './styles.css';
 
-const root = createRoot(document.getElementById('root'));
+// Add mobile detection
+const detectMobile = () => {
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    document.documentElement.classList.add('mobile-detected');
+    document.documentElement.classList.add('mobile-device');
+  } else {
+    document.documentElement.classList.remove('mobile-detected');
+    document.documentElement.classList.remove('mobile-device');
+  }
+};
+
+// Initial detection
+detectMobile();
+
+// Add resize listener
+window.addEventListener('resize', detectMobile);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
