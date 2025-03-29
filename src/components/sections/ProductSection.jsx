@@ -3,7 +3,7 @@ import { Row } from 'react-bootstrap';
 import Section from '../ui/Section';
 import ProductCard from '../product/ProductCard';
 
-function ProductSection({ 
+const ProductSection = ({ 
   id, 
   title, 
   products, 
@@ -14,7 +14,7 @@ function ProductSection({
   onActionButtonClick, 
   sectionRef,
   cardClassName = "col-6 col-sm-4 col-md-3 col-lg-2-4"
-}) {
+}) => {
   // Xác định số lượng sản phẩm sẽ hiển thị
   const displayProducts = limit ? products.slice(0, limit) : products;
   
@@ -39,6 +39,6 @@ function ProductSection({
       </Row>
     </Section>
   );
-}
+};
 
 export default ProductSection; 

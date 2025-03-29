@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 import FormGroup from './FormGroup';
 import { Button } from '../ui';
 
-function CustomerForm({ 
+const CustomerForm = ({ 
   cities = [], 
   districts = [], 
   wards = [], 
@@ -11,7 +11,7 @@ function CustomerForm({
   handleDistrictChange, 
   onSubmit,
   formRef
-}) {
+}) => {
   // Chuẩn bị options cho các dropdown
   const cityOptions = cities.map(city => ({ 
     value: city.code, 
@@ -86,6 +86,6 @@ function CustomerForm({
       </FormGroup>
     </Form>
   );
-}
+};
 
 export default CustomerForm; 
