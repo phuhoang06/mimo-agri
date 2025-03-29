@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  margin: 0 0.5rem;
+  color: inherit;
+  font-size: 1.25rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.link:hover {
+  color: #0d6efd;
+  transform: scale(1.1);
+}
+
+.headerStyle {
+  margin-top: 0.25rem;
+}
+
+.footerStyle {
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.footerStyle .link {
+  font-size: 1.5rem;
+  margin: 0 0.75rem;
+  color: white;
+}
+
+.widgetStyle .link {
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  margin: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.widgetStyle .link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+} 

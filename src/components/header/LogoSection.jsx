@@ -1,62 +1,110 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import logoImg from '../../assets/icon/logo.png';
 import shiper from '../../assets/icon/shiper.png';
 
 function LogoSection({ isMobile, mobileMenuOpen, toggleMobileMenu }) {
   return (
-    <Container className="py-2">
-      <div className="row align-items-center">
-        <div className="col-6 col-md-2 col-lg-2 mb-2 mb-md-0">
-          <div className="logo-wrap">
-            <Link to="/" className="d-flex align-items-center text-decoration-none">
-              <img src={logoImg} alt="Logo" className="logo-img me-2" />
-              <span className="fw-bold text-success fs-5 mb-0">Mimo Agri</span>
-            </Link>
-          </div>
-        </div>
-        <div className="col-12 col-md-5 col-lg-5 order-3 order-md-2">
-          <Form className="input-group search-bar mx-md-2 mobile-search-container">
-            <Form.Control type="text" className="search-input" placeholder="Nhập thông tin tìm kiếm..." />
-            <Button className="btn-search" type="submit" title="Tìm kiếm">
-              <i className="fas fa-search"></i>
-            </Button>
-            
-            {isMobile && (
-              <div className="mobile-menu-button" onClick={toggleMobileMenu}>
-                <i className="fas fa-bars"></i>
-              </div>
-            )}
-            {isMobile && mobileMenuOpen && (
-              <div className="mobile-menu">
-                <ul className="mobile-nav-links">
-                  <li><a href="/">Trang chủ</a></li>
-                  <li><a href="/san-pham">Sản phẩm</a></li>
-                  <li><a href="/tai-lieu-ky-thuat">Tài liệu kỹ thuật</a></li>
-                  <li><a href="/lien-he-mua-hang">Liên Hệ Mua Hàng</a></li>
-                </ul>
-              </div>
-            )}
-          </Form>
-        </div>
-        <div className="col-6 col-md-3 col-lg-3 text-center order-md-3 d-none d-md-block">
-          <div className="shipping-wrap d-flex align-items-center">
-            <img src={shiper} alt="Shipping" className="shipping-icon me-2" style={{ maxWidth: '24px' }} />
-            <span className="shipping-text small">Miễn phí vận chuyển cho đơn hàng từ 200k</span>
-        
-          </div>
-        </div>
-        <div className="col-6 col-md-2 col-lg-2 text-end order-2 order-md-4 mb-2 mb-md-0">
-          <div className="hotline-wrap d-flex flex-column align-items-end">
-            <div className="d-flex align-items-center">
-              <i className="fas fa-phone icon-color me-1"></i>
-              <span className="hotline-label">Hotline</span>
+    <Container fluid className="py-3 border-bottom">
+      <Row className="align-items-center mx-2 mx-md-5">
+        {/* Logo và Hotline row trên mobile */}
+        <div className="d-md-none w-100 mb-2">
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="logo-mobile" style={{ maxWidth: '60%' }}>
+              <Link to="/" className="d-flex align-items-center text-decoration-none">
+                <img src={logoImg} alt="Logo" className="logo-img me-2" style={{ width: '35px', height: '35px' }} />
+                <div className="d-flex align-items-center">
+                  <span className="fw-bold text-success mb-0 me-1" style={{ fontSize: '18px' }}>MiMo</span>
+                  <span className="fw-bold text-success mb-0" style={{ fontSize: '18px' }}>Agriculture</span>
+                </div>
+              </Link>
             </div>
-            <span className="hotline-number">085 399 1995</span>
+            <div className="hotline-mobile text-end" style={{ maxWidth: '40%' }}>
+              <i className="fas fa-phone icon-color me-1"></i>
+              <span className="hotline-number fw-bold text-danger" style={{ fontSize: '14px' }}>085 399 1995</span>
+            </div>
           </div>
         </div>
-      </div>
+        
+        {/* Logo trên desktop */}
+        <Col xs={7} md={3} lg={3} className="mb-2 mb-md-0 d-none d-md-block">
+          <Link to="/" className="d-flex align-items-center text-decoration-none">
+            <img src={logoImg} alt="Logo" className="logo-img me-2" style={{ width: '40px', height: '40px' }} />
+            <div className="d-flex align-items-center">
+              <span className="fw-bold text-success mb-0 me-1" style={{ fontSize: '21px' }}>MiMo</span>
+              <span className="fw-bold text-success mb-0" style={{ fontSize: '21px' }}>Agriculture</span>
+            </div>
+          </Link>
+        </Col>
+
+        {/* Hotline - chỉ hiển thị trên desktop */}
+        <Col md={2} lg={2} className="text-end order-md-4 mb-md-0 d-none d-md-block">
+          <div className="hotline-wrap text-end">
+            <div className="d-flex align-items-center justify-content-end">
+              <i className="fas fa-phone icon-color me-1"></i>
+              <span className="hotline-label text-muted small">Hotline</span>
+            </div>
+            <span className="hotline-number fw-bold text-danger" style={{ fontSize: '18px' }}>085 399 1995</span>
+          </div>
+        </Col>
+
+        {/* Free Shipping - Hiển thị trên mobile giữa logo và search bar */}
+        <Col xs={12} md={2} lg={2} className="text-center order-3 order-md-3 d-flex align-items-center justify-content-center mb-2 mb-md-0">
+          <div className="shipping-wrap d-flex align-items-center">
+            <img src={shiper} alt="Shipping" className="shipping-icon me-2" style={{ width: '24px', height: '24px' }} />
+            <span className="shipping-text small">Miễn phí vận chuyển cho đơn hàng từ 200k</span>
+          </div>
+        </Col>
+
+        {/* Search Bar */}
+        <Col xs={12} md={5} lg={5} className="order-4 order-md-2 my-2 my-md-0">
+          <div className="search-container position-relative">
+            <Form className="d-flex">
+              <Form.Control 
+                type="text" 
+                className="search-input rounded-pill py-2 ps-3"
+                placeholder="Nhập thông tin tìm kiếm..." 
+                style={{ borderRight: 'none', boxShadow: 'none', borderColor: '#28a745' }}
+              />
+              <Button 
+                className="btn-search rounded-circle position-absolute" 
+                type="submit" 
+                title="Tìm kiếm"
+                style={{ right: '5px', top: '4px', backgroundColor: '#28a745', border: 'none', width: '32px', height: '32px', padding: '0' }}
+              >
+                <i className="fas fa-search"></i>
+              </Button>
+            </Form>
+          </div>
+          
+          {/* Menu button cho mobile - Hiển thị nút menu */}
+          {isMobile && (
+            <div className="mt-3">
+              <Button 
+                variant="success"
+                className="w-100 text-start" 
+                onClick={toggleMobileMenu}
+              >
+                <i className="fas fa-bars me-2"></i>
+                DANH MỤC SẢN PHẨM
+              </Button>
+              
+              {/* Menu dropdown - Hiển thị khi mobileMenuOpen = true */}
+              {mobileMenuOpen && (
+                <div className="mobile-menu mt-2">
+                  <ul className="mobile-nav-links">
+                    <li><Link to="/" onClick={toggleMobileMenu}>Trang chủ</Link></li>
+                    <li><Link to="/san-pham" onClick={toggleMobileMenu}>Sản phẩm</Link></li>
+                    <li><Link to="/tai-lieu-ky-thuat" onClick={toggleMobileMenu}>Tài liệu kỹ thuật</Link></li>
+                    <li><Link to="/lien-he-mua-hang" onClick={toggleMobileMenu}>Liên Hệ Mua Hàng</Link></li>
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+        </Col>
+      </Row>
     </Container>
   );
 }

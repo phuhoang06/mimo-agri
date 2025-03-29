@@ -1,20 +1,20 @@
 import React from 'react';
-import { Carousel } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import VideoCard from './VideoCard';
+import { getVideos } from '../../data/videos';
 
-function VideoCarousel() {
+function VideoCarousel({ limit = 5 }) {
+  // Get videos from data source with maximum of 5
+  const displayVideos = getVideos(limit);
+  
   return (
-    <Carousel id="videoCarousel" interval={5000} controls={true} indicators={true}>
-      <Carousel.Item>
-        <div className="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/osD0RAxQsbE" title="YouTube video" allowFullScreen></iframe>
-        </div>
-      </Carousel.Item>
-      <Carousel.Item>
-        <div className="ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/OHqcNAyqV2A" title="YouTube video" allowFullScreen></iframe>
-        </div>
-      </Carousel.Item>
-    </Carousel>
+    <Row className="g-2 five-cards-row">
+      {displayVideos.map((video) => (
+        <Col key={video.id} xs={12} sm={6} md={4} lg={limit === 5 ? true : 3}>
+          <VideoCard video={video} />
+        </Col>
+      ))}
+    </Row>
   );
 }
 

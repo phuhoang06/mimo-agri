@@ -3,10 +3,12 @@ import TopBar from './TopBar';
 import LogoSection from './LogoSection';
 import MainMenu from './MainMenu';
 import CartModal from '../cart/CartModal';
+import { isFeatureEnabled, FEATURE_NAMES } from '../../utils/featureFlags';
 
 function Header() {
   const [isMobile, setIsMobile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isCartEnabled = isFeatureEnabled(FEATURE_NAMES.SHOPPING_CART);
   
   useEffect(() => {
     // Check if device is mobile based on screen width
@@ -38,7 +40,8 @@ function Header() {
         toggleMobileMenu={toggleMobileMenu} 
       />
       <MainMenu />
-      <CartModal />
+      
+      {isCartEnabled && <CartModal />}
       
       {/* Thêm script để đảm bảo carousel hoạt động */}
       <script
