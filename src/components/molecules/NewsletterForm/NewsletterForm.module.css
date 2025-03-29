@@ -1,0 +1,98 @@
+.container {
+  width: 100%;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.description {
+  margin-bottom: 16px;
+  color: #4a4a4a;
+  line-height: 1.5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputContainer {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.formGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.checkbox {
+  margin-right: 8px;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.success {
+  color: #28a745;
+  font-size: 0.875rem;
+  padding: 8px;
+  background-color: rgba(40, 167, 69, 0.1);
+  border-radius: 4px;
+  margin-top: 12px;
+}
+
+/* Variants */
+.footerStyle {
+  max-width: 320px;
+}
+
+.footerStyle .title,
+.footerStyle .description {
+  color: #e0e0e0;
+}
+
+.footerStyle .input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.footerStyle .input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.inlineStyle .form {
+  flex-direction: row;
+}
+
+.inlineStyle .inputContainer {
+  margin-right: 8px;
+  margin-bottom: 0;
+}
+
+.inlineStyle .formGroup {
+  margin-top: 8px;
+} 

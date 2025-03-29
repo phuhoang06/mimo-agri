@@ -6,10 +6,11 @@ import { useCart } from '../../utils/CartManager';
 import { categories } from '../../data/categories';
 
 function MainMenu() {
-  const { showCart, cart } = useCart();
+  const { showCart, cart, isCartEnabled } = useCart();
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
   
   useEffect(() => {
     // Check if device is mobile based on screen width
@@ -58,20 +59,41 @@ function MainMenu() {
   
   // Custom navigation function with scrolling
   const handleNavigation = (path) => {
-    navigate(path);
-    // Scroll to main content after navigation
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }, 100);
+    // Kiểm tra xem đường dẫn hiện tại có phải là /san-pham không
+    const currentPath = window.location.pathname;
+    const isProductPage = currentPath === '/san-pham';
+    const isNavigatingToProductPage = path.startsWith('/san-pham');
+    
+    // Nếu đang ở trang sản phẩm và đang điều hướng đến 1 danh mục, 
+    // thì chỉ cần thay đổi hash và kích hoạt sự kiện hashchange
+    if (isProductPage && isNavigatingToProductPage && path.includes('#')) {
+      const hash = path.split('#')[1];
+      window.location.hash = hash;
+      
+      // Cuộn đến vùng hiển thị sản phẩm sau khi hash thay đổi
+      setTimeout(() => {
+        const productListElement = document.querySelector('#product-list');
+        if (productListElement) {
+          productListElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      // Nếu điều hướng đến trang khác, sử dụng navigate bình thường
+      navigate(path);
+      // Cuộn lên đầu trang sau khi điều hướng
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
   };
   
-  // If on mobile, don't render the menu
-  if (isMobile) {
-    return null;
-  }
+  // Toggle categories visibility
+  const toggleCategories = () => {
+    setShowCategories(!showCategories);
+  };
   
   return (
     <>
@@ -80,24 +102,26 @@ function MainMenu() {
         <Container fluid className="p-0">
           <Row className="g-0">
             <Col xs={12} className="main-menu-bar">
-              <div className="menu-category-title">
-              <i className="fas fa-bars me-2"></i>
-               DANH MỤC SẢN PHẨM
+              <div className="menu-category-title" onClick={toggleCategories}>
+                <i className="fas fa-bars me-2"></i>
+                <span className="category-title-text">DANH MỤC SẢN PHẨM</span>
               </div>
               <div className="main-navigation">
                 <ul className="nav-links">
                   <li><a href="#" onClick={(e) => { e.preventDefault(); handleNavigation('/'); }}>Trang chủ</a></li>
                   <li><a href="#" onClick={(e) => { e.preventDefault(); handleNavigation('/san-pham'); }}>Sản phẩm</a></li>
                   <li><a href="#" onClick={(e) => { e.preventDefault(); handleNavigation('/tai-lieu-ky-thuat'); }}>Tài liệu kỹ thuật</a></li>
-                  <li><a href="#" onClick={(e) => { e.preventDefault(); handleNavigation('/lien-he-mua-hang'); }}>Liên Hệ Mua Hàng</a></li>
+                  <li><a href="#" onClick={(e) => { e.preventDefault(); handleNavigation('/lien-he'); }}>Liên Hệ Mua Hàng</a></li>
                 </ul>
               </div>
-              <div className="cart-button">
-                <Button variant="success" onClick={showCart} className="cart-btn">
-                  <i className="fa fa-shopping-cart"></i>
-                  {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
-                </Button>
-              </div>
+              {isCartEnabled && (
+                <div className="cart-button">
+                  <Button variant="success" onClick={showCart} className="cart-btn">
+                    <i className="fa fa-shopping-cart"></i>
+                    {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
+                  </Button>
+                </div>
+              )}
             </Col>
           </Row>
         </Container>
@@ -107,18 +131,23 @@ function MainMenu() {
       <Container fluid className="p-0">
         <Row className="g-0">
           {/* Left sidebar with categories */}
-          <Col md={3} className="sidebar-categories">
+          <Col md={3} className={`sidebar-categories ${showCategories ? 'show' : ''}`}>
             <ul className="category-links">
               {categories.map((category) => (
                 <li key={category.id}>
                   <a 
                     href="#" 
+                    className="category-link"
                     onClick={(e) => { 
                       e.preventDefault(); 
-                      handleNavigation(`/san-pham#${category.id}`); 
+                      handleNavigation(`/san-pham#${category.id}`);
+                      setShowCategories(false);
                     }}
                   >
-                    {category.name}
+                    <span className="category-icon">
+                      <i className="fas fa-leaf"></i>
+                    </span>
+                    <span className="category-name">{category.name}</span>
                   </a>
                 </li>
               ))}

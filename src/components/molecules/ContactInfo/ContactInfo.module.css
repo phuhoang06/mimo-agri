@@ -1,0 +1,85 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.itemIcon {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.itemContent {
+  flex: 1;
+}
+
+.heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.text {
+  color: #4a4a4a;
+  text-decoration: none;
+}
+
+.link {
+  color: #4a4a4a;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #007bff;
+}
+
+.mapContainer {
+  margin-top: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mapEmbed {
+  width: 100%;
+  height: 200px;
+  border: none;
+}
+
+/* Variants */
+.footerStyle .item {
+  margin-bottom: 8px;
+}
+
+.footerStyle .itemIcon {
+  color: #e0e0e0;
+}
+
+.footerStyle .text,
+.footerStyle .link {
+  color: #e0e0e0;
+}
+
+.footerStyle .link:hover {
+  color: #ffffff;
+}
+
+.widgetStyle .mapContainer {
+  margin-top: 12px;
+  max-height: 150px;
+}
+
+.headerStyle .item {
+  margin-bottom: 0;
+  margin-right: 16px;
+}
+
+.headerStyle .container {
+  flex-direction: row;
+} 

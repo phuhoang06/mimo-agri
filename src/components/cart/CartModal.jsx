@@ -1,10 +1,18 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useCart } from '../../utils/CartManager';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function CartModal() {
-  const { cart, showModal, hideCart, removeFromCart, clearCart, groupItems, updateQuantity } = useCart();
+  const { 
+    cart, 
+    showModal, 
+    hideCart, 
+    removeFromCart, 
+    clearCart, 
+    groupItems, 
+    updateQuantity 
+  } = useCart();
   const navigate = useNavigate();
 
   const handleOrderClick = () => {

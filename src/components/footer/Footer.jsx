@@ -9,7 +9,7 @@ function Footer() {
           <Col lg={6} md={12} className="mb-4 mb-md-0">
             <h5 className="text-uppercase mb-3 text-white">Thông tin Liên Hệ</h5>
             <p className="mb-1 text-white"><strong>MiMo AGRICULTURE</strong></p>
-            <p className="mb-1 text-white">Địa chỉ: <span className="d-none d-md-inline">Số 11, 275 Chiến Thắng, Văn Quán, Hà Đông, Hà Nội, Việt Nam</span><span className="d-inline d-md-none">Hà Đông, Hà Nội</span></p>
+            <p className="mb-1 text-white">Địa chỉ: <span className="d-none d-md-inline">Chiến Thắng, Văn Quán, Hà Đông, Hà Nội, Việt Nam</span><span className="d-inline d-md-none">Hà Đông, Hà Nội</span></p>
             <p className="mb-1 text-white">Hotline: <a href="tel:+8485 399 1995" className="text-white text-decoration-none">085 399 1995</a></p>
             <p className="mb-1 text-white">Email: <a href="mailto:abc@gmail.com" className="text-white text-decoration-none">abc@gmail.com</a></p>
             <p className="mb-1 text-white">Website: <a href="https://abc.com" className="text-white text-decoration-none">abc.com</a></p>
@@ -22,10 +22,11 @@ function Footer() {
           <Col lg={3} md={6} className="mb-4 mb-md-0">
             <h5 className="text-uppercase mb-3 text-white">Chính Sách Bán Hàng</h5>
             <ul className="list-unstyled mb-0">
-              <li className="mb-2"><a href="#!" className="text-white text-decoration-none"><i className="fas fa-angle-right me-2"></i>Về chúng tôi</a></li>
-              <li className="mb-2"><a href="#!" className="text-white text-decoration-none"><i className="fas fa-angle-right me-2"></i>Hướng dẫn mua hàng</a></li>
-              <li className="mb-2"><a href="#!" className="text-white text-decoration-none"><i className="fas fa-angle-right me-2"></i>Chính sách thanh toán</a></li>
-              <li className="mb-2"><a href="#!" className="text-white text-decoration-none"><i className="fas fa-angle-right me-2"></i>Chính sách bảo hành & đổi trả</a></li>
+              <li className="mb-2"><a href="/ve-chung-toi" className="text-white text-decoration-none"><i className="fas fa-angle-right me-2"></i>Về chúng tôi</a></li>
+              <li className="mb-2"><a href="/chinh-sach-ban-hang#exchange" className="text-white text-decoration-none"><i className="fas fa-angle-right me-2"></i>Chính sách đổi trả</a></li>
+              <li className="mb-2"><a href="/chinh-sach-ban-hang#shipping" className="text-white text-decoration-none"><i className="fas fa-angle-right me-2"></i>Chính sách vận chuyển</a></li>
+              <li className="mb-2"><a href="/chinh-sach-ban-hang#support" className="text-white text-decoration-none"><i className="fas fa-angle-right me-2"></i>Chính sách hỗ trợ</a></li>
+              <li className="mb-2"><a href="/lien-he" className="text-white text-decoration-none"><i className="fas fa-angle-right me-2"></i>Liên hệ</a></li>
             </ul>
           </Col>
           <Col lg={3} md={6} className="mb-4 mb-md-0">
@@ -37,7 +38,7 @@ function Footer() {
         </Row>
       </Container>
       <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-        <p className="text-white mb-0">© 2025 Copyright: <a className="text-white" href="#">Phú Hoàng</a></p>
+        <p className="text-white mb-0">Trang web này được thiết kế bởi : <a target="_blank"  style={{textDecoration: 'none',color:'red'}}  href="https://www.facebook.com/cutw.165">Phú Hoàng</a></p>
       </div>
     </footer>
   );

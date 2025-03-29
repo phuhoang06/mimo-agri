@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Container, Row, Col, Form, Button, Tab, Nav } from 'react-bootstrap';
+import { Container, Row, Col, Tab, Nav } from 'react-bootstrap';
 import Header from '../components/header/Header.jsx';
 import Footer from '../components/footer/Footer.jsx';
 import ProductCard from '../components/product/ProductCard.jsx';
+import FilterSidebar from '../components/sidebar/FilterSidebar.jsx';
 import { 
   allProducts, 
   topSellingProducts, 
@@ -47,6 +48,9 @@ function Products() {
           const categoryProducts = getProductsByCategory(hash);
           setFilteredProducts(categoryProducts);
           
+          // Đặt danh mục hiện tại thành 'all' để đảm bảo Tab hiển thị chính xác
+          setActiveCategory('all');
+          
           // Scroll to product list after category change
           setTimeout(() => {
             if (productListRef.current) {
@@ -54,6 +58,9 @@ function Products() {
             }
           }, 200);
         }
+      } else {
+        // Nếu không có hash, hiển thị tất cả sản phẩm
+        setFilteredProducts(uniqueProducts);
       }
     };
     
@@ -117,6 +124,16 @@ function Products() {
     }, 200);
   };
 
+  // Chuẩn bị danh mục cho FilterSidebar
+  const categoriesForSidebar = predefinedCategories.map(category => ({
+    ...category,
+    onClick: (e) => {
+      e.preventDefault();
+      const categoryProducts = getProductsByCategory(category.id);
+      setFilteredProducts(categoryProducts);
+    }
+  }));
+
   return (
     <>
       <Header />
@@ -125,74 +142,19 @@ function Products() {
         <Row>
           {/* Sidebar - Bộ lọc */}
           <Col lg={3} className="mb-4">
-            <div className="sidebar-block mb-4">
-              <h5 className="sidebar-title">Tìm kiếm</h5>
-              <Form.Control 
-                type="text" 
-                placeholder="Tìm kiếm sản phẩm..." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="mb-3"
-              />
-            </div>
-
-            <div className="sidebar-block mb-4">
-              <h5 className="sidebar-title">Giá</h5>
-              <div className="price-range mb-3">
-                <div className="d-flex justify-content-between">
-                  <Form.Control 
-                    type="number" 
-                    placeholder="Từ" 
-                    value={priceRange.min}
-                    onChange={(e) => setPriceRange({...priceRange, min: parseInt(e.target.value) || 0})}
-                    className="me-2"
-                  />
-                  <Form.Control 
-                    type="number" 
-                    placeholder="Đến" 
-                    value={priceRange.max}
-                    onChange={(e) => setPriceRange({...priceRange, max: parseInt(e.target.value) || 1000000})}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="sidebar-block mb-4">
-              <h5 className="sidebar-title">Sắp xếp theo</h5>
-              <Form.Select 
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="default">Mặc định</option>
-                <option value="price-asc">Giá: Thấp đến cao</option>
-                <option value="price-desc">Giá: Cao đến thấp</option>
-                <option value="popular">Phổ biến nhất</option>
-              </Form.Select>
-            </div>
-
-            <div className="sidebar-block">
-              <h5 className="sidebar-title">Danh mục sản phẩm</h5>
-              <ul className="category-menu-list">
-                {predefinedCategories.map((category) => (
-                  <li key={category.id} className="menu-item">
-                    <a 
-                      href={`#${category.id}`} 
-                      className="menu-link"
-                      onClick={(e) => {
-                        const categoryProducts = getProductsByCategory(category.id);
-                        setFilteredProducts(categoryProducts);
-                      }}
-                    >
-                      {category.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <FilterSidebar
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              priceRange={priceRange}
+              setPriceRange={setPriceRange}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              categories={categoriesForSidebar}
+            />
           </Col>
 
           {/* Nội dung chính - Hiển thị sản phẩm */}
-          <Col lg={9} ref={productListRef}>
+          <Col lg={9} ref={productListRef} id="product-list">
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h2 className="m-0">Tất cả sản phẩm</h2>
               <div>
@@ -238,4 +200,4 @@ function Products() {
   );
 }
 
-export default Products; 
+export default Products;

@@ -1,3 +1,124 @@
+/* Font Definitions */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+  /* Existing Color Variables */
+  --brand-green: #28a745;
+  --brand-dark-green: #218838;
+  --white: #ffffff;
+  --light-gray: #f8f9fa;
+  --mid-gray: #e9ecef;
+  --dark-gray: #6c757d;
+  --black: #343a40;
+  
+  /* Font Family Variables */
+  --serif-font: 'Times New Roman', Times, serif;
+  --sans-primary-font: Helvetica, Arial, sans-serif;
+  --sans-secondary-font: 'Roboto', sans-serif;
+}
+
+/* Base Typography */
+body {
+  font-family: var(--sans-secondary-font);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+/* Typography Hierarchy */
+
+/* Headings: Use Helvetica for headings */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--sans-primary-font);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  color: var(--black);
+}
+
+/* Main content text: Use Times New Roman for main content */
+p, 
+.product-description,
+.product-short-description,
+.tab-content,
+article,
+.product-details-tabs .tab-pane {
+  font-family: var(--serif-font);
+  margin-bottom: 1rem;
+}
+
+/* UI elements: Use Roboto for UI elements */
+button, 
+.btn,
+input, 
+select, 
+textarea,
+.nav-link,
+.card-title,
+.menu-link,
+.price,
+.sidebar-title,
+.hotline-number,
+.shipping-text,
+.badge,
+label,
+.form-control {
+  font-family: var(--sans-secondary-font);
+}
+
+/* Logo Text */
+.fw-bold.text-success {
+  font-family: var(--sans-primary-font);
+  letter-spacing: 0.5px;
+}
+
+/* Navigation */
+.nav-links a,
+.mobile-nav-links a {
+  font-family: var(--sans-primary-font);
+  font-weight: 500;
+}
+
+/* Product Cards */
+.product-card .card-title {
+  font-family: var(--sans-primary-font);
+  font-weight: 600;
+}
+
+.product-card .price {
+  font-family: var(--sans-secondary-font);
+}
+
+/* Product Detail */
+.product-title {
+  font-family: var(--sans-primary-font);
+  font-weight: 700;
+}
+
+.product-meta,
+.product-share {
+  font-family: var(--sans-secondary-font);
+  font-size: 0.9rem;
+}
+
+/* Tabs */
+.nav-tabs .nav-link {
+  font-family: var(--sans-primary-font);
+  font-weight: 500;
+}
+
+/* Footer */
+footer {
+  font-family: var(--sans-secondary-font);
+}
+
+footer h5,
+footer .footer-title {
+  font-family: var(--sans-primary-font);
+  font-weight: 600;
+}
+
 /*************************************************************
  * 1. Định nghĩa biến màu (CSS Variables)
  *    Bạn chỉ cần thay đổi ở đây để đổi màu toàn bộ
@@ -105,6 +226,7 @@ h3 { font-size: 1.3rem; }
     width: 35px;
     border: 2px solid var(--brand-green);
     border-radius: 50%;
+    transition: transform 0.3s ease;
 }
 
 @media (min-width: 768px) {
@@ -114,16 +236,12 @@ h3 { font-size: 1.3rem; }
     }
 }
 
-.search-bar {
-    max-width: 100%; /* Full width on mobile */
-    margin: 8px 0;
+.logo-img:hover {
+    transform: scale(1.05);
 }
 
-@media (min-width: 768px) {
-    .search-bar {
-        max-width: 500px;
-        margin: 0;
-    }
+.search-container {
+    max-width: 100%;
 }
 
 .search-input {
@@ -131,6 +249,13 @@ h3 { font-size: 1.3rem; }
     border-right: none;
     border-radius: 20px 0 0 20px;
     font-size: 14px;
+    height: 42px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #28a745 !important;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
 }
 
 .btn-search {
@@ -138,28 +263,32 @@ h3 { font-size: 1.3rem; }
     border-radius: 0 20px 20px 0;
     background-color: var(--white);
     color: var(--brand-green);
+    transition: all 0.3s ease;
 }
 
 .btn-search:hover {
-    background-color: var(--brand-green);
-    color: var(--white);
+    background-color: #218838 !important;
 }
 
-.hotline-wrap {
-    min-width: 140px;
-    font-size: 12px;
+/* Shipping styles for responsive */
+.shipping-wrap {
+  border-left: 1px solid #e9ecef;
+  padding-left: 15px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
 }
 
-@media (min-width: 768px) {
-    .hotline-wrap {
-        min-width: 160px;
-        font-size: 14px;
-    }
+.shipping-text {
+  font-size: 12px;
+  color: #6c757d;
+  line-height: 1.3;
 }
 
 .hotline-label {
     color: var(--brand-green);
     font-weight: 600;
+    font-size: 12px;
 }
 
 .hotline-number {
@@ -997,34 +1126,52 @@ h3 { font-size: 1.3rem; }
   }
 }
 
-/* Custom 5-column layout (col-lg-2-4 = 20% width) */
-.col-lg-2-4 {
+/* Add proper 5-column layout for Bootstrap */
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
   position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.col-xs-5ths {
+  width: 20%;
+  float: left;
+}
+
+@media (min-width: 576px) {
+  .col-sm-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-5ths {
+    width: 20%;
+    float: left;
+  }
 }
 
 @media (min-width: 992px) {
-  .col-lg-2-4 {
-    flex: 0 0 20%;
-    max-width: 20%;
+  .col-lg-5ths {
+    width: 20%;
+    float: left;
   }
 }
 
-/* Also add support for medium screens */
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .col-md-2-4 {
-    flex: 0 0 20%;
-    max-width: 20%;
-  }
-}
-
-/* And small screens if needed */
-@media (min-width: 576px) and (max-width: 767.98px) {
-  .col-sm-2-4 {
-    flex: 0 0 20%;
-    max-width: 20%;
+/* Override for YouTube card layout - with more specific selectors */
+@media (min-width: 992px) {
+  #video-section .five-cards-row .col,
+  #guides-care .five-cards-row .col,
+  #all-videos .five-cards-row .col,
+  #technical-documents .five-cards-row .col {
+    width: 20% !important;
+    flex: 0 0 20% !important;
+    max-width: 20% !important;
   }
 }
 
@@ -1590,15 +1737,12 @@ body.menu-fixed {
 .menu-category-title {
   display: flex;
   align-items: center;
+  background-color: #006400; /* Màu xanh lá đậm hơn */
   color: white;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 0 94px;
-  height: 100%;
+  padding: 17px 104.3px;
+  border-radius: 0;
+  font-family: var(--sans-primary-font);
   position: absolute;
-  left: 0;
-  top: 0;
 }
 
 /* Navigation chính */
@@ -1644,12 +1788,15 @@ body.menu-fixed {
 
 .category-links {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  border: 1px solid #eee;
+  border-top: none;
 }
 
 .category-links li {
   border-bottom: 1px solid #eee;
+  position: relative;
 }
 
 .category-links li:last-child {
@@ -1657,16 +1804,43 @@ body.menu-fixed {
 }
 
 .category-links a {
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 10px 15px;
-  color: #333;
+  color: var(--text-dark);
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
 }
 
 .category-links a:hover {
-  background-color: #f9f9f9;
+  background-color: #f5f5f5;
+  color: var(--brand-green);
+  padding-left: 20px;
+}
+
+.category-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.category-link:hover {
+  background-color: #f5f5f5;
+  color: var(--brand-green);
+  padding-left: 20px;
+}
+
+.category-icon {
+  width: 20px;
+  margin-right: 10px;
+  color: var(--brand-green);
+}
+
+.category-name {
+  flex: 1;
 }
 
 /* Cart Button Styles */
@@ -1821,9 +1995,9 @@ body.menu-fixed {
 
 /* Mobile menu button and navigation */
 .mobile-menu-button {
-  position: absolute;
+  position: relative;
   top: auto;
-  bottom: -45px;
+  bottom: auto;
   left: 0;
   width: 100%;
   height: 40px;
@@ -1833,14 +2007,13 @@ body.menu-fixed {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 15px;
+  padding: 0 15px;
   z-index: 1020;
   cursor: pointer;
   transition: background-color 0.2s ease;
   border: none;
   box-shadow: none;
-  margin: 0;
-  padding: 0 0 0 15px;
+  margin: 10px 0;
 }
 
 .mobile-menu-button:hover {
@@ -1852,7 +2025,7 @@ body.menu-fixed {
 }
 
 .mobile-menu {
-  position: fixed;
+  position: relative;
   left: 0;
   width: 100%;
   background-color: white;
@@ -1899,29 +2072,29 @@ body.menu-fixed {
 @media (max-width: 768px) {
   /* Mobile search container styling */
   .mobile-search-container {
-    margin-bottom: 45px !important;
+    margin-bottom: 15px !important;
     position: relative;
   }
   
   /* Position the menu button below the search bar */
   .mobile-menu-button {
-    position: absolute;
+    position: relative;
     top: auto;
-    bottom: -45px;
+    bottom: auto;
     left: 0;
-    width: 100vw; /* Full viewport width */
-    margin-left: calc(-50vw + 50%); /* Adjust for container padding */
+    width: 100%;
+    margin: 10px 0;
   }
   
   /* Adjust menu dropdown position */
   .mobile-menu {
-    position: absolute;
-    top: 100%;
+    position: relative;
+    top: auto;
     left: 0;
     width: 100%;
-    margin-top: 45px;
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
+    margin-top: 0;
+    max-height: auto;
+    overflow-y: visible;
   }
   
   /* Remove padding from header on mobile */
@@ -2023,38 +2196,592 @@ body.menu-fixed {
   }
 }
 
-/* Update mobile view adjustments for the new menu bar */
-@media (max-width: 768px) {
-  /* Mobile search container styling */
-  .mobile-search-container {
-    margin-bottom: 45px !important;
-    position: relative;
+/* Product Detail Page Styles */
+.product-gallery .carousel-item img,
+.product-gallery .carousel-item video {
+  max-height: 400px;
+  object-fit: contain;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container video {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.video-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-icon i {
+  color: #dc3545;
+  font-size: 14px;
+}
+
+.thumbnail-gallery {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.thumbnail-item {
+  flex: 0 0 70px;
+  height: 70px;
+  cursor: pointer;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  overflow: hidden;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.thumbnail-item:hover {
+  opacity: 0.9;
+}
+
+.thumbnail-item.active {
+  border-color: #0d6efd;
+  opacity: 1;
+}
+
+.thumbnail-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.product-price .current-price {
+  font-size: 1.5rem;
+}
+
+.product-details-tabs .tab-content {
+  min-height: 200px;
+}
+
+@media (max-width: 767.98px) {
+  .product-gallery .carousel-item img {
+    max-height: 300px;
   }
   
-  /* Position the menu button below the search bar */
-  .mobile-menu-button {
-    position: absolute;
-    top: auto;
-    bottom: -45px;
-    left: 0;
-    width: 100vw; /* Full viewport width */
-    margin-left: calc(-50vw + 50%); /* Adjust for container padding */
-  }
-  
-  /* Adjust menu dropdown position */
-  .mobile-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    margin-top: 45px;
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
-  }
-  
-  /* Remove padding from header on mobile */
-  .header-bar {
-    padding-bottom: 0;
+  .thumbnail-item {
+    flex: 0 0 60px;
+    height: 60px;
   }
 }
+
+/* Product share buttons */
+.product-share {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.product-share .social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.product-share .social-icon:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.product-share .social-icon i {
+  font-size: 18px;
+}
+
+/* Facebook Icon */
+.product-share .social-icon:nth-child(2) {
+  background-color: #1877f2;
+}
+
+/* Messenger Icon */
+.product-share .social-icon:nth-child(3) {
+  background-color: #0099ff;
+}
+
+/* Zalo Icon */
+.product-share .social-icon:nth-child(4) {
+  background-color: #0068ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .product-share .social-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .product-share .social-icon i {
+    font-size: 16px;
+  }
+}
+
+.shipping-wrap {
+  border-left: 1px solid #e9ecef;
+  padding-left: 15px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+}
+
+.shipping-text {
+  font-size: 12px;
+  color: #6c757d;
+  line-height: 1.3;
+}
+
+@media (max-width: 767px) {
+  .shipping-wrap {
+    border-left: none;
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+    padding: 8px 15px;
+    margin: 5px 0;
+    justify-content: center;
+  }
+  
+  .shipping-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  
+  .shipping-text {
+    font-size: 11px;
+    text-align: left;
+    max-width: 200px;
+  }
+}
+
+/* VIDEO COMPONENTS */
+.video-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.video-thumbnail-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.video-thumbnail {
+  width: 100%;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.video-card:hover .video-thumbnail {
+  transform: scale(1.05);
+}
+
+.play-button-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.video-card:hover .play-button-overlay {
+  opacity: 1;
+}
+
+.play-button-overlay i {
+  font-size: 3rem;
+  color: #fff;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+}
+
+.video-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000000;
+}
+
+/* TECHNICAL DOCUMENT COMPONENTS */
+.technical-doc-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.technical-doc-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.technical-doc-card .card-img-top {
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.technical-doc-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.technical-doc-card .card-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000000;
+}
+
+.technical-doc-card .card-text {
+  font-size: 0.85rem;
+  color: #666;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* PAGES */
+#all-videos, #technical-documents {
+  padding: 2rem 0;
+}
+
+/* Make videos display nicely in grid for different screen sizes */
+@media (max-width: 576px) {
+  .video-card .card-img-top, .technical-doc-card .card-img-top {
+    height: 160px;
+  }
+}
+
+/* ISOLATED VIDEO/DOCUMENT STYLES - won't affect product components */
+body section#video-section .youtube-style,
+body section#guides-care .youtube-style,
+body section#all-videos .youtube-style,
+body section#technical-documents .youtube-style {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 16px;
+  transition: transform 0.2s;
+  /* Reset any product card styles */
+  background-color: white;
+  padding: 0;
+}
+
+body section#video-section .youtube-style:hover,
+body section#guides-care .youtube-style:hover,
+body section#all-videos .youtube-style:hover,
+body section#technical-documents .youtube-style:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+body section#video-section .youtube-style .video-thumbnail,
+body section#guides-care .youtube-style .card-img-top,
+body section#all-videos .youtube-style .video-thumbnail,
+body section#technical-documents .youtube-style .card-img-top {
+  border-radius: 8px;
+  height: 140px;
+  object-fit: cover;
+}
+
+body section#video-section .youtube-style .card-title,
+body section#guides-care .youtube-style .card-title,
+body section#all-videos .youtube-style .card-title,
+body section#technical-documents .youtube-style .card-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-top: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000000;
+}
+
+body section#video-section .youtube-style .play-button-overlay,
+body section#all-videos .youtube-style .play-button-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.2s;
+  border-radius: 8px;
+}
+
+body section#video-section .youtube-style:hover .play-button-overlay,
+body section#all-videos .youtube-style:hover .play-button-overlay {
+  opacity: 1;
+}
+
+body section#guides-care .doc-title,
+body section#technical-documents .doc-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* YouTube-style list - completely isolated from product styles */
+body section#all-videos .youtube-list,
+body section#technical-documents .youtube-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+body section#all-videos .youtube-list-item,
+body section#technical-documents .youtube-list-item {
+  padding: 16px;
+  border-bottom: 1px solid #e5e5e5;
+  transition: background-color 0.2s;
+  /* Reset any styles from product cards */
+  margin: 0;
+  box-shadow: none;
+}
+
+body section#all-videos .youtube-list-item:hover,
+body section#technical-documents .youtube-list-item:hover {
+  background-color: #f9f9f9;
+}
+
+body section#all-videos .youtube-list-item .video-thumbnail-container,
+body section#technical-documents .youtube-list-item .tech-doc-thumbnail-container {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+body section#all-videos .youtube-list-item .video-thumbnail,
+body section#technical-documents .youtube-list-item .tech-doc-thumbnail {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+body section#all-videos .youtube-list-item:hover .play-button-overlay {
+  opacity: 1;
+}
+
+body section#all-videos .play-button-overlay i {
+  font-size: 3rem;
+  color: white;
+}
+
+body section#all-videos .video-info,
+body section#technical-documents .tech-doc-info {
+  padding: 0 8px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body section#all-videos .video-title,
+body section#technical-documents .tech-doc-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #000000;
+}
+
+body section#all-videos .video-description,
+body section#technical-documents .tech-doc-description {
+  font-size: 14px;
+  color: #606060;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  body section#all-videos .youtube-list-item,
+  body section#technical-documents .youtube-list-item {
+    padding: 12px 0;
+  }
+  
+  body section#all-videos .video-title,
+  body section#technical-documents .tech-doc-title {
+    font-size: 16px;
+    margin-top: 8px;
+  }
+  
+  body section#all-videos .video-description,
+  body section#technical-documents .tech-doc-description {
+    font-size: 13px;
+  }
+}
+
+/* Further isolate responsive layouts */
+@media (max-width: 992px) {
+  body section#video-section .youtube-style .video-thumbnail,
+  body section#guides-care .youtube-style .card-img-top,
+  body section#all-videos .youtube-style .video-thumbnail,
+  body section#technical-documents .youtube-style .card-img-top {
+    height: 120px;
+  }
+}
+
+/* Make sure five-cards-row doesn't affect product layouts */
+@media (min-width: 992px) {
+  body section#video-section .five-cards-row .col,
+  body section#guides-care .five-cards-row .col,
+  body section#all-videos .five-cards-row .col,
+  body section#technical-documents .five-cards-row .col {
+    width: 20% !important;
+    flex: 0 0 20% !important;
+    max-width: 20% !important;
+  }
+}
+
+/* Add back 5 products per row */
+.row .col-lg-2-4,
+.product-section .col,
+#top-selling .col,
+#all-products .col,
+.row .product-card.col {
+  width: 20% !important;
+  flex: 0 0 20% !important;
+  max-width: 20% !important;
+}
+
+/* Responsive product grid */
+@media (max-width: 991px) {
+  .row .col-lg-2-4,
+  .product-section .col,
+  #top-selling .col,
+  #all-products .col,
+  .row .product-card.col {
+    width: 33.333% !important;
+    flex: 0 0 33.333% !important;
+    max-width: 33.333% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .row .col-lg-2-4,
+  .product-section .col,
+  #top-selling .col,
+  #all-products .col,
+  .row .product-card.col {
+    width: 50% !important;
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.scroll-to-top:hover {
+  background-color: #218838;
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+.scroll-to-top:active, 
+.scroll-to-top:focus {
+  outline: none;
+}
+
 
