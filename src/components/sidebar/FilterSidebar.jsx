@@ -14,7 +14,7 @@ function FilterSidebar({
 }) {
   return (
     <>
-      <SidebarBlock title="Tìm kiếm">
+     <SidebarBlock>
         <SearchBar
           placeholder="Tìm kiếm sản phẩm..."
           value={searchTerm}

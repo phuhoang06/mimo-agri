@@ -1,0 +1,137 @@
+/*************************************************************
+ * 3. Top Bar (Địa chỉ + Email + MXH)
+ *************************************************************/
+.top-bar {
+    background-color: var(--white);
+    padding: 5px 0;               /* Giảm padding */
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;              /* Smaller text for mobile */
+}
+
+@media (min-width: 768px) {
+    .top-bar {
+        font-size: 14px;          /* Larger on desktop */
+    }
+}
+
+.top-bar .icon-color {
+    color: var(--icon-color);
+}
+
+.top-bar a i {
+    color: var(--icon-color);
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: var(--icon-color);
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+/*************************************************************
+ * 4. Header Bar (Logo | Search | Hotline)
+ *************************************************************/
+.header-bar {
+    background-color: var(--white);
+    padding: 8px 0; /* Giảm padding */
+    border-bottom: 1px solid #ddd;
+}
+
+.logo-wrap {
+    min-width: 120px; /* Smaller for mobile */
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .logo-wrap {
+        min-width: 160px;
+    }
+}
+
+.logo-img {
+    height: 35px;
+    width: 35px;
+    border: 2px solid var(--brand-green);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .logo-img {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
+
+.search-container {
+    max-width: 100%;
+}
+
+.search-input {
+    border: 1px solid var(--brand-green);
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+    font-size: 14px;
+    height: 42px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #28a745 !important;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+}
+
+.btn-search {
+    border: 1px solid var(--brand-green);
+    border-radius: 0 20px 20px 0;
+    background-color: var(--white);
+    color: var(--brand-green);
+    transition: all 0.3s ease;
+}
+
+.btn-search:hover {
+    background-color: #218838 !important;
+}
+
+/* Shipping styles for responsive */
+.shipping-wrap {
+  border-left: 1px solid #e9ecef;
+  padding-left: 15px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+}
+
+.shipping-text {
+  font-size: 12px;
+  color: #6c757d;
+  line-height: 1.3;
+}
+
+.hotline-label {
+    color: var(--brand-green);
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.hotline-number {
+    font-weight: bold;
+    color: var(--highlight-red);
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    .hotline-number {
+        font-size: 16px;
+    }
+}
+
+.icon-color {
+    color: var(--brand-green);
+} 

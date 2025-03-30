@@ -1,0 +1,147 @@
+/*************************************************************
+ * Utilities - Các lớp tiện ích
+ *************************************************************/
+
+/* Badges and Labels */
+.hot-badge {
+  background-color: #ff0000;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.sale-badge {
+  background-color: #ff7700;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.new-badge {
+  background-color: #28a745;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+/* Featured news styling */
+.featured-news-title {
+  position: relative;
+  padding-left: 15px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.featured-news-title:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background-color: var(--brand-green);
+  border-radius: 2px;
+}
+
+/* Mobile optimization for featured news */
+@media (max-width: 767px) {
+  .featured-news-container {
+    margin-top: 1rem;
+  }
+}
+
+/* Colors and backgrounds */
+.bg-light-gray {
+  background-color: var(--light-gray);
+}
+
+.bg-mid-gray {
+  background-color: var(--mid-gray);
+}
+
+.text-brand {
+  color: var(--brand-green);
+}
+
+.text-brand-dark {
+  color: var(--brand-green-dark);
+}
+
+/* Spacing utilities */
+.spacer-xs {
+  height: 10px;
+}
+
+.spacer-sm {
+  height: 20px;
+}
+
+.spacer-md {
+  height: 30px;
+}
+
+.spacer-lg {
+  height: 50px;
+}
+
+/* Border utilities */
+.border-brand {
+  border: 1px solid var(--brand-green);
+}
+
+.rounded-sm {
+  border-radius: 3px;
+}
+
+.rounded-md {
+  border-radius: 5px;
+}
+
+.rounded-lg {
+  border-radius: 10px;
+}
+
+/* Mobile detection class for html element - Bỏ opacity để tránh lỗi không hiển thị content */
+html.mobile-detected {
+  /* opacity: 1; */ /* Bỏ thuộc tính này */
+}
+
+html:not(.mobile-detected) {
+  /* opacity: 0; */ /* Bỏ thuộc tính này */
+}
+
+/* Mobile device settings */
+html.mobile-device * {
+  scroll-behavior: auto !important;
+}
+
+html {
+  scroll-behavior: auto !important;
+}
+
+/* Helper classes for responsive layouts */
+@media (max-width: 767px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  .mobile-only {
+    display: block !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none !important;
+  }
+  
+  .mobile-hidden {
+    display: block !important;
+  }
+} 

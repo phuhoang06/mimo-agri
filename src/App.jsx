@@ -15,7 +15,7 @@ import { ScrollToTop } from './components/ui';
 import { isFeatureEnabled, FEATURE_NAMES } from './utils/featureFlags';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
-import './styles.css';
+import './index.css';
 
 function App() {
   const isCartEnabled = isFeatureEnabled(FEATURE_NAMES.SHOPPING_CART);

@@ -1,0 +1,237 @@
+/* CSS cho giao diện MainMenu mới */
+
+/* Menu bar chính */
+.main-menu-wrapper {
+  background-color: #00a917;
+  padding: 0;
+  position: relative;
+  z-index: 1000;
+}
+
+.main-menu-wrapper.scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Add padding to body only when menu is fixed */
+body.menu-fixed {
+  padding-top: 45px; /* Height of main-menu-wrapper */
+}
+
+.main-menu-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 60px;
+}
+
+/* Tiêu đề danh mục */
+.menu-category-title {
+  display: flex;
+  align-items: center;
+  background-color: #006400; /* Màu xanh lá đậm hơn */
+  color: white;
+  padding: 17px 104.3px;
+  border-radius: 0;
+  font-family: var(--sans-primary-font);
+  position: absolute;
+}
+
+/* Navigation chính */
+.main-navigation {
+  margin-left: 405px; /* Tăng từ 200px lên 250px để tạo khoảng cách lớn hơn */
+  height: 100%;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.nav-links li {
+  margin: 0;
+  height: 100%;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  padding: 0 15px;
+  height: 100%;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Sidebar danh mục */
+.sidebar-categories {
+  background-color: white;
+  border: 1px solid #eee;
+  padding: 0;
+}
+
+.category-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #eee;
+  border-top: none;
+}
+
+.category-links li {
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.category-links li:last-child {
+  border-bottom: none;
+}
+
+.category-links a {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.category-links a:hover {
+  background-color: #f5f5f5;
+  color: var(--brand-green);
+  padding-left: 20px;
+}
+
+.category-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.category-link:hover {
+  background-color: #f5f5f5;
+  color: var(--brand-green);
+  padding-left: 20px;
+}
+
+.category-icon {
+  width: 20px;
+  margin-right: 10px;
+  color: var(--brand-green);
+}
+
+.category-name {
+  flex: 1;
+}
+
+/* Cart Button Styles */
+.cart-button {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cart-btn {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff0000;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive adjustments for cart button */
+@media (max-width: 991px) {
+  .cart-button {
+    position: static;
+    transform: none;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .main-menu-bar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
+  }
+  
+  .menu-category-title {
+    position: static;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  
+  .main-navigation {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .nav-links {
+    flex-direction: column;
+  }
+  
+  .nav-links li {
+    width: 100%;
+  }
+  
+  .nav-links a {
+    padding: 10px;
+    justify-content: center;
+  }
+  
+  .sidebar-categories {
+    position: static;
+    width: 100%;
+    display: none;
+    max-height: none;
+    box-shadow: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .main-menu-wrapper:hover .sidebar-categories {
+    display: none;
+  }
+  
+  /* For mobile, let's show categories when clicking on the title */
+  .sidebar-categories.show {
+    display: block;
+  }
+} 

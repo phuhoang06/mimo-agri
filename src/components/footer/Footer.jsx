@@ -11,8 +11,8 @@ function Footer() {
             <p className="mb-1 text-white"><strong>MiMo AGRICULTURE</strong></p>
             <p className="mb-1 text-white">Địa chỉ: <span className="d-none d-md-inline">Chiến Thắng, Văn Quán, Hà Đông, Hà Nội, Việt Nam</span><span className="d-inline d-md-none">Hà Đông, Hà Nội</span></p>
             <p className="mb-1 text-white">Hotline: <a href="tel:+8485 399 1995" className="text-white text-decoration-none">085 399 1995</a></p>
-            <p className="mb-1 text-white">Email: <a href="mailto:abc@gmail.com" className="text-white text-decoration-none">abc@gmail.com</a></p>
-            <p className="mb-1 text-white">Website: <a href="https://abc.com" className="text-white text-decoration-none">abc.com</a></p>
+            <p className="mb-1 text-white">Email: <a href="mailto:mimoagriculture@gmail.com" className="text-white text-decoration-none">abc@gmail.com</a></p>
+            <p className="mb-1 text-white">Website: <a href="https://mimoagriculture.com" className="text-white text-decoration-none">mimoagriculture.com</a></p>
             <div className="d-flex mt-3 justify-content-center justify-content-lg-start">
               <a href="https://www.facebook.com/www.mimo.agri" target="_blank" rel="noopener" className="me-3"><i className="fab fa-facebook-square fa-2x text-white"></i></a>
               <a href="https://www.tiktok.com/@mimo.agriculture" target="_blank" rel="noopener" className="me-3"><i className="fab fa-tiktok fa-2x text-white"></i></a>
