@@ -3,7 +3,7 @@ import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../utils/CartManager';
 
-function ProductCard({ product, className = "col-6 col-md-4 col-lg-3" }) {
+function ProductCard({ product, className = "col-6 col-md-4 col-lg-2-4" }) {
   const { addToCart, isCartEnabled } = useCart();
 
   const stars = Array.from({ length: 5 }, (_, i) => (

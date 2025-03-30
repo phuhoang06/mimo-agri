@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import logoImg from '../../assets/icon/logo.png';
 import shiper from '../../assets/icon/shiper.png';
+import SearchBox from './SearchBox';
 
 function LogoSection({ isMobile, mobileMenuOpen, toggleMobileMenu }) {
   return (
@@ -59,36 +60,18 @@ function LogoSection({ isMobile, mobileMenuOpen, toggleMobileMenu }) {
 
         {/* Search Bar */}
         <Col xs={12} md={5} lg={5} className="order-4 order-md-2 my-2 my-md-0">
-          <div className="search-container position-relative">
-            <Form className="d-flex">
-              <Form.Control 
-                type="text" 
-                className="search-input rounded-pill py-2 ps-3"
-                placeholder="Nhập thông tin tìm kiếm..." 
-                style={{ borderRight: 'none', boxShadow: 'none', borderColor: '#28a745' }}
-              />
-              <Button 
-                className="btn-search rounded-circle position-absolute" 
-                type="submit" 
-                title="Tìm kiếm"
-                style={{ right: '5px', top: '4px', backgroundColor: '#28a745', border: 'none', width: '32px', height: '32px', padding: '0' }}
-              >
-                <i className="fas fa-search"></i>
-              </Button>
-            </Form>
-          </div>
+          <SearchBox />
           
           {/* Menu button cho mobile - Hiển thị nút menu */}
           {isMobile && (
             <div className="mt-3">
-              <Button 
-                variant="success"
-                className="w-100 text-start" 
+              <button 
+                className="btn btn-success w-100 text-start" 
                 onClick={toggleMobileMenu}
               >
                 <i className="fas fa-bars me-2"></i>
                 DANH MỤC SẢN PHẨM
-              </Button>
+              </button>
               
               {/* Menu dropdown - Hiển thị khi mobileMenuOpen = true */}
               {mobileMenuOpen && (
@@ -109,4 +92,4 @@ function LogoSection({ isMobile, mobileMenuOpen, toggleMobileMenu }) {
   );
 }
 
-export default LogoSection; 
+export default LogoSection;
