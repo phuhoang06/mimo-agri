@@ -88,12 +88,16 @@ function MainMenu() {
         });
       }, 100);
     }
+
   };
   
   // Toggle categories visibility
   const toggleCategories = () => {
     setShowCategories(!showCategories);
+
   };
+  
+
   
   return (
     <>
