@@ -1,0 +1,32 @@
+/* Font Definitions */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/*************************************************************
+ * CSS Variables - Định nghĩa biến màu và font
+ * Bạn chỉ cần thay đổi ở đây để đổi màu toàn bộ website
+ *************************************************************/
+
+:root {
+  /* Màu sắc chính */
+  --brand-green: #0A923C;       /* Màu xanh chủ đạo */
+  --brand-green-dark: #087a2f;  /* Xanh đậm hơn (hover) */
+  --brand-dark-green: #218838;  /* Màu xanh cho các button */
+  
+  /* Màu nền và chữ */
+  --text-dark: #333;            /* Màu chữ chính */
+  --bg-light: #f5f5f5;          /* Màu nền chính */
+  --white: #ffffff;
+  --light-gray: #f8f9fa;
+  --mid-gray: #e9ecef;
+  --dark-gray: #6c757d;
+  --black: #343a40;
+  
+  /* Màu đặc biệt */
+  --icon-color: #333;           /* Màu icon default */
+  --highlight-red: #d50000;     /* Màu đỏ hotline */
+  
+  /* Font Family Variables */
+  --serif-font: 'Times New Roman', Times, serif;
+  --sans-primary-font: Helvetica, Arial, sans-serif;
+  --sans-secondary-font: 'Roboto', sans-serif;
+} 

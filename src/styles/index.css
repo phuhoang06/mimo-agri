@@ -1,0 +1,24 @@
+/* Main CSS Index File - Imports all modules */
+
+/* Variables and Base Styles */
+@import './variables.css';
+@import './typography.css';
+@import './base.css';
+
+/* Layout Components */
+@import './layout.css';
+@import './header.css';
+@import './mainmenu.css';
+@import './footer.css';
+@import './sidebar.css';
+
+/* Features */
+@import './products.css';
+@import './product-detail.css';
+@import './video.css';
+@import './chat.css';
+@import './buttons.css';
+@import './cards.css';
+
+/* Utilities */
+@import './utils.css'; 

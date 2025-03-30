@@ -1,0 +1,125 @@
+/*************************************************************
+ * 7. Card / Khác (tuỳ chọn)
+ *************************************************************/
+.card {
+    background-color: #fff;
+    border: none;
+    height: 100%;
+}
+
+.card.mb-3 {
+    background-color: #f9f9f9;
+}
+
+#bannerCarousel img {
+    height: 200px; /* Smaller height on mobile */
+    width: 100%;
+    object-fit: cover; /* Ensure images cover the area properly */
+}
+  
+@media (min-width: 768px) {
+    #bannerCarousel img {
+        height: 17rem; /* Original height on desktop */
+    }
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+    border-radius: 50%;
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+    width: 25px;
+    height: 25px;
+}
+
+@media (min-width: 768px) {
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+  
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    opacity: 0.4;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: black;
+    border: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+    .carousel-indicators [data-bs-target] {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Đặt kích thước cố định cho hình ảnh trong phần tin tức */
+.card img {
+    width: 100%;
+    height: 80px; /* Smaller on mobile */
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .card img {
+        height: 100px; /* Original size on desktop */
+    }
+}
+
+/* Hiệu ứng nổi lên khi di chuột vào hình ảnh */
+.card img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Video carousel in sidebar adjustments */
+#videoCarousel .ratio {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#videoCarousel .carousel-indicators {
+  margin-bottom: 0;
+}
+
+#videoCarousel .carousel-control-prev-icon,
+#videoCarousel .carousel-control-next-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Featured news styling */
+.featured-news-title {
+  position: relative;
+  padding-left: 15px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.featured-news-title:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background-color: var(--brand-green);
+  border-radius: 2px;
+}
+
+/* Mobile optimization for featured news */
+@media (max-width: 767px) {
+  .featured-news-container {
+    margin-top: 1rem;
+  }
+} 

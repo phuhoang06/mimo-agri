@@ -18,7 +18,7 @@ function TopBar() {
             <i className="fas fa-envelope icon-color me-1"></i> mimoagriculture@gmail.com 
           </span>
           <span className="mb-1">
-            <i className="fas fa-globe icon-color me-1"></i> abc.com
+            <i className="fas fa-globe icon-color me-1"></i> mimoagriculture.com
           </span>
         </div>
         <div className="social-icons mt-1">

@@ -1,0 +1,213 @@
+/* Row with smaller gutters */
+.row.g-2 {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.row.g-2 > [class*='col-'] {
+    padding-right: 8px;
+    padding-left: 8px;
+    margin-bottom: 16px; /* Add spacing between cards */
+}
+
+/* Video section responsive */
+.ratio-16x9 iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Order page responsive improvements */
+@media (max-width: 767px) {
+    .card-header h4 {
+        font-size: 1.2rem;
+    }
+    
+    .form-label {
+        font-size: 0.9rem;
+    }
+    
+    #confirmOrder {
+        margin-top: 10px;
+    }
+}
+
+/* Add proper 5-column layout for Bootstrap */
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+  position: relative;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.col-xs-5ths {
+  width: 20%;
+  float: left;
+}
+
+@media (min-width: 576px) {
+  .col-sm-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-lg-5ths {
+    width: 20%;
+    float: left;
+  }
+}
+
+/* Override for YouTube card layout - with more specific selectors */
+@media (min-width: 992px) {
+  #video-section .five-cards-row .col,
+  #guides-care .five-cards-row .col,
+  #all-videos .five-cards-row .col,
+  #technical-documents .five-cards-row .col {
+    width: 20% !important;
+    flex: 0 0 20% !important;
+    max-width: 20% !important;
+  }
+}
+
+/* Add back 5 products per row */
+.row .col-lg-2-4,
+.product-section .col,
+#top-selling .col,
+#all-products .col,
+.row .product-card.col {
+  width: 20% !important;
+  flex: 0 0 20% !important;
+  max-width: 20% !important;
+}
+
+/* Responsive product grid */
+@media (max-width: 991px) {
+  .row .col-lg-2-4,
+  .product-section .col,
+  #top-selling .col,
+  #all-products .col,
+  .row .product-card.col {
+    width: 33.333% !important;
+    flex: 0 0 33.333% !important;
+    max-width: 33.333% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .row .col-lg-2-4,
+  .product-section .col,
+  #top-selling .col,
+  #all-products .col,
+  .row .product-card.col {
+    width: 50% !important;
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+}
+
+/* Mobile-specific UI adjustments */
+@media (max-width: 768px) {
+  /* Prevent scroll event handlers from triggering menu display */
+  body {
+    overflow-y: auto !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  body.menu-fixed {
+    padding-top: 0 !important;
+  }
+  
+  /* Hide MainMenu completely on mobile */
+  .main-menu-wrapper {
+    display: none !important;
+  }
+  
+  .sidebar-categories {
+    display: none !important;
+  }
+  
+  /* Ensure products are always 2 per row on mobile */
+  .category-container .row .col-6,
+  .product-page .row .col-6,
+  [class*="col-6"] {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+  
+  /* Make product cards more compact on mobile */
+  .product-card {
+    margin-bottom: 10px;
+  }
+  
+  .product-card .card-body {
+    padding: 6px 4px;
+  }
+  
+  .product-card .card-title {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    -webkit-line-clamp: 2;
+    max-height: 2.4rem;
+    overflow: hidden;
+  }
+  
+  /* Adjust button size on mobile */
+  .product-card .btn {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    margin-top: 6px;
+  }
+  
+  /* Fix price display on mobile */
+  .product-card .price {
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 0.85rem;
+  }
+  
+  /* Disable scroll event listeners */
+  html.mobile-device * {
+    scroll-behavior: auto !important;
+  }
+  
+  /* Hide cart in the menu */
+  .main-menu-bar .cart-button {
+    display: none !important;
+  }
+  
+  /* Make sure chat widget with cart button is shown */
+  #chat-widget {
+    display: flex !important;
+  }
+  
+  /* Adjust top padding for new mobile menu button */
+  .header-bar {
+    padding-top: 10px;
+  }
+  
+  /* Add mobile detection class to html element */
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  html:not(.mobile-detected) {
+    opacity: 0;
+  }
+  
+  html.mobile-detected {
+    opacity: 1;
+  }
+} 

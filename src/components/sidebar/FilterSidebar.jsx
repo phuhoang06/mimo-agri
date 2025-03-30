@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import { SearchBar, SidebarBlock } from '../ui';
 import { PriceRange } from '../form';
+import { useLocation } from 'react-router-dom';
 
 function FilterSidebar({ 
   searchTerm, 
@@ -10,11 +11,29 @@ function FilterSidebar({
   setPriceRange, 
   sortBy, 
   setSortBy, 
-  categories = []
+  categories = [],
+  activeCategory
 }) {
+  const location = useLocation();
+
+  // Xác định danh mục đang active từ URL hoặc activeCategory prop
+  const getActiveCategoryId = () => {
+    // Xem xét hash từ URL trước
+    const hash = location.hash.replace('#', '');
+    
+    if (hash && categories.find(cat => cat.id === hash)) {
+      return hash;
+    }
+    
+    // Sử dụng activeCategory nếu không có hash
+    return activeCategory;
+  };
+  
+  const currentActiveCategory = getActiveCategoryId();
+
   return (
     <>
-      <SidebarBlock title="Tìm kiếm">
+     <SidebarBlock>
         <SearchBar
           placeholder="Tìm kiếm sản phẩm..."
           value={searchTerm}
@@ -29,7 +48,7 @@ function FilterSidebar({
               <li key={category.id} className="menu-item">
                 <a 
                   href={`#${category.id}`} 
-                  className="menu-link"
+                  className={`menu-link ${currentActiveCategory === category.id ? 'active' : ''}`}
                   onClick={category.onClick}
                 >
                   {category.name}

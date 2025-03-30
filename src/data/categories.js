@@ -25,12 +25,12 @@ export const categories = [
     description: 'Các loại dụng cụ làm vườn chuyên nghiệp'
   },
   {
-    id: 'voi-tuoi',
+    id: 'voi-tuoi-cay',
     name: 'Vòi Tưới Cây',
     description: 'Hệ thống tưới cây tự động và thủ công'
   },
   {
-    id: 'dat-phan',
+    id: 'dat-phan-bon-thuoc',
     name: 'Đất - Phân Bón - Thuốc',
     description: 'Đất trồng, phân bón và thuốc bảo vệ thực vật'
   }

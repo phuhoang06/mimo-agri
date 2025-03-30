@@ -64,22 +64,39 @@ function MainMenu() {
     const isProductPage = currentPath === '/san-pham';
     const isNavigatingToProductPage = path.startsWith('/san-pham');
     
-    // Nếu đang ở trang sản phẩm và đang điều hướng đến 1 danh mục, 
-    // thì chỉ cần thay đổi hash và kích hoạt sự kiện hashchange
+    // Nếu đang ở trang sản phẩm và đang điều hướng đến 1 danh mục
     if (isProductPage && isNavigatingToProductPage && path.includes('#')) {
       const hash = path.split('#')[1];
-      window.location.hash = hash;
       
-      // Cuộn đến vùng hiển thị sản phẩm sau khi hash thay đổi
-      setTimeout(() => {
+      // Nếu hash hiện tại khác với hash mới, thay đổi hash và kích hoạt sự kiện hashchange
+      if (window.location.hash.replace('#', '') !== hash) {
+        window.location.hash = hash;
+        
+        // Thông báo hash đã thay đổi để các component khác cập nhật
+        window.dispatchEvent(new HashChangeEvent('hashchange'));
+        
+        // Cuộn đến vùng hiển thị sản phẩm sau khi hash thay đổi
+        setTimeout(() => {
+          const productListElement = document.querySelector('#product-list');
+          if (productListElement) {
+            productListElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        // Nếu hash không thay đổi nhưng vẫn cần cuộn đến vị trí sản phẩm
         const productListElement = document.querySelector('#product-list');
         if (productListElement) {
           productListElement.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
+      }
     } else {
-      // Nếu điều hướng đến trang khác, sử dụng navigate bình thường
+      // Nếu điều hướng đến trang khác, reset hash và sử dụng navigate bình thường
+      if (isNavigatingToProductPage && !path.includes('#')) {
+        path = `${path}#all`; // Mặc định chọn 'all' khi vào trang sản phẩm
+      }
+      
       navigate(path);
+      
       // Cuộn lên đầu trang sau khi điều hướng
       setTimeout(() => {
         window.scrollTo({

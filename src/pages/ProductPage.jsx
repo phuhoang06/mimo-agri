@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Pagination } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { categories } from '../data/categories';
 import Header from '../components/header/Header.jsx';
@@ -11,6 +11,8 @@ const ProductPage = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [products, setProducts] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
   
   // Check if device is mobile
   useEffect(() => {
@@ -34,44 +36,123 @@ const ProductPage = () => {
     const category = categories.find(cat => cat.id === hash);
     if (category) {
       setActiveCategory(category);
-      // Here you would typically fetch products for this category
-      // For now, we'll use dummy data
-      setProducts([
-        {
-          id: 1,
-          title: 'Sản phẩm mẫu 1',
-          price: 100000,
-          oldPrice: 120000,
-          rating: 4,
+      
+      // Đặt lại trang về 1 khi thay đổi danh mục
+      setCurrentPage(1);
+      
+      // Ở đây chúng ta sẽ mô phỏng việc lấy nhiều sản phẩm hơn
+      // Trong ứng dụng thực tế, bạn sẽ lấy dữ liệu từ API hoặc nguồn khác
+      const dummyProducts = [];
+      for (let i = 1; i <= 30; i++) {
+        dummyProducts.push({
+          id: i,
+          title: `${category.name} - Sản phẩm ${i}`,
+          price: 100000 + (i * 10000),
+          oldPrice: 120000 + (i * 15000),
+          rating: Math.floor(Math.random() * 5) + 1,
           img: 'https://via.placeholder.com/150'
-        },
-        {
-          id: 2,
-          title: 'Sản phẩm mẫu 2',
-          price: 200000,
-          oldPrice: 250000,
-          rating: 5,
-          img: 'https://via.placeholder.com/150'
-        },
-        {
-          id: 3,
-          title: 'Sản phẩm mẫu 3',
-          price: 150000,
-          oldPrice: 180000,
-          rating: 3,
-          img: 'https://via.placeholder.com/150'
-        },
-        {
-          id: 4,
-          title: 'Sản phẩm mẫu 4',
-          price: 300000,
-          oldPrice: 350000,
-          rating: 4,
-          img: 'https://via.placeholder.com/150'
-        }
-      ]);
+        });
+      }
+      setProducts(dummyProducts);
     }
   }, [location.hash]);
+
+  // Tính toán sản phẩm cho trang hiện tại
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  
+  // Tính tổng số trang
+  const totalPages = Math.ceil(products.length / productsPerPage);
+
+  // Xử lý khi thay đổi trang
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    
+    // Cuộn lên đầu danh sách sản phẩm
+    const productListElement = document.querySelector('.category-container');
+    if (productListElement) {
+      productListElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // Tạo các mục phân trang
+  const renderPaginationItems = () => {
+    const items = [];
+    
+    // Nút Previous
+    items.push(
+      <Pagination.Prev 
+        key="prev" 
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+      />
+    );
+    
+    // Hiển thị trang đầu tiên nếu không gần trang hiện tại
+    if (currentPage > 3) {
+      items.push(
+        <Pagination.Item key={1} onClick={() => handlePageChange(1)}>
+          {1}
+        </Pagination.Item>
+      );
+      
+      // Hiển thị dấu ... nếu cần
+      if (currentPage > 4) {
+        items.push(<Pagination.Ellipsis key="ellipsis1" />);
+      }
+    }
+    
+    // Trang trước trang hiện tại
+    if (currentPage > 1) {
+      items.push(
+        <Pagination.Item key={currentPage - 1} onClick={() => handlePageChange(currentPage - 1)}>
+          {currentPage - 1}
+        </Pagination.Item>
+      );
+    }
+    
+    // Trang hiện tại
+    items.push(
+      <Pagination.Item key={currentPage} active>
+        {currentPage}
+      </Pagination.Item>
+    );
+    
+    // Trang sau trang hiện tại
+    if (currentPage < totalPages) {
+      items.push(
+        <Pagination.Item key={currentPage + 1} onClick={() => handlePageChange(currentPage + 1)}>
+          {currentPage + 1}
+        </Pagination.Item>
+      );
+    }
+    
+    // Hiển thị dấu ... nếu cần
+    if (currentPage < totalPages - 3) {
+      items.push(<Pagination.Ellipsis key="ellipsis2" />);
+    }
+    
+    // Hiển thị trang cuối cùng nếu không gần trang hiện tại
+    if (currentPage < totalPages - 2 && totalPages > 1) {
+      items.push(
+        <Pagination.Item key={totalPages} onClick={() => handlePageChange(totalPages)}>
+          {totalPages}
+        </Pagination.Item>
+      );
+    }
+    
+    // Nút Next
+    items.push(
+      <Pagination.Next 
+        key="next" 
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages || totalPages === 0}
+      />
+    );
+    
+    return items;
+  };
 
   return (
     <>
@@ -123,11 +204,19 @@ const ProductPage = () => {
               <div className="category-container">
                 <h2 className="category-title">{activeCategory.name}</h2>
                 <p className="category-description mb-3">{activeCategory.description}</p>
+                
                 <Row className="g-3">
-                  {products.map((product) => (
-                    <ProductCard key={product.id} product={product} className="col-6 col-md-4 col-lg-3" />
+                  {currentProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} className="col-6 col-md-4 col-lg-2-4" />
                   ))}
                 </Row>
+                
+                {/* Phân trang */}
+                {totalPages > 1 && (
+                  <div className="d-flex justify-content-center mt-4">
+                    <Pagination>{renderPaginationItems()}</Pagination>
+                  </div>
+                )}
               </div>
             )}
           </Col>
