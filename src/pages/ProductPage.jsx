@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Pagination } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { categories } from '../data/categories';
 import Header from '../components/header/Header.jsx';
 import Footer from '../components/footer/Footer.jsx';
 import ProductCard from '../components/product/ProductCard.jsx';
+import Pagination from '../components/ui/Pagination.jsx';
 
 const ProductPage = () => {
   const location = useLocation();
@@ -67,6 +68,8 @@ const ProductPage = () => {
 
   // Xử lý khi thay đổi trang
   const handlePageChange = (pageNumber) => {
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+    
     setCurrentPage(pageNumber);
     
     // Cuộn lên đầu danh sách sản phẩm
@@ -76,82 +79,16 @@ const ProductPage = () => {
     }
   };
 
-  // Tạo các mục phân trang
-  const renderPaginationItems = () => {
-    const items = [];
-    
-    // Nút Previous
-    items.push(
-      <Pagination.Prev 
-        key="prev" 
-        onClick={() => handlePageChange(currentPage - 1)}
-        disabled={currentPage === 1}
+  // Phần renderPaginationItems thay thành 
+  const renderProductPagination = () => {
+    return (
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        isMobile={isMobile}
       />
     );
-    
-    // Hiển thị trang đầu tiên nếu không gần trang hiện tại
-    if (currentPage > 3) {
-      items.push(
-        <Pagination.Item key={1} onClick={() => handlePageChange(1)}>
-          {1}
-        </Pagination.Item>
-      );
-      
-      // Hiển thị dấu ... nếu cần
-      if (currentPage > 4) {
-        items.push(<Pagination.Ellipsis key="ellipsis1" />);
-      }
-    }
-    
-    // Trang trước trang hiện tại
-    if (currentPage > 1) {
-      items.push(
-        <Pagination.Item key={currentPage - 1} onClick={() => handlePageChange(currentPage - 1)}>
-          {currentPage - 1}
-        </Pagination.Item>
-      );
-    }
-    
-    // Trang hiện tại
-    items.push(
-      <Pagination.Item key={currentPage} active>
-        {currentPage}
-      </Pagination.Item>
-    );
-    
-    // Trang sau trang hiện tại
-    if (currentPage < totalPages) {
-      items.push(
-        <Pagination.Item key={currentPage + 1} onClick={() => handlePageChange(currentPage + 1)}>
-          {currentPage + 1}
-        </Pagination.Item>
-      );
-    }
-    
-    // Hiển thị dấu ... nếu cần
-    if (currentPage < totalPages - 3) {
-      items.push(<Pagination.Ellipsis key="ellipsis2" />);
-    }
-    
-    // Hiển thị trang cuối cùng nếu không gần trang hiện tại
-    if (currentPage < totalPages - 2 && totalPages > 1) {
-      items.push(
-        <Pagination.Item key={totalPages} onClick={() => handlePageChange(totalPages)}>
-          {totalPages}
-        </Pagination.Item>
-      );
-    }
-    
-    // Nút Next
-    items.push(
-      <Pagination.Next 
-        key="next" 
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages || totalPages === 0}
-      />
-    );
-    
-    return items;
   };
 
   return (
@@ -214,7 +151,7 @@ const ProductPage = () => {
                 {/* Phân trang */}
                 {totalPages > 1 && (
                   <div className="d-flex justify-content-center mt-4">
-                    <Pagination>{renderPaginationItems()}</Pagination>
+                    {renderProductPagination()}
                   </div>
                 )}
               </div>

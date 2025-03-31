@@ -301,58 +301,124 @@
 
 /* Mobile menu */
 .mobile-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1100;
-  display: flex;
-  justify-content: flex-end;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  padding: 12px;
+  position: relative;
+  z-index: 1000;
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.mobile-section-title {
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 8px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.mobile-nav-links,
+.mobile-category-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+.mobile-nav-links li,
+.mobile-category-links li {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-nav-links li:last-child,
+.mobile-category-links li:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav-links a,
+.mobile-category-link {
+  display: block;
+  padding: 10px 12px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.mobile-nav-links a:hover,
+.mobile-category-link:hover {
+  background-color: #f8f8f8;
+  color: #00a917;
+}
+
+.mobile-category-link {
+  font-size: 13px;
+  padding: 8px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-icon {
+  color: #00a917;
+  font-size: 12px;
+  width: 15px;
+  text-align: center;
 }
 
 .mobile-menu-container {
-  width: 80%;
-  max-width: 300px;
-  height: 100%;
-  background-color: #ffffff;
-  overflow-y: auto;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
+  position: relative;
 }
 
-.mobile-menu.show .mobile-menu-container {
-  transform: translateX(0);
-}
+/* Cải thiện nút menu trên mobile */
+@media (max-width: 768px) {
+  .btn-success {
+    background-color: #00a917;
+    border-color: #00a917;
+  }
 
-.mobile-menu-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #eaeaea;
-}
-
-.mobile-menu-close {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.mobile-menu-items {
-  padding: 15px;
-}
-
-.mobile-menu-link {
-  display: block;
-  padding: 10px 0;
-  color: #333;
-  text-decoration: none;
-  border-bottom: 1px solid #eaeaea;
-}
-
-.mobile-menu-link:hover {
-  color: #007bff;
+  .btn-success:hover, 
+  .btn-success:focus {
+    background-color: #008a13;
+    border-color: #008a13;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .btn-danger:hover,
+  .btn-danger:focus {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+  
+  .mobile-menu-btn {
+    font-weight: 500;
+    font-size: 16px;
+  }
+  
+  /* Đảm bảo danh mục hiển thị trên cùng */
+  .mobile-menu {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
+  
+  /* Ẩn cột bên phải khi không đủ không gian */
+  @media (max-width: 340px) {
+    .mobile-categories .col-xs-6 {
+      width: 100%;
+    }
+  }
 } 

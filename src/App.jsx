@@ -7,6 +7,7 @@ import Products from './pages/Products.jsx';
 import ProductDetail from './pages/ProductDetail.jsx';
 import AllVideos from './pages/AllVideos.jsx';
 import TechnicalDocuments from './pages/TechnicalDocuments.jsx';
+import TechnicalDocDetail from './pages/TechnicalDocDetail.jsx';
 import AboutUs from './pages/AboutUs.jsx';
 import SalesPolicy from './pages/SalesPolicy.jsx';
 import Contact from './pages/Contact.jsx';
@@ -37,6 +38,7 @@ function App() {
           <Route path="/san-pham/:productId" element={<ProductDetail />} />
           <Route path="/videos" element={<AllVideos />} />
           <Route path="/tai-lieu-ky-thuat" element={<TechnicalDocuments />} />
+          <Route path="/tai-lieu-ky-thuat/:id" element={<TechnicalDocDetail />} />
           <Route path="/ve-chung-toi" element={<AboutUs />} />
           <Route path="/chinh-sach-ban-hang" element={<SalesPolicy />} />
           <Route path="/lien-he" element={<Contact />} />

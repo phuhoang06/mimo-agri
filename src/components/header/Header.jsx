@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TopBar from './TopBar';
 import LogoSection from './LogoSection';
 import MainMenu from './MainMenu';
@@ -9,6 +9,7 @@ function Header() {
   const [isMobile, setIsMobile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isCartEnabled = isFeatureEnabled(FEATURE_NAMES.SHOPPING_CART);
+  const mobileMenuRef = useRef(null);
   
   useEffect(() => {
     // Check if device is mobile based on screen width
@@ -27,6 +28,25 @@ function Header() {
     };
   }, []);
 
+  // Xử lý đóng menu khi click bên ngoài
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mobileMenuRef.current && 
+          !mobileMenuRef.current.contains(event.target) && 
+          !event.target.closest('.mobile-menu-btn')) {
+        setMobileMenuOpen(false);
+      }
+    };
+    
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [mobileMenuOpen]);
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -34,11 +54,13 @@ function Header() {
   return (
     <div className="header-bar">
       <TopBar />
-      <LogoSection 
-        isMobile={isMobile} 
-        mobileMenuOpen={mobileMenuOpen} 
-        toggleMobileMenu={toggleMobileMenu} 
-      />
+      <div ref={mobileMenuRef}>
+        <LogoSection 
+          isMobile={isMobile} 
+          mobileMenuOpen={mobileMenuOpen} 
+          toggleMobileMenu={toggleMobileMenu} 
+        />
+      </div>
       <MainMenu />
       
       {isCartEnabled && <CartModal />}

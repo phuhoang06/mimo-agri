@@ -139,6 +139,16 @@
     display: none !important;
   }
   
+  /* Tạo không gian giữa danh mục và phần nội dung */
+  .page-content-container {
+    margin-top: 15px !important;
+  }
+  
+  /* Đảm bảo mobile menu không bị ẩn bởi các phần tử khác */
+  .mobile-menu {
+    z-index: 9999 !important;
+  }
+  
   /* Ensure products are always 2 per row on mobile */
   .category-container .row .col-6,
   .product-page .row .col-6,
