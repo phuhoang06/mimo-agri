@@ -11,16 +11,63 @@
     background-color: #f9f9f9;
 }
 
-#bannerCarousel img {
-    height: 200px; /* Smaller height on mobile */
+/* Banner styles */
+.full-width-banner {
     width: 100%;
-    object-fit: cover; /* Ensure images cover the area properly */
+    height: 315.53px !important; /* Đặt chiều cao cố định */
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    display: block;
 }
-  
-@media (min-width: 768px) {
-    #bannerCarousel img {
-        height: 17rem; /* Original height on desktop */
-    }
+
+.full-width-banner .carousel-inner {
+    height: 315.53px !important;
+    width: 100%;
+    position: relative !important;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.full-width-banner .carousel-item {
+    height: 315.53px !important;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: block;
+}
+
+.full-width-banner img {
+    width: 100%;
+    height: 315.53px !important;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    padding: 0;
+    min-height: 315.53px !important;
+}
+
+.full-width-banner .carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    margin: 0;
+}
+
+#bannerCarousel {
+    height: 315.53px !important;
+}
+
+#bannerCarousel img {
+    height: 315.53px !important; /* Fixed height on all screens */
+    width: 100%;
+    object-fit: cover; /* Ensure images fill the container completely */
 }
 
 .carousel-control-prev-icon,
@@ -122,4 +169,18 @@
   .featured-news-container {
     margin-top: 1rem;
   }
-} 
+}
+
+@media (min-width: 768px) {
+    #bannerCarousel img {
+        height: 315.53px !important;
+    }
+    
+    .full-width-banner,
+    .full-width-banner .carousel-inner,
+    .full-width-banner .carousel-item,
+    .full-width-banner img {
+        height: 315.53px !important;
+        min-height: 315.53px !important;
+    }
+}

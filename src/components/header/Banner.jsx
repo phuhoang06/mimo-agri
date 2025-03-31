@@ -23,23 +23,34 @@ function Banner() {
     }
   }, []);
 
+  const bannerStyle = {
+    height: '315.53px',
+    overflow: 'hidden'
+  };
+
+  const imageStyle = {
+    height: '315.53px',
+    width: '100%',
+    objectFit: 'cover'
+  };
+
   return (
-    <div id="bannerCarousel" className="carousel slide" data-bs-ride="carousel">
+    <div id="bannerCarousel" className="carousel slide full-width-banner" style={bannerStyle} data-bs-ride="carousel">
+      <div className="carousel-inner">
+        <div className="carousel-item active">
+          <img src={banner1} className="d-block w-100" style={imageStyle} alt="Banner 1" />
+        </div>
+        <div className="carousel-item">
+          <img src={banner2} className="d-block w-100" style={imageStyle} alt="Banner 2" />
+        </div>
+        <div className="carousel-item">
+          <img src={banner3} className="d-block w-100" style={imageStyle} alt="Banner 3" />
+        </div>
+      </div>
       <div className="carousel-indicators">
         <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div className="carousel-inner">
-        <div className="carousel-item active">
-          <img src={banner1} className="d-block w-100" alt="Banner 1" />
-        </div>
-        <div className="carousel-item">
-          <img src={banner2} className="d-block w-100" alt="Banner 2" />
-        </div>
-        <div className="carousel-item">
-          <img src={banner3} className="d-block w-100" alt="Banner 3" />
-        </div>
       </div>
       <button className="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -53,4 +64,4 @@ function Banner() {
   );
 }
 
-export default Banner; 
+export default Banner;
