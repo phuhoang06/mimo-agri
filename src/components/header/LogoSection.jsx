@@ -4,8 +4,58 @@ import { Container, Row, Col } from 'react-bootstrap';
 import logoImg from '../../assets/icon/logo.png';
 import shiper from '../../assets/icon/shiper.png';
 import SearchBox from './SearchBox';
+import { categories } from '../../data/categories';
 
 function LogoSection({ isMobile, mobileMenuOpen, toggleMobileMenu }) {
+  // Chia danh mục thành 2 cột trên mobile để hiển thị đẹp hơn
+  const renderMobileCategories = () => {
+    if (!categories || categories.length === 0) return null;
+    
+    const halfLength = Math.ceil(categories.length / 2);
+    const leftCol = categories.slice(0, halfLength);
+    const rightCol = categories.slice(halfLength);
+    
+    return (
+      <div className="mobile-categories">
+        <h6 className="mobile-section-title mb-2 mt-1">Danh mục sản phẩm</h6>
+        <Row>
+          <Col xs={6}>
+            <ul className="mobile-category-links">
+              {leftCol.map(category => (
+                <li key={category.id}>
+                  <Link 
+                    to={`/san-pham#${category.id}`} 
+                    onClick={toggleMobileMenu}
+                    className="mobile-category-link"
+                  >
+                    <i className="fas fa-leaf me-2 category-icon"></i>
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Col>
+          <Col xs={6}>
+            <ul className="mobile-category-links">
+              {rightCol.map(category => (
+                <li key={category.id}>
+                  <Link 
+                    to={`/san-pham#${category.id}`} 
+                    onClick={toggleMobileMenu}
+                    className="mobile-category-link"
+                  >
+                    <i className="fas fa-leaf me-2 category-icon"></i>
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Col>
+        </Row>
+      </div>
+    );
+  };
+
   return (
     <Container fluid className="py-3 border-bottom">
       <Row className="align-items-center mx-2 mx-md-5">
@@ -64,24 +114,28 @@ function LogoSection({ isMobile, mobileMenuOpen, toggleMobileMenu }) {
           
           {/* Menu button cho mobile - Hiển thị nút menu */}
           {isMobile && (
-            <div className="mt-3">
+            <div className="mt-3 mobile-menu-container">
               <button 
-                className="btn btn-success w-100 text-start" 
+                className={`btn ${mobileMenuOpen ? 'btn-danger' : 'btn-success'} w-100 text-start mobile-menu-btn`}
                 onClick={toggleMobileMenu}
               >
-                <i className="fas fa-bars me-2"></i>
-                DANH MỤC SẢN PHẨM
+                <i className={`fas ${mobileMenuOpen ? 'fa-times' : 'fa-bars'} me-2`}></i>
+                {mobileMenuOpen ? 'ĐÓNG MENU' : 'DANH MỤC SẢN PHẨM'}
               </button>
               
               {/* Menu dropdown - Hiển thị khi mobileMenuOpen = true */}
               {mobileMenuOpen && (
                 <div className="mobile-menu mt-2">
+                  <h6 className="mobile-section-title mb-2 mt-1">Trang chính</h6>
                   <ul className="mobile-nav-links">
                     <li><Link to="/" onClick={toggleMobileMenu}>Trang chủ</Link></li>
-                    <li><Link to="/san-pham" onClick={toggleMobileMenu}>Sản phẩm</Link></li>
+                    <li><Link to="/san-pham" onClick={toggleMobileMenu}>Tất cả sản phẩm</Link></li>
                     <li><Link to="/tai-lieu-ky-thuat" onClick={toggleMobileMenu}>Tài liệu kỹ thuật</Link></li>
                     <li><Link to="/lien-he-mua-hang" onClick={toggleMobileMenu}>Liên Hệ Mua Hàng</Link></li>
                   </ul>
+                  
+                  {/* Hiển thị danh mục sản phẩm */}
+                  {renderMobileCategories()}
                 </div>
               )}
             </div>

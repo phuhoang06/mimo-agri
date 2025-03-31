@@ -1,10 +1,29 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../utils/CartManager';
+import { formatCurrency } from '../../utils/format';
 
 function ProductCard({ product, className = "col-6 col-md-4 col-lg-2-4" }) {
   const { addToCart, isCartEnabled } = useCart();
+  const navigate = useNavigate();
+
+  // Calculate discount percentage if oldPrice exists
+  const discountPercentage = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
+  
+  // Handle click on mobile devices
+  const handleProductClick = (e) => {
+    // Navigate to product details
+    navigate(`/san-pham/${product.id}`);
+  };
+  
+  // Handle Add to Cart button click
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); // Prevent product click event
+    if (isCartEnabled) {
+      addToCart(product.title, product.price, product.img, 1);
+    }
+  };
 
   const stars = Array.from({ length: 5 }, (_, i) => (
     <i key={i} className={`fa fa-star ${i < product.rating ? 'text-warning' : 'text-muted'}`}></i>
@@ -12,27 +31,62 @@ function ProductCard({ product, className = "col-6 col-md-4 col-lg-2-4" }) {
 
   return (
     <div className={className}>
-      <Card className="product-card h-100">
-        <Link to={`/san-pham/${product.id}`} className="product-img-wrapper">
-          <Card.Img variant="top" src={product.img} alt={product.title} loading="lazy" />
-        </Link>
-        <Card.Body>
-          <Link to={`/san-pham/${product.id}`} className="text-decoration-none">
-            <Card.Title>{product.title}</Card.Title>
-          </Link>
-          <div className="price price-container">
-            <span className="text-danger fw-bold">{product.price.toLocaleString()}₫</span>
-            <span className="text-muted text-decoration-line-through small ms-2">{product.oldPrice.toLocaleString()}₫</span>
-            <span className="text-success small ms-2">-{Math.round((1 - product.price / product.oldPrice) * 100)}%</span>
-          </div>
+      <div 
+        className="product-card h-100" 
+        onClick={handleProductClick}
+      >
+        <div className="product-img-wrapper">
+          <img 
+            src={product.img} 
+            className="card-img-top" 
+            alt={product.title} 
+            loading="lazy"
+          />
           
-          {isCartEnabled && (
-            <Button variant="outline-success" size="sm" className="mt-2 w-100" onClick={() => addToCart(product.title, product.price, product.img, 1)}>
-              <i className="fa fa-cart-plus me-1"></i> Thêm vào giỏ
-            </Button>
-          )}
-        </Card.Body>
-      </Card>
+          {/* Badges positioned on the image */}
+          <div className="product-badges">
+            {product.isTopSelling && (
+              <span className="badge-hot">HOT</span>
+            )}
+            {product.isNew && (
+              <span className="badge-new">Mới</span>
+            )}
+            {discountPercentage > 0 && (
+              <span className="badge-discount">-{discountPercentage}%</span>
+            )}
+          </div>
+        </div>
+        
+        <div className="card-body">
+          <h3 className="card-title">{product.title}</h3>
+          
+          <div className="price-container">
+            {/* Current price */}
+            <div className="current-price">
+              {formatCurrency(product.price)}
+            </div>
+            
+            {/* Old price if exists */}
+            {product.oldPrice && product.oldPrice > product.price && (
+              <div className="old-price ms-2">
+                {formatCurrency(product.oldPrice)}
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {isCartEnabled && (
+          <Button 
+            variant="outline-success" 
+            size="sm" 
+            className="mt-auto mb-1 add-to-cart-btn"
+            onClick={handleAddToCart}
+          >
+            <i className="fas fa-cart-plus me-1"></i>
+            Thêm vào giỏ
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/header/Header.jsx';
 import Footer from '../components/footer/Footer.jsx';
 import VideoCarousel from '../components/video/VideoCarousel.jsx';
-import TechnicalDocGrid from '../components/technical/TechnicalDocGrid.jsx';
+import TechnicalDocList from '../components/technical/TechnicalDocList.jsx';
 import { Section, Card } from '../components/ui';
 import { ProductSection } from '../components/sections';
 import { 
@@ -93,9 +93,7 @@ function Home() {
         actionButtonText="xem thêm"
         onActionButtonClick={handleVideosNav}
       >
-        <div className="mb-4">
-          <VideoCarousel limit={5} />
-        </div>
+        <VideoCarousel limit={4} />
       </Section>
 
       {/* HƯỚNG DẪN VÀ CHĂM SÓC */}
@@ -107,11 +105,8 @@ function Home() {
         actionButtonText="xem thêm"
         onActionButtonClick={handleTechnicalDocsNav}
       >
-        <TechnicalDocGrid limit={5} />
+        <TechnicalDocList limit={5} />
       </Section>
-
- 
-   
 
       <Footer />
     </>
