@@ -4,7 +4,7 @@ import facebookIcon from '../../assets/icon/facebook.png';
 import zaloIcon from '../../assets/icon/zalo.png';
 import supportIcon from '../../assets/icon/support-icon.png';
 import { useCart } from '../../utils/CartManager';
-import { Button } from 'react-bootstrap';
+import { Button } from '../ui';
 
 function ChatWidget() {
   const { showCart, cart, isCartEnabled } = useCart();
@@ -126,25 +126,45 @@ function ChatWidget() {
       
       <div className="widget-items d-flex flex-column">
         {isCartEnabled && (
-          <Button id="cart-btn" onClick={showCart}>
-            <i className="fas fa-shopping-cart me-2"></i>Giỏ hàng
+          <Button 
+            variant="cart"
+            onClick={showCart}
+            icon="fas fa-shopping-cart"
+          >
+            Giỏ hàng
           </Button>
         )}
         
-        <Button id="tiktok-btn" onClick={() => window.open('https://www.tiktok.com/@mimo.agriculture', '_blank')}>
-          <i className="fab fa-tiktok me-2"></i>Tiktok Shop
+        <Button 
+          variant="tiktok"
+          onClick={() => window.open('https://www.tiktok.com/@mimo.agriculture', '_blank')}
+          icon="fab fa-tiktok"
+        >
+          Tiktok Shop
         </Button>
         
-        <Button id="facebook-btn" onClick={() => window.open('https://www.facebook.com/www.mimo.agri', '_blank')}>
-          <i className="fab fa-facebook-f me-2"></i>Facebook
+        <Button 
+          variant="facebook"
+          onClick={() => window.open('https://www.facebook.com/www.mimo.agri', '_blank')}
+          icon="fab fa-facebook-f"
+        >
+          Facebook
         </Button>
         
-        <Button id="chat-btn"   onClick={() => window.open('https://zalo.me/0853991995', '_blank')}>
-          <i className="far fa-comment-dots me-2"></i>Chat Zalo
+        <Button 
+          variant="zalo"
+          onClick={() => window.open('https://zalo.me/0853991995', '_blank')}
+          icon="far fa-comment-dots"
+        >
+          Chat Zalo
         </Button>
         
-        <Button id="hotline-btn" onClick={() => window.open('tel:0853991995', '_blank')}>
-          <i className="fas fa-phone-alt me-2"></i>Hotline
+        <Button 
+          variant="hotline"
+          onClick={() => window.open('tel:0853991995', '_blank')}
+          icon="fas fa-phone-alt"
+        >
+          Hotline
         </Button>
       </div>
     </div>

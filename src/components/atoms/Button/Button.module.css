@@ -11,6 +11,7 @@
   width: 100%;
 }
 
+/* Button variants */
 .primary {
   background-color: #0d6efd;
   color: white;
@@ -59,6 +60,7 @@
   border: 1px solid #212529;
 }
 
+/* Outline button variants */
 .outline-primary {
   background-color: transparent;
   color: #0d6efd;
@@ -107,6 +109,7 @@
   border: 1px solid #212529;
 }
 
+/* Button sizes */
 .sm {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
@@ -122,6 +125,7 @@
   font-size: 1.25rem;
 }
 
+/* Special button styles */
 .quantityButton {
   padding: 0;
   width: 24px;
@@ -129,4 +133,66 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Social media buttons - adapted from buttons.css */
+.tiktok {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.tiktok:hover {
+  background-color: #333;
+}
+
+.facebook {
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.facebook:hover {
+  background-color: #145dbf;
+}
+
+.zalo {
+  background-color: #fff;
+  color: #0078ff;
+  border: 1px solid #0078ff;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.zalo:hover {
+  background-color: #f0f8ff;
+  color: #0056b3;
+}
+
+.hotline {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.hotline:hover {
+  background-color: #b02a37;
+}
+
+.cart {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.cart:hover {
+  background-color: #218838;
 } 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../utils/CartManager';
 import { formatCurrency } from '../../utils/format';
+import { Button } from '../../components/ui';
 
 function ProductCard({ product, className = "col-6 col-md-4 col-lg-2-4" }) {
   const { addToCart, isCartEnabled } = useCart();
@@ -81,8 +82,9 @@ function ProductCard({ product, className = "col-6 col-md-4 col-lg-2-4" }) {
             size="sm" 
             className="mt-auto mb-1 add-to-cart-btn"
             onClick={handleAddToCart}
+            icon="fas fa-cart-plus"
+            useBootstrap={true}
           >
-            <i className="fas fa-cart-plus me-1"></i>
             Thêm vào giỏ
           </Button>
         )}

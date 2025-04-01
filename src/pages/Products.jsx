@@ -6,11 +6,11 @@ import Footer from '../components/footer/Footer.jsx';
 import ProductCard from '../components/product/ProductCard.jsx';
 import FilterSidebar from '../components/sidebar/FilterSidebar.jsx';
 import Pagination from '../components/ui/Pagination.jsx';
+import { categories } from '../data/categories';
 import { 
   allProducts, 
   topSellingProducts, 
   newProducts,
-  productCategories as predefinedCategories,
   getProductsByCategory,
   searchProducts,
   filterProductsByPrice,
@@ -35,14 +35,14 @@ function Products() {
   const uniqueProducts = getUniqueProducts(allProducts);
   
   // Các danh mục chính
-  const categories = [
+  const mainCategories = [
     { id: 'all', name: 'Tất cả sản phẩm', products: uniqueProducts },
     { id: 'top-selling', name: 'Sản phẩm bán chạy', products: topSellingProducts },
     { id: 'new-products', name: 'Sản phẩm mới', products: newProducts },
   ];
 
-  // Thêm danh mục sản phẩm từ predefinedCategories
-  const categoriesForSidebar = predefinedCategories.map(category => ({
+  // Thêm danh mục sản phẩm từ categories
+  const categoriesForSidebar = categories.map(category => ({
     id: category.id,
     name: category.name,
     onClick: (e) => {
@@ -115,7 +115,7 @@ function Products() {
     const hash = location.hash.replace('#', '');
     if (hash) {
       // Kiểm tra xem hash có phải là một trong các danh mục được định nghĩa không
-      const isValidCategory = [...predefinedCategories.map(cat => cat.id), 'all', 'top-selling', 'new-products'].includes(hash);
+      const isValidCategory = [...categories.map(cat => cat.id), 'all', 'top-selling', 'new-products'].includes(hash);
       
       if (isValidCategory) {
         setActiveCategory(hash);
@@ -309,7 +309,7 @@ function Products() {
         {/* Viền bọc cho active category */}
         <div className="category-pills-container mb-3">
           <div className="category-pills d-flex overflow-auto">
-            {categories.map(category => (
+            {mainCategories.map(category => (
               <div 
                 key={category.id} 
                 className={`category-pill ${activeCategory === category.id ? 'active' : ''}`}
@@ -318,7 +318,7 @@ function Products() {
                 {category.name}
               </div>
             ))}
-            {predefinedCategories.map(category => (
+            {categories.map(category => (
               <div 
                 key={category.id} 
                 className={`category-pill ${activeCategory === category.id ? 'active' : ''}`}
@@ -395,7 +395,7 @@ function Products() {
 
         <Tab.Container activeKey={activeCategory} onSelect={handleCategorySelect}>
           <Nav variant="tabs" className="mb-3">
-            {categories.map(category => (
+            {mainCategories.map(category => (
               <Nav.Item key={category.id}>
                 <Nav.Link eventKey={category.id}>
                   {category.name}

@@ -8,7 +8,7 @@ function Footer() {
         <Row className="gy-4">
           <Col lg={6} md={12} className="mb-4 mb-md-0">
             <h5 className="text-uppercase mb-3 text-white">Thông tin Liên Hệ</h5>
-            <p className="mb-1 text-white"><strong>MiMo AGRICULTURE</strong></p>
+            <p className="mb-1 text-white"><strong>MiMo Agriculture</strong></p>
             <p className="mb-1 text-white">Địa chỉ: <span className="d-none d-md-inline">Chiến Thắng, Văn Quán, Hà Đông, Hà Nội, Việt Nam</span><span className="d-inline d-md-none">Hà Đông, Hà Nội</span></p>
             <p className="mb-1 text-white">Hotline: <a href="tel:+8485 399 1995" className="text-white text-decoration-none">085 399 1995</a></p>
             <p className="mb-1 text-white">Email: <a href="mailto:mimoagriculture@gmail.com" className="text-white text-decoration-none">mimoagriculture@gmail.com</a></p>
@@ -30,9 +30,16 @@ function Footer() {
             </ul>
           </Col>
           <Col lg={3} md={6} className="mb-4 mb-md-0">
-            <h5 className="text-uppercase mb-3 text-white">Đường đến MiMo AGRICULTURE</h5>
+            <h5 className="text-uppercase mb- text-white" style={{ whiteSpace: 'nowrap' }}>Fanpage Mimo Agriculture</h5>
             <div className="mt-2 map-responsive">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d245.8737426403957!2d105.79678325846075!3d20.97673811420585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1svi!2s!4v1742700098847!5m2!1svi!2s" width="100%" height="200" style={{ border: 0 }} allowFullScreen loading="lazy"></iframe>
+            <iframe
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwww.mimo.agri&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+              width="340"
+              height="350"
+              style={{ border: 'none', overflow: 'hidden' }}
+              allowFullScreen={true}
+              title="Facebook Page"
+            ></iframe>
             </div>
           </Col>
         </Row>

@@ -103,7 +103,7 @@ function LogoSection({ isMobile, mobileMenuOpen, toggleMobileMenu }) {
         {/* Free Shipping - Hiển thị trên mobile giữa logo và search bar */}
         <Col xs={12} md={2} lg={2} className="text-center order-3 order-md-3 d-flex align-items-center justify-content-center mb-2 mb-md-0">
           <div className="shipping-wrap d-flex align-items-center">
-            <img src={shiper} alt="Shipping" className="shipping-icon me-2" style={{ width: '24px', height: '24px' }} />
+            <img src={shiper} alt="Shipping" className="shipping-icon me-2" style={{ width: '42px', height: '42px' }} />
             <span className="shipping-text small">Miễn phí vận chuyển cho đơn hàng từ 200k</span>
           </div>
         </Col>

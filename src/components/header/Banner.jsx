@@ -1,50 +1,66 @@
 import React, { useEffect } from 'react';
-import banner1 from '../../assets/banner/banner1.png';
-import banner2 from '../../assets/banner/banner2.png';
-import banner3 from '../../assets/banner/banner3.png';
+import banner1 from '../../assets/banner/1.png'
+import banner2 from '../../assets/banner/2.png'
+import banner3 from '../../assets/banner/3.png'
 
 function Banner() {
   useEffect(() => {
     // Initialize carousel
     const carouselElement = document.getElementById('bannerCarousel');
-    if (carouselElement) {
-      const options = {
+    if (carouselElement && window.bootstrap) {
+      // Initialize Bootstrap carousel
+      const carousel = new window.bootstrap.Carousel(carouselElement, {
         interval: 3000,
-        ride: true,
-        pause: false
-      };
-      
-      Object.keys(options).forEach(key => {
-        carouselElement.setAttribute(`data-bs-${key}`, options[key]);
+        ride: 'carousel',
+        wrap: true
       });
-      
-      const event = new Event('slid.bs.carousel');
-      carouselElement.dispatchEvent(event);
     }
   }, []);
 
   const bannerStyle = {
-    height: '315.53px',
+    width: '100%',
+    maxWidth: '100%',
+    margin: '0 auto',
     overflow: 'hidden'
   };
 
   const imageStyle = {
-    height: '315.53px',
     width: '100%',
-    objectFit: 'cover'
+    height: 'auto',
+    objectFit: 'contain'
   };
 
   return (
-    <div id="bannerCarousel" className="carousel slide full-width-banner" style={bannerStyle} data-bs-ride="carousel">
+    <div 
+      id="bannerCarousel"
+      className="carousel slide" 
+      style={bannerStyle} 
+      data-bs-ride="carousel"
+    >
       <div className="carousel-inner">
         <div className="carousel-item active">
-          <img src={banner1} className="d-block w-100" style={imageStyle} alt="Banner 1" />
+          <img 
+            src={banner1} 
+            className="d-block w-100" 
+            style={imageStyle} 
+            alt="Banner 1"
+          />
         </div>
         <div className="carousel-item">
-          <img src={banner2} className="d-block w-100" style={imageStyle} alt="Banner 2" />
+          <img 
+            src={banner2} 
+            className="d-block w-100" 
+            style={imageStyle} 
+            alt="Banner 2"
+          />
         </div>
         <div className="carousel-item">
-          <img src={banner3} className="d-block w-100" style={imageStyle} alt="Banner 3" />
+          <img 
+            src={banner3} 
+            className="d-block w-100" 
+            style={imageStyle} 
+            alt="Banner 3"
+          />
         </div>
       </div>
       <div className="carousel-indicators">
