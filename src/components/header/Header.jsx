@@ -64,23 +64,6 @@ function Header() {
       <MainMenu />
       
       {isCartEnabled && <CartModal />}
-      
-      {/* Thêm script để đảm bảo carousel hoạt động */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            document.addEventListener('DOMContentLoaded', function() {
-              var carousel = document.getElementById('bannerCarousel');
-              if (carousel) {
-                new bootstrap.Carousel(carousel, {
-                  interval: 3000,
-                  ride: 'carousel'
-                });
-              }
-            });
-          `
-        }}
-      />
     </div>
   );
 }

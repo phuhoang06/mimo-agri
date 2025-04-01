@@ -1,37 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useScrollEffects } from '../../hooks';
 
 function ScrollToTop() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Show button when user scrolls down 200px
-  const toggleVisibility = () => {
-    if (window.pageYOffset > 200) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  };
-
-  // Scroll to top function
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
-    
-    // Clean up event listener
-    return () => {
-      window.removeEventListener('scroll', toggleVisibility);
-    };
-  }, []);
+  const { isScrolled, scrollToTop } = useScrollEffects({ 
+    threshold: 200,
+    showAfterScroll: true
+  });
 
   return (
     <>
-      {isVisible && (
+      {isScrolled && (
         <button 
           onClick={scrollToTop} 
           className="scroll-to-top"

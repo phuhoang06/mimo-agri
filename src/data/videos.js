@@ -9,38 +9,6 @@ export const videos = [
   {
     id: 2,
     videoId: "OHqcNAyqV2A"
-  },
-  {
-    id: 3,
-    videoId: "osD0RAxQsbE"
-  },
-  {
-    id: 4,
-    videoId: "OHqcNAyqV2A"
-  },
-  {
-    id: 5,
-    videoId: "osD0RAxQsbE"
-  },
-  {
-    id: 6,
-    videoId: "OHqcNAyqV2A"
-  },
-  {
-    id: 7,
-    videoId: "osD0RAxQsbE"
-  },
-  {
-    id: 8,
-    videoId: "OHqcNAyqV2A"
-  },
-  {
-    id: 9,
-    videoId: "osD0RAxQsbE"
-  },
-  {
-    id: 10,
-    videoId: "OHqcNAyqV2A"
   }
 ];
 

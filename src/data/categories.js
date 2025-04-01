@@ -21,7 +21,7 @@ export const categories = [
   },
   {
     id: 'dung-cu',
-    name: 'Dụng Cụ Cuốc - Xẻng - Kéo',
+    name: 'Dụng cụ làm vườn',
     description: 'Các loại dụng cụ làm vườn chuyên nghiệp'
   },
   {

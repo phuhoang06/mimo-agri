@@ -96,7 +96,7 @@ function ContactInfo({
             className={styles.mapEmbed}
             title="Location Map"
             loading="lazy"
-            allowFullScreen
+            allowFullScreen={true}
           ></iframe>
         </div>
       )}

@@ -3,17 +3,10 @@ import product1 from '../assets/product/product1.png';
 import product2 from '../assets/product/product2.png';
 import product3 from '../assets/product/product3.png';
 import product4 from '../assets/product/product4.png';
+import { categories } from '../data/categories';
 
-// Định nghĩa các danh mục sản phẩm
-export const productCategories = [
-  { id: 'bay-ruoi-vang', name: 'Bầy Ruồi Vàng - Côn Trùng' },
-  { id: 'hat-giong-mua-he', name: 'Hạt Giống Mùa Hè' },
-  { id: 'hat-giong-mua-thu', name: 'Hạt Giống Mùa Thu' },
-  { id: 'hat-giong-mua-dong', name: 'Hạt Giống Mùa Đông' },
-  { id: 'dung-cu', name: 'Dụng Cụ Cuốc - Xẻng - Kéo' },
-  { id: 'voi-tuoi-cay', name: 'Vòi Tưới Cây' },
-  { id: 'dat-phan-bon-thuoc', name: 'Đất - Phân Bón - Thuốc' },
-];
+// Sử dụng categories từ categories.js
+export const productCategories = categories;
 
 // Danh sách tất cả sản phẩm với thông tin đầy đủ bao gồm cả danh mục
 export const allProducts = [
@@ -28,6 +21,52 @@ export const allProducts = [
     isTopSelling: true,
     isNew: false,
     description: 'Chai xịt bẫy ruồi vàng thế hệ mới, hiệu quả cao và thân thiện với môi trường.',
+    variations: {
+      options: [
+        {
+          name: "Loại", 
+          values: ["Loại thường", "Loại cao cấp"]
+        },
+        {
+          name: "Dung tích",
+          values: ["500ml", "1 lít"]
+        }
+      ],
+      variants: [
+        { 
+          id: "1-1", 
+          attributes: ["Loại thường", "500ml"], 
+          price: 99000, 
+          oldPrice: 120000,
+          stock: 15,
+          image: product1
+        },
+        { 
+          id: "1-2", 
+          attributes: ["Loại thường", "1 lít"], 
+          price: 159000, 
+          oldPrice: 190000,
+          stock: 10,
+          image: product2
+        },
+        { 
+          id: "2-1", 
+          attributes: ["Loại cao cấp", "500ml"], 
+          price: 129000, 
+          oldPrice: 150000,
+          stock: 8,
+          image: product3
+        },
+        { 
+          id: "2-2", 
+          attributes: ["Loại cao cấp", "1 lít"], 
+          price: 189000, 
+          oldPrice: 230000,
+          stock: 5,
+          image: product4
+        }
+      ]
+    },
     detailedDescription: `
       <p>Chai xịt bẫy ruồi vàng thế hệ mới, hiệu quả cao và thân thiện với môi trường.</p>
       <ul>
@@ -63,6 +102,52 @@ export const allProducts = [
     isTopSelling: true,
     isNew: false,
     description: 'Vòi xịt phun sương đa năng, phù hợp cho tưới cây và làm mát.',
+    variations: {
+      options: [
+        {
+          name: "Phân loại", 
+          values: ["Tiêu chuẩn", "Cao cấp"]
+        },
+        {
+          name: "Chất liệu",
+          values: ["Nhựa", "Kim loại"]
+        }
+      ],
+      variants: [
+        { 
+          id: "1-1", 
+          attributes: ["Tiêu chuẩn", "Nhựa"], 
+          price: 125000, 
+          oldPrice: 145000,
+          stock: 20,
+          image: product2
+        },
+        { 
+          id: "1-2", 
+          attributes: ["Tiêu chuẩn", "Kim loại"], 
+          price: 175000, 
+          oldPrice: 205000,
+          stock: 15,
+          image: product3
+        },
+        { 
+          id: "2-1", 
+          attributes: ["Cao cấp", "Nhựa"], 
+          price: 155000, 
+          oldPrice: 195000,
+          stock: 12,
+          image: product4
+        },
+        { 
+          id: "2-2", 
+          attributes: ["Cao cấp", "Kim loại"], 
+          price: 215000, 
+          oldPrice: 255000,
+          stock: 8,
+          image: product1
+        }
+      ]
+    },
     detailedDescription: `
       <p>Vòi xịt phun sương đa năng, phù hợp cho tưới cây và làm mát.</p>
       <ul>
@@ -133,6 +218,114 @@ export const allProducts = [
     isTopSelling: true,
     isNew: false,
     description: 'Vòi xịt phun sương cao cấp, điều chỉnh được áp lực nước, độ bền cao.',
+    variations: {
+      options: [
+        {
+          name: "Phân loại", 
+          values: ["Tiêu chuẩn", "Cao cấp", "Chuyên nghiệp"]
+        },
+        {
+          name: "Số lượng họng phun",
+          values: ["1 họng", "2 họng", "3 họng"]
+        }
+      ],
+      variants: [
+        { 
+          id: "1-1", 
+          attributes: ["Tiêu chuẩn", "1 họng"], 
+          price: 145000, 
+          oldPrice: 165000,
+          stock: 25,
+          image: product2
+        },
+        { 
+          id: "1-2", 
+          attributes: ["Tiêu chuẩn", "2 họng"], 
+          price: 165000, 
+          oldPrice: 195000,
+          stock: 20,
+          image: product2
+        },
+        { 
+          id: "1-3", 
+          attributes: ["Tiêu chuẩn", "3 họng"], 
+          price: 185000, 
+          oldPrice: 215000,
+          stock: 15,
+          image: product2
+        },
+        { 
+          id: "2-1", 
+          attributes: ["Cao cấp", "1 họng"], 
+          price: 185000, 
+          oldPrice: 215000,
+          stock: 18,
+          image: product3
+        },
+        { 
+          id: "2-2", 
+          attributes: ["Cao cấp", "2 họng"], 
+          price: 205000, 
+          oldPrice: 245000,
+          stock: 12,
+          image: product3
+        },
+        { 
+          id: "2-3", 
+          attributes: ["Cao cấp", "3 họng"], 
+          price: 225000, 
+          oldPrice: 275000,
+          stock: 10,
+          image: product3
+        },
+        { 
+          id: "3-1", 
+          attributes: ["Chuyên nghiệp", "1 họng"], 
+          price: 235000, 
+          oldPrice: 275000,
+          stock: 8,
+          image: product4
+        },
+        { 
+          id: "3-2", 
+          attributes: ["Chuyên nghiệp", "2 họng"], 
+          price: 255000, 
+          oldPrice: 315000,
+          stock: 5,
+          image: product4
+        },
+        { 
+          id: "3-3", 
+          attributes: ["Chuyên nghiệp", "3 họng"], 
+          price: 285000, 
+          oldPrice: 345000,
+          stock: 3,
+          image: product4
+        }
+      ]
+    },
+    detailedDescription: `
+      <p>Vòi xịt phun sương cao cấp, điều chỉnh được áp lực nước, độ bền cao.</p>
+      <ul>
+        <li>Chất liệu nhựa ABS cao cấp</li>
+        <li>Điều chỉnh được áp lực nước</li>
+        <li>Phun sương đều mịn</li>
+        <li>Kết nối với đa dạng loại ống nước</li>
+      </ul>
+      <p>Ứng dụng:</p>
+      <ul>
+        <li>Tưới cây trong nhà và ngoài vườn</li>
+        <li>Phun sương làm mát trong mùa hè</li>
+        <li>Rửa xe và các thiết bị ngoài trời</li>
+      </ul>
+    `,
+    videoUrl: 'https://example.com/videos/product2.mp4',
+    specifications: [
+      { name: "Xuất xứ", value: "Đài Loan" },
+      { name: "Chất liệu", value: "Nhựa ABS" },
+      { name: "Kích thước", value: "25cm x 10cm" },
+      { name: "Trọng lượng", value: "200g" },
+    ],
     tags: ['vòi phun', 'cao cấp', 'điều chỉnh', 'áp lực nước', 'bền']
   },
   { 
@@ -337,6 +530,90 @@ export const allProducts = [
     isTopSelling: true,
     isNew: false,
     description: 'Vòi phun nước tự động với hẹn giờ, tiện lợi cho việc tưới cây.',
+    variations: {
+      options: [
+        {
+          name: "Tính năng", 
+          values: ["Cơ bản", "Hẹn giờ"]
+        },
+        {
+          name: "Phạm vi phun",
+          values: ["3m", "5m", "10m"]
+        }
+      ],
+      variants: [
+        { 
+          id: "1-1", 
+          attributes: ["Cơ bản", "3m"], 
+          price: 185000, 
+          oldPrice: 220000,
+          stock: 22,
+          image: product1
+        },
+        { 
+          id: "1-2", 
+          attributes: ["Cơ bản", "5m"], 
+          price: 205000, 
+          oldPrice: 240000,
+          stock: 18,
+          image: product1
+        },
+        { 
+          id: "1-3", 
+          attributes: ["Cơ bản", "10m"], 
+          price: 225000, 
+          oldPrice: 270000,
+          stock: 12,
+          image: product1
+        },
+        { 
+          id: "2-1", 
+          attributes: ["Hẹn giờ", "3m"], 
+          price: 215000, 
+          oldPrice: 250000,
+          stock: 15,
+          image: product3
+        },
+        { 
+          id: "2-2", 
+          attributes: ["Hẹn giờ", "5m"], 
+          price: 235000, 
+          oldPrice: 280000,
+          stock: 10,
+          image: product3
+        },
+        { 
+          id: "2-3", 
+          attributes: ["Hẹn giờ", "10m"], 
+          price: 255000, 
+          oldPrice: 300000,
+          stock: 8,
+          image: product3
+        }
+      ]
+    },
+    detailedDescription: `
+      <p>Vòi phun nước tự động với hẹn giờ, tiện lợi cho việc tưới cây.</p>
+      <ul>
+        <li>Chất liệu nhựa ABS cao cấp</li>
+        <li>Điều chỉnh được áp lực nước</li>
+        <li>Phun sương đều mịn</li>
+        <li>Kết nối với đa dạng loại ống nước</li>
+      </ul>
+      <p>Ứng dụng:</p>
+      <ul>
+        <li>Tưới cây trong nhà và ngoài vườn</li>
+        <li>Phun sương làm mát trong mùa hè</li>
+        <li>Rửa xe và các thiết bị ngoài trời</li>
+      </ul>
+    `,
+    videoUrl: 'https://example.com/videos/product2.mp4',
+    specifications: [
+      { name: "Xuất xứ", value: "Đài Loan" },
+      { name: "Chất liệu", value: "Nhựa ABS" },
+      { name: "Kích thước", value: "25cm x 10cm" },
+      { name: "Trọng lượng", value: "200g" },
+    ],
     tags: ['vòi phun', 'tự động', 'hẹn giờ', 'tiện lợi']
   },
   { 
@@ -433,6 +710,114 @@ export const allProducts = [
     isTopSelling: true,
     isNew: true,
     description: 'Hệ thống tưới nhỏ giọt tự động, tiết kiệm nước và công sức.',
+    variations: {
+      options: [
+        {
+          name: "Kích thước", 
+          values: ["Nhỏ (5m)", "Trung bình (10m)", "Lớn (20m)"]
+        },
+        {
+          name: "Số lượng đầu tưới",
+          values: ["10 đầu", "20 đầu", "30 đầu"]
+        }
+      ],
+      variants: [
+        { 
+          id: "1-1", 
+          attributes: ["Nhỏ (5m)", "10 đầu"], 
+          price: 250000, 
+          oldPrice: 300000,
+          stock: 20,
+          image: product1
+        },
+        { 
+          id: "1-2", 
+          attributes: ["Nhỏ (5m)", "20 đầu"], 
+          price: 280000, 
+          oldPrice: 340000,
+          stock: 15,
+          image: product1
+        },
+        { 
+          id: "1-3", 
+          attributes: ["Nhỏ (5m)", "30 đầu"], 
+          price: 310000, 
+          oldPrice: 380000,
+          stock: 10,
+          image: product1
+        },
+        { 
+          id: "2-1", 
+          attributes: ["Trung bình (10m)", "10 đầu"], 
+          price: 350000, 
+          oldPrice: 420000,
+          stock: 12,
+          image: product2
+        },
+        { 
+          id: "2-2", 
+          attributes: ["Trung bình (10m)", "20 đầu"], 
+          price: 380000, 
+          oldPrice: 460000,
+          stock: 8,
+          image: product2
+        },
+        { 
+          id: "2-3", 
+          attributes: ["Trung bình (10m)", "30 đầu"], 
+          price: 420000, 
+          oldPrice: 500000,
+          stock: 6,
+          image: product2
+        },
+        { 
+          id: "3-1", 
+          attributes: ["Lớn (20m)", "10 đầu"], 
+          price: 520000, 
+          oldPrice: 600000,
+          stock: 8,
+          image: product4
+        },
+        { 
+          id: "3-2", 
+          attributes: ["Lớn (20m)", "20 đầu"], 
+          price: 580000, 
+          oldPrice: 680000,
+          stock: 6,
+          image: product4
+        },
+        { 
+          id: "3-3", 
+          attributes: ["Lớn (20m)", "30 đầu"], 
+          price: 650000, 
+          oldPrice: 780000,
+          stock: 4,
+          image: product4
+        }
+      ]
+    },
+    detailedDescription: `
+      <p>Hệ thống tưới nhỏ giọt tự động, tiết kiệm nước và công sức.</p>
+      <ul>
+        <li>Chất liệu nhựa ABS cao cấp</li>
+        <li>Điều chỉnh được áp lực nước</li>
+        <li>Phun sương đều mịn</li>
+        <li>Kết nối với đa dạng loại ống nước</li>
+      </ul>
+      <p>Ứng dụng:</p>
+      <ul>
+        <li>Tưới cây trong nhà và ngoài vườn</li>
+        <li>Phun sương làm mát trong mùa hè</li>
+        <li>Rửa xe và các thiết bị ngoài trời</li>
+      </ul>
+    `,
+    videoUrl: 'https://example.com/videos/product2.mp4',
+    specifications: [
+      { name: "Xuất xứ", value: "Đài Loan" },
+      { name: "Chất liệu", value: "Nhựa ABS" },
+      { name: "Kích thước", value: "25cm x 10cm" },
+      { name: "Trọng lượng", value: "200g" },
+    ],
     tags: ['tưới nhỏ giọt', 'tự động', 'tiết kiệm nước', 'hiệu quả']
   },
   { 
@@ -529,6 +914,90 @@ export const allProducts = [
     isTopSelling: false,
     isNew: true,
     description: 'Đầu vòi tưới đa năng với nhiều chế độ phun khác nhau.',
+    variations: {
+      options: [
+        {
+          name: "Chất liệu", 
+          values: ["Nhựa", "Kim loại"]
+        },
+        {
+          name: "Số chế độ phun",
+          values: ["3 chế độ", "5 chế độ", "7 chế độ"]
+        }
+      ],
+      variants: [
+        { 
+          id: "1-1", 
+          attributes: ["Nhựa", "3 chế độ"], 
+          price: 95000, 
+          oldPrice: 125000,
+          stock: 25,
+          image: product1
+        },
+        { 
+          id: "1-2", 
+          attributes: ["Nhựa", "5 chế độ"], 
+          price: 115000, 
+          oldPrice: 145000,
+          stock: 20,
+          image: product1
+        },
+        { 
+          id: "1-3", 
+          attributes: ["Nhựa", "7 chế độ"], 
+          price: 135000, 
+          oldPrice: 165000,
+          stock: 15,
+          image: product1
+        },
+        { 
+          id: "2-1", 
+          attributes: ["Kim loại", "3 chế độ"], 
+          price: 145000, 
+          oldPrice: 185000,
+          stock: 18,
+          image: product2
+        },
+        { 
+          id: "2-2", 
+          attributes: ["Kim loại", "5 chế độ"], 
+          price: 175000, 
+          oldPrice: 215000,
+          stock: 12,
+          image: product2
+        },
+        { 
+          id: "2-3", 
+          attributes: ["Kim loại", "7 chế độ"], 
+          price: 205000, 
+          oldPrice: 255000,
+          stock: 8,
+          image: product2
+        }
+      ]
+    },
+    detailedDescription: `
+      <p>Đầu vòi tưới đa năng với nhiều chế độ phun khác nhau.</p>
+      <ul>
+        <li>Chất liệu nhựa ABS cao cấp</li>
+        <li>Điều chỉnh được áp lực nước</li>
+        <li>Phun sương đều mịn</li>
+        <li>Kết nối với đa dạng loại ống nước</li>
+      </ul>
+      <p>Ứng dụng:</p>
+      <ul>
+        <li>Tưới cây trong nhà và ngoài vườn</li>
+        <li>Phun sương làm mát trong mùa hè</li>
+        <li>Rửa xe và các thiết bị ngoài trời</li>
+      </ul>
+    `,
+    videoUrl: 'https://example.com/videos/product2.mp4',
+    specifications: [
+      { name: "Xuất xứ", value: "Đài Loan" },
+      { name: "Chất liệu", value: "Nhựa ABS" },
+      { name: "Kích thước", value: "25cm x 10cm" },
+      { name: "Trọng lượng", value: "200g" },
+    ],
     tags: ['đầu vòi', 'tưới', 'đa năng', 'nhiều chế độ']
   },
   { 
@@ -787,3 +1256,50 @@ export function getSimilarProducts(productId, limit = 4) {
   // Trả về số lượng sản phẩm theo giới hạn
   return scoredSimilar.slice(0, limit);
 }
+
+/**
+ * Lọc sản phẩm theo danh mục
+ * @param {Array} products - Danh sách sản phẩm cần lọc
+ * @param {string} category - ID danh mục cần lọc
+ * @returns {Array} - Danh sách sản phẩm đã lọc
+ */
+export const filterProductsByCategory = (products, category) => {
+  if (!category || category === 'all') {
+    return products;
+  }
+  
+  return products.filter(product => product.categoryId === category);
+};
+
+/**
+ * Lọc sản phẩm theo từ khóa tìm kiếm
+ * @param {Array} products - Danh sách sản phẩm cần lọc
+ * @param {string} searchTerm - Từ khóa tìm kiếm
+ * @returns {Array} - Danh sách sản phẩm đã lọc
+ */
+export const filterProductsBySearch = (products, searchTerm) => {
+  if (!searchTerm || searchTerm.trim() === '') {
+    return products;
+  }
+  
+  const term = searchTerm.toLowerCase().trim();
+  
+  return products.filter(product => {
+    // Tìm trong tiêu đề
+    if (product.title && product.title.toLowerCase().includes(term)) {
+      return true;
+    }
+    
+    // Tìm trong mô tả
+    if (product.description && product.description.toLowerCase().includes(term)) {
+      return true;
+    }
+    
+    // Tìm trong tags
+    if (product.tags && Array.isArray(product.tags)) {
+      return product.tags.some(tag => tag.toLowerCase().includes(term));
+    }
+    
+    return false;
+  });
+};

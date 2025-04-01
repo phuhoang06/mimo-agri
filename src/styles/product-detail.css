@@ -7,34 +7,189 @@
   margin-bottom: 30px;
 }
 
-.main-image {
+.product-gallery .main-image-container {
+  position: relative;
   width: 100%;
-  height: auto;
-  margin-bottom: 15px;
+  height: 0;
+  padding-bottom: 100%; /* Tạo container hình vuông */
+  overflow: hidden;
   border: 1px solid #eee;
   border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: #fff;
 }
 
-.thumbnail-container {
+.product-gallery .carousel,
+.product-gallery .carousel-inner,
+.product-gallery .carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.product-gallery .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Giữ tỷ lệ khung hình, hiển thị toàn bộ hình ảnh */
+  object-position: center;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.product-gallery .main-image-container:hover .carousel-item img {
+  transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
+}
+
+/* Tùy chỉnh các nút điều khiển carousel */
+.product-gallery .carousel-control-prev,
+.product-gallery .carousel-control-next {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.product-gallery .carousel-control-prev {
+  left: 10px;
+}
+
+.product-gallery .carousel-control-next {
+  right: 10px;
+}
+
+.product-gallery .main-image-container:hover .carousel-control-prev,
+.product-gallery .main-image-container:hover .carousel-control-next {
+  opacity: 0.7;
+}
+
+.product-gallery .carousel-control-prev:hover,
+.product-gallery .carousel-control-next:hover {
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.product-gallery .carousel-control-prev-icon,
+.product-gallery .carousel-control-next-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.product-gallery .video-container {
+  width: 100%;
+  height: 100%;
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-gallery .video-container video {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.product-gallery .thumbnail-gallery {
+  display: flex;
+  gap: 8px;
   overflow-x: auto;
   padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-green) #eee;
 }
 
-.thumbnail {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
+/* Style cho scrollbar */
+.product-gallery .thumbnail-gallery::-webkit-scrollbar {
+  height: 6px;
+}
+
+.product-gallery .thumbnail-gallery::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.product-gallery .thumbnail-gallery::-webkit-scrollbar-thumb {
+  background: var(--brand-green);
+  border-radius: 3px;
+}
+
+.product-gallery .thumbnail-item {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.thumbnail:hover, 
-.thumbnail.active {
+.product-gallery .thumbnail-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.product-gallery .thumbnail-item:hover img {
+  transform: scale(1.1);
+}
+
+.product-gallery .thumbnail-item:hover, 
+.product-gallery .thumbnail-item.active {
   border-color: var(--brand-green);
+  box-shadow: 0 0 0 1px var(--brand-green);
+}
+
+.product-gallery .thumbnail-item.variant-image {
+  position: relative;
+  border: 2px solid var(--brand-green);
+}
+
+.product-gallery .variant-indicator {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: var(--brand-green);
+  color: white;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  z-index: 2;
+}
+
+.product-gallery .video-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.product-gallery .play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
 }
 
 /* Product Info */
@@ -231,7 +386,92 @@
 
 .shipping-text {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: #404e5b;
+}
+
+/* Product Variants - Shopee Style */
+.product-variations {
+  margin-bottom: 20px;
+}
+
+.variation-option-group {
+  margin-bottom: 15px;
+}
+
+.option-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.option-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.option-value {
+  cursor: pointer;
+  padding: 6px 12px;
+  border: 1px solid #d5d5d5;
+  border-radius: 4px;
+  font-size: 14px;
+  min-width: 40px;
+  text-align: center;
+  position: relative;
+  transition: all 0.2s ease;
+  background-color: #fff;
+}
+
+.option-value:hover {
+  border-color: var(--brand-green);
+}
+
+.option-value.active {
+  color: var(--brand-green);
+  border-color: var(--brand-green);
+  background-color: rgba(0, 128, 0, 0.05);
+}
+
+.option-value.disabled {
+  cursor: not-allowed;
+  color: #ccc;
+  border-color: #eee;
+  background-color: #f9f9f9;
+  position: relative;
+}
+
+.option-value.disabled::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #eee;
+  transform: rotate(-20deg);
+}
+
+.selected-variant-info {
+  background-color: #f8f8f8;
+  padding: 12px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+.variant-price {
+  font-size: 16px;
+}
+
+.variant-price .current-price {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.variant-stock {
+  color: #666;
+  font-size: 14px;
 }
 
 /* Responsive adjustments */
@@ -248,9 +488,13 @@
     width: 100%;
   }
   
-  .thumbnail {
-    width: 60px;
-    height: 60px;
+  .product-gallery .main-image-container {
+    padding-bottom: 100%; /* Giữ nguyên tỷ lệ hình vuông trên di động */
+  }
+  
+  .product-gallery .thumbnail-item {
+    width: 50px;
+    height: 50px;
   }
   
   .product-tabs {
@@ -260,5 +504,24 @@
   .nav-tabs .nav-link {
     padding: 0.5rem 0.75rem;
     font-size: 0.9rem;
+  }
+}
+
+/* iPads và tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  .product-gallery .main-image-container {
+    padding-bottom: 90%; /* Tỷ lệ khung hình trên tablet */
+  }
+  
+  .product-gallery .thumbnail-item {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+/* Màn hình lớn */
+@media (min-width: 992px) {
+  .product-gallery .main-image-container {
+    padding-bottom: 80%; /* Tỷ lệ khung hình trên desktop */
   }
 } 

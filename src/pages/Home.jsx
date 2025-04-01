@@ -1,12 +1,11 @@
 import React, { useRef } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import Header from '../components/header/Header.jsx';
-import Footer from '../components/footer/Footer.jsx';
+import { MainLayout } from '../components/layouts';
 import VideoCarousel from '../components/video/VideoCarousel.jsx';
 import TechnicalDocList from '../components/technical/TechnicalDocList.jsx';
 import { Section, Card } from '../components/ui';
 import { ProductSection } from '../components/sections';
+import { useScrollNavigation } from '../hooks';
 import { 
   allProducts,
   topSellingProducts, 
@@ -21,49 +20,26 @@ import product3 from '../assets/product/product3.png';
 import product4 from '../assets/product/product4.png';
 
 function Home() {
-  const navigate = useNavigate();
   const allProductsRef = useRef(null);
   const videoSectionRef = useRef(null);
   const guidesCareRef = useRef(null);
+  
+  const { navigateWithScroll, scrollToRef } = useScrollNavigation();
   
   // Loại bỏ trùng lặp để hiển thị trang "Tất cả sản phẩm"
   const uniqueProducts = getUniqueProducts(allProducts);
   
   // Function to handle product page navigation with smooth scroll
-  const handleProductsNav = () => {
-    navigate('/san-pham');
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
-  };
+  const handleProductsNav = () => navigateWithScroll('/san-pham');
   
   // Function to navigate to videos page
-  const handleVideosNav = () => {
-    navigate('/videos');
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
-  };
+  const handleVideosNav = () => navigateWithScroll('/videos');
   
   // Function to navigate to technical documents page
-  const handleTechnicalDocsNav = () => {
-    navigate('/tai-lieu-ky-thuat');
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 100);
-  };
-  
-  // Function to scroll to section 
-  const scrollToSection = (ref) => {
-    if (ref.current) {
-      ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+  const handleTechnicalDocsNav = () => navigateWithScroll('/tai-lieu-ky-thuat');
   
   return (
-    <>
-      <Header />
-      
+    <MainLayout>
       {/* SẢN PHẨM BÁN CHẠY */}
       <ProductSection 
         id="top-selling" 
@@ -107,9 +83,7 @@ function Home() {
       >
         <TechnicalDocList limit={5} />
       </Section>
-
-      <Footer />
-    </>
+    </MainLayout>
   );
 }
 

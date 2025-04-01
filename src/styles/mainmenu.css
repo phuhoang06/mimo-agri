@@ -67,8 +67,9 @@ body.menu-fixed {
   text-decoration: none;
   padding: 0 15px;
   height: 100%;
-  font-size: 0.9rem;
+  font-size: 1rem;
   transition: background-color 0.2s;
+  font-weight: bold;
 }
 
 .nav-links a:hover {

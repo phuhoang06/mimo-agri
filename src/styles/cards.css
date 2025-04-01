@@ -11,16 +11,59 @@
     background-color: #f9f9f9;
 }
 
-#bannerCarousel img {
-    height: 200px; /* Smaller height on mobile */
+/* Banner styles */
+.full-width-banner {
     width: 100%;
-    object-fit: cover; /* Ensure images cover the area properly */
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    display: block;
 }
-  
-@media (min-width: 768px) {
-    #bannerCarousel img {
-        height: 17rem; /* Original height on desktop */
-    }
+
+.full-width-banner .carousel-inner {
+    width: 100%;
+    position: relative !important;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.full-width-banner .carousel-item {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: block;
+}
+
+.full-width-banner img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.full-width-banner .carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    margin: 0;
+}
+
+#bannerCarousel {
+    width: 100%;
+}
+
+#bannerCarousel img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .carousel-control-prev-icon,
@@ -122,4 +165,9 @@
   .featured-news-container {
     margin-top: 1rem;
   }
-} 
+}
+
+/* Ensure banner displays properly */
+@media (min-width: 768px) {
+  /* Remove fixed heights for banners */
+}

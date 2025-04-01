@@ -48,7 +48,7 @@ function Contact() {
                   <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d245.8737426403957!2d105.79678325846075!3d20.97673811420585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1svi!2s!4v1742700098847!5m2!1svi!2s" 
                     style={{ border: 0 }} 
-                    allowFullScreen 
+                    allowFullScreen={true}
                     loading="lazy"
                     title="Bản đồ MiMo Agriculture"
                   ></iframe>

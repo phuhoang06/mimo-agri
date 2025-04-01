@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import { Button } from '../../components/ui';
 
 const ProductActions = ({ 
   product, 
@@ -7,8 +8,21 @@ const ProductActions = ({
   isCartEnabled, 
   handleAddToCart, 
   handleBuyNow, 
-  handleZaloBuy 
+  handleZaloBuy,
+  selectedVariant,
+  isOutOfStock = false
 }) => {
+  // Tạo thông tin sản phẩm bao gồm phân loại (nếu có)
+  const getProductInfoText = () => {
+    if (!product) return '';
+    
+    const title = product.title;
+    const price = selectedVariant ? selectedVariant.price : product.price;
+    const variant = selectedVariant ? `\nPhân loại: ${selectedVariant.name}` : '';
+    
+    return `${title}${variant}\nGiá: ${price.toLocaleString()}đ\nSố lượng: ${quantity}`;
+  };
+
   return (
     <div className="product-actions-container">
       {isCartEnabled && (
@@ -18,15 +32,17 @@ const ProductActions = ({
               variant="primary" 
               className="me-md-2" 
               onClick={handleAddToCart}
+              icon="fa fa-cart-plus"
+              useBootstrap={true}
+              disabled={isOutOfStock}
             >
-              <i className="fa fa-cart-plus me-2"></i>
               Thêm vào giỏ hàng
             </Button>
           </div>
         </div>
       )}
       
-      {/* Nút Mua ngay: luôn hiển thị kể cả khi tính năng giỏ hàng bị tắt */}
+      {/* Nút Mua ngay: Vô hiệu hóa khi hết hàng */}
       <div className="buy-now-btn-wrapper mb-4">
         <Row className="g-2">
           <Col xs={6}>
@@ -34,8 +50,11 @@ const ProductActions = ({
               variant="success" 
               className="w-100"
               onClick={handleBuyNow}
+              icon="fab fa-facebook-messenger"
+              useBootstrap={true}
+              isFullWidth={true}
+              disabled={isOutOfStock}
             >
-              <i className="fab fa-facebook-messenger me-2"></i>
               Mua qua Messenger
             </Button>
           </Col>
@@ -44,8 +63,11 @@ const ProductActions = ({
               variant="info" 
               className="w-100 text-white"
               onClick={handleZaloBuy}
+              icon="fas fa-comment-alt"
+              useBootstrap={true}
+              isFullWidth={true}
+              disabled={isOutOfStock}
             >
-              <i className="fas fa-comment-alt me-2"></i>
               Mua qua Zalo
             </Button>
           </Col>

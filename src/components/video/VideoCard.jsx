@@ -1,41 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 
 function VideoCard({ video, featured = false }) {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const videoRef = useRef();
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVideoLoaded(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    
-    if (videoRef.current) {
-      observer.observe(videoRef.current);
-    }
-    
-    return () => {
-      if (videoRef.current) {
-        observer.disconnect();
-      }
-    };
-  }, []);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(true);
   
   return (
     <div className="video-item h-100">
-      <div ref={videoRef} className={`youtube-embed-container ${featured ? 'featured-embed' : ''}`}>
+      <div className={`youtube-embed-container ${featured ? 'featured-embed' : ''}`}>
         {isVideoLoaded ? (
           <div className="ratio ratio-16x9">
             <iframe 
-              src={`https://www.youtube.com/embed/${video.videoId}?rel=0`}
+              src={`https://www.youtube.com/embed/${video.videoId}?rel=0&modestbranding=1&iv_load_policy=3&hl=vi&origin=${window.location.origin}`}
               title="YouTube video"
               frameBorder="0"
+              loading="eager"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
               allowFullScreen
             ></iframe>
