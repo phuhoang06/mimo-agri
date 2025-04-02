@@ -1,10 +1,10 @@
 /**
  * Technical documents data for HƯỚNG DẪN VÀ CHĂM SÓC section
  */
-import productImg1 from '../assets/product/product1.png';
-import productImg2 from '../assets/product/product2.png';
-import productImg3 from '../assets/product/product3.png';
-import productImg4 from '../assets/product/product4.png';
+import productImg1 from '../assets/product/chai-xit/1.png';
+import productImg2 from '../assets/product/tam-bay-con-trung/1.png';
+import productImg3 from '../assets/product/nap-bay/1.png';
+import productImg4 from '../assets/product/tinh-dau/1.png';
 
 export const technicalDocs = [
   {

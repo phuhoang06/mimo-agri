@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './utils/CartManager';
+import ChatWidget from './components/chat/ChatWidget';
 import routes from './routes';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
@@ -36,6 +37,7 @@ function App() {
               />
             ))}
           </Routes>
+          <ChatWidget />
         </Suspense>
       </Router>
     </CartProvider>

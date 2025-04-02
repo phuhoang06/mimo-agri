@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import tiktokIcon from '../../assets/icon/tiktok.png';
 import facebookIcon from '../../assets/icon/facebook.png';
 import zaloIcon from '../../assets/icon/zalo.png';
 import supportIcon from '../../assets/icon/support-icon.png';
 import { useCart } from '../../utils/CartManager';
 import { Button } from '../ui';
 
+// Biến toàn cục đơn giản để lưu trữ trạng thái
+if (typeof window !== 'undefined') {
+  window.chatWidgetState = window.chatWidgetState || {
+    isExpanded: true,
+    position: null,
+    originalPosition: null,
+    hasMoved: false
+  };
+}
+
 function ChatWidget() {
   const { showCart, cart, isCartEnabled } = useCart();
-  const [isExpanded, setIsExpanded] = useState(true);
+  // Khởi tạo state từ biến toàn cục nếu đã có, nếu không thì dùng giá trị mặc định
+  const [isExpanded, setIsExpanded] = useState(() => window.chatWidgetState?.isExpanded ?? true);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [originalPosition, setOriginalPosition] = useState({ x: 0, y: 0 });
-  const [hasMoved, setHasMoved] = useState(false);
+  const [hasMoved, setHasMoved] = useState(() => window.chatWidgetState?.hasMoved ?? false);
 
   // Set initial position to bottom left corner
   useEffect(() => {
@@ -24,14 +34,30 @@ function ChatWidget() {
       const initialX = 20; // 20px from left edge
       const initialY = windowHeight - widgetHeight - 20; // 20px from bottom
       
-      setPosition({ x: initialX, y: initialY });
-      setOriginalPosition({ x: initialX, y: initialY });
+      // Nếu đã có vị trí được lưu và đã di chuyển, sử dụng lại
+      if (window.chatWidgetState?.position && window.chatWidgetState.hasMoved) {
+        setPosition(window.chatWidgetState.position);
+        setOriginalPosition(window.chatWidgetState.originalPosition || { x: initialX, y: initialY });
+      } else {
+        setPosition({ x: initialX, y: initialY });
+        setOriginalPosition({ x: initialX, y: initialY });
+      }
     };
 
     setInitialPosition();
     window.addEventListener('resize', setInitialPosition);
     return () => window.removeEventListener('resize', setInitialPosition);
   }, []);
+
+  // Lưu trạng thái vào biến toàn cục khi thay đổi
+  useEffect(() => {
+    window.chatWidgetState = {
+      isExpanded,
+      position,
+      originalPosition,
+      hasMoved
+    };
+  }, [isExpanded, position, originalPosition, hasMoved]);
 
   const toggleExpand = () => {
     if (isDragging || hasMoved) return; // Prevent toggling if dragging or has moved
@@ -134,14 +160,6 @@ function ChatWidget() {
             Giỏ hàng
           </Button>
         )}
-        
-        <Button 
-          variant="tiktok"
-          onClick={() => window.open('https://www.tiktok.com/@mimo.agriculture', '_blank')}
-          icon="fab fa-tiktok"
-        >
-          Tiktok Shop
-        </Button>
         
         <Button 
           variant="facebook"

@@ -1,0 +1,78 @@
+/* Import font chính cho toàn bộ ứng dụng */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* Font chính cho toàn bộ trang web */
+body, 
+button, 
+input, 
+select, 
+textarea,
+p, 
+span,
+div {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Font cho tiêu đề */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.section-title,
+.product-title,
+.card-title,
+.page-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #343a40;
+}
+
+/* Kích thước font cho tiêu đề */
+h1, .h1 { font-size: 2rem; font-weight: 700; }
+h2, .h2 { font-size: 1.75rem; font-weight: 700; }
+h3, .h3 { font-size: 1.5rem; font-weight: 600; }
+h4, .h4 { font-size: 1.25rem; font-weight: 600; }
+h5, .h5 { font-size: 1.1rem; font-weight: 600; }
+h6, .h6 { font-size: 1rem; font-weight: 600; }
+
+/* Font cho menu và navigation */
+.nav-link,
+.menu-link,
+.footer-link,
+.breadcrumb-item {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+/* Font cho buttons */
+.btn,
+button,
+.button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+/* Font cho giá và các thông tin quan trọng */
+.price,
+.highlight,
+.special-text,
+.product-price {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  body, p, span, div {
+    font-size: 15px;
+  }
+  
+  h1, .h1 { font-size: 1.8rem; }
+  h2, .h2 { font-size: 1.5rem; }
+  h3, .h3 { font-size: 1.3rem; }
+  h4, .h4 { font-size: 1.1rem; }
+  h5, .h5 { font-size: 1rem; }
+  h6, .h6 { font-size: 0.9rem; }
+} 
