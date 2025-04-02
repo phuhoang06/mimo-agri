@@ -432,6 +432,26 @@
   color: var(--brand-green);
   border-color: var(--brand-green);
   background-color: rgba(0, 128, 0, 0.05);
+  position: relative;
+}
+
+.option-value.active::after {
+  content: '✓';
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 10px;
+  color: var(--brand-green);
+}
+
+.option-value.active:hover {
+  background-color: rgba(0, 128, 0, 0.1);
+  box-shadow: 0 0 0 1px var(--brand-green);
+}
+
+.option-value.active:hover::after {
+  content: '✕';
+  color: #ff6b6b;
 }
 
 .option-value.disabled {

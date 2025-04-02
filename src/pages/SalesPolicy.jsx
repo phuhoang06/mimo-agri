@@ -43,8 +43,8 @@ function SalesPolicy() {
                     
                     <Tab.Content>
                       <Tab.Pane eventKey="exchange">
-                        <h4 className="mb-3">Cam kết đổi 1 đền 1 nếu có lỗi từ NSX</h4>
-                        <p className="mb-3">Tại MiMo Agriculture, chúng tôi cam kết đảm bảo chất lượng sản phẩm cung cấp đến khách hàng. Trong trường hợp sản phẩm có lỗi từ nhà sản xuất, chúng tôi sẽ thực hiện chính sách đổi 1 đền 1 cho khách hàng.</p>
+                        <h4 className="mb-3">Cam kết đổi 1 Đổi 1 nếu có lỗi từ NSX</h4>
+                        <p className="mb-3">Tại MiMo Agriculture, chúng tôi cam kết đảm bảo chất lượng sản phẩm cung cấp đến khách hàng. Trong trường hợp sản phẩm có lỗi từ nhà sản xuất, chúng tôi sẽ thực hiện chính sách đổi 1 Đổi 1 cho khách hàng.</p>
                         
                         <h5 className="mt-4">Điều kiện áp dụng:</h5>
                         <ul>

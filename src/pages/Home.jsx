@@ -14,10 +14,10 @@ import {
 } from '../utils/products';
 
 // Import product images
-import product1 from '../assets/product/product1.png';
-import product2 from '../assets/product/product2.png';
-import product3 from '../assets/product/product3.png';
-import product4 from '../assets/product/product4.png';
+import product1 from '../assets/product/chai-xit/1.png';
+import product2 from '../assets/product/tam-bay-con-trung/1.png';
+import product3 from '../assets/product/nap-bay/1.png';
+import product4 from '../assets/product/tinh-dau/1.png';
 
 function Home() {
   const allProductsRef = useRef(null);

@@ -31,6 +31,10 @@ const ProductVariants = ({ product, selectedVariant, onVariantChange }) => {
     // Nếu không có tùy chọn nào được chọn, tất cả các biến thể đều có sẵn
     if (Object.keys(selectedOptions).length === 0) {
       setAvailableVariants(variants);
+      // Khi tất cả tùy chọn bị hủy, quay lại biến thể mặc định (biến thể đầu tiên)
+      if (variants.length > 0) {
+        onVariantChange(variants[0]);
+      }
       return;
     }
     
@@ -48,6 +52,10 @@ const ProductVariants = ({ product, selectedVariant, onVariantChange }) => {
     const matchedVariant = findVariantByOptions();
     if (matchedVariant) {
       onVariantChange(matchedVariant);
+    } else if (filteredVariants.length > 0) {
+      // Nếu không tìm thấy biến thể phù hợp chính xác với tất cả các tùy chọn
+      // nhưng có các biến thể khớp một phần, chọn biến thể đầu tiên trong danh sách
+      onVariantChange(filteredVariants[0]);
     }
   }, [selectedOptions, hasVariations, variants, options, onVariantChange]);
   
@@ -80,10 +88,19 @@ const ProductVariants = ({ product, selectedVariant, onVariantChange }) => {
   
   // Xử lý khi người dùng chọn một tùy chọn
   const handleOptionSelect = (optionName, value) => {
-    setSelectedOptions(prev => ({
-      ...prev,
-      [optionName]: value
-    }));
+    setSelectedOptions(prev => {
+      // Nếu giá trị đã được chọn trước đó, hủy chọn nó
+      if (prev[optionName] === value) {
+        const newOptions = { ...prev };
+        delete newOptions[optionName];
+        return newOptions;
+      }
+      // Ngược lại, chọn giá trị mới
+      return {
+        ...prev,
+        [optionName]: value
+      };
+    });
   };
   
   // Kiểm tra xem một giá trị tùy chọn có sẵn không (dựa trên các tùy chọn khác đã chọn)
@@ -113,7 +130,12 @@ const ProductVariants = ({ product, selectedVariant, onVariantChange }) => {
     <div className="product-variations mb-4">
       {options.map((option, optionIndex) => (
         <div key={optionIndex} className="variation-option-group mb-3">
-          <h5 className="option-title mb-2">{option.name}:</h5>
+          <h5 className="option-title mb-2">
+            {option.name}:
+            <small className="ms-2 text-muted" style={{ fontSize: '12px', fontWeight: 'normal' }}>
+              (Click vào tùy chọn đã chọn để hủy)
+            </small>
+          </h5>
           <div className="option-values">
             {option.values.map((value, valueIndex) => {
               const isAvailable = isOptionValueAvailable(option.name, value);
@@ -124,6 +146,8 @@ const ProductVariants = ({ product, selectedVariant, onVariantChange }) => {
                   key={valueIndex}
                   className={`option-value ${isSelected ? 'active' : ''} ${!isAvailable ? 'disabled' : ''}`}
                   onClick={() => isAvailable && handleOptionSelect(option.name, value)}
+                  style={{ cursor: isAvailable ? 'pointer' : 'not-allowed' }}
+                  title={isSelected ? `Nhấn để hủy chọn "${value}"` : `Chọn "${value}"`}
                 >
                   {value}
                 </div>

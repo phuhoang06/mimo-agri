@@ -20,8 +20,8 @@ export const categories = [
     description: 'Hạt giống các loại rau quả phù hợp trồng mùa đông'
   },
   {
-    id: 'dung-cu',
-    name: 'Dụng cụ làm vườn',
+    id: 'dung-cu-lam-vuon',
+    name: 'Dụng Cụ Làm Vườn',
     description: 'Các loại dụng cụ làm vườn chuyên nghiệp'
   },
   {

@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../header/Header.jsx';
 import Footer from '../footer/Footer.jsx';
-import ChatWidget from '../chat/ChatWidget.jsx';
 import { ScrollToTop } from '../ui';
 
 /**
@@ -16,7 +15,6 @@ const MainLayout = ({ children }) => {
         {children}
       </main>
       <Footer />
-      <ChatWidget />
       <ScrollToTop />
     </>
   );
