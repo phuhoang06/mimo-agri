@@ -12,6 +12,10 @@ const ProductVariants = ({ product, selectedVariant, onVariantChange }) => {
   
   const options = hasVariations ? product.variations.options : [];
   const variants = hasVariations ? product.variations.variants : [];
+
+  // Debug sản phẩm
+  console.log("Product:", product);
+  console.log("Product variations:", product.variations);
   
   // Tìm biến thể dựa trên các tùy chọn được chọn
   const findVariantByOptions = () => {
@@ -121,22 +125,62 @@ const ProductVariants = ({ product, selectedVariant, onVariantChange }) => {
     });
   };
   
+  // Lấy thông tin tồn kho của biến thể
+  const getStockInfo = (variant) => {
+    if (!variant || !variant.stock) return { status: 'unknown', text: 'Đang cập nhật' };
+    
+    if (variant.stock <= 0) return { status: 'out-of-stock', text: 'Hết hàng' };
+    if (variant.stock < 10) return { status: 'low-stock', text: `Còn ${variant.stock} sản phẩm` };
+    return { status: 'in-stock', text: 'Còn hàng' };
+  };
+  
+  // Lấy biến thể hiển thị hình ảnh
+  const getVariantImage = () => {
+    if (selectedVariant && selectedVariant.image) {
+      return selectedVariant.image;
+    }
+    return product.img; // Sử dụng hình ảnh mặc định của sản phẩm
+  };
+
+  // Tính % giảm giá
+  const calculateDiscount = (variant) => {
+    if (!variant || !variant.oldPrice || variant.oldPrice <= variant.price) return null;
+    return Math.round((1 - variant.price / variant.oldPrice) * 100);
+  };
+  
   // Nếu không có variations, không hiển thị gì cả
   if (!hasVariations) {
     return null;
   }
   
+  // Lấy thông tin stock của biến thể đã chọn
+  const stockInfo = selectedVariant ? getStockInfo(selectedVariant) : { status: 'unknown', text: 'Đang cập nhật' };
+  const discountPercent = selectedVariant ? calculateDiscount(selectedVariant) : null;
+  
   return (
     <div className="product-variations mb-4">
+      {/* Hiển thị hình ảnh biến thể nếu có */}
+      {selectedVariant && selectedVariant.image && (
+        <div className="variant-image mb-3">
+          <img 
+            src={getVariantImage()} 
+            alt={`${product.title} - ${selectedVariant.attributes.join(' - ')}`}
+            className="img-fluid variant-thumbnail"
+            style={{ maxHeight: '80px', width: 'auto' }}
+          />
+        </div>
+      )}
+      
+      {/* Hiển thị các nhóm tùy chọn */}
       {options.map((option, optionIndex) => (
         <div key={optionIndex} className="variation-option-group mb-3">
-          <h5 className="option-title mb-2">
-            {option.name}:
+          <h5 className="option-title mb-2 d-flex align-items-center">
+            <span>{option.name}:</span>
             <small className="ms-2 text-muted" style={{ fontSize: '12px', fontWeight: 'normal' }}>
               (Click vào tùy chọn đã chọn để hủy)
             </small>
           </h5>
-          <div className="option-values">
+          <div className="option-values d-flex flex-wrap gap-2">
             {option.values.map((value, valueIndex) => {
               const isAvailable = isOptionValueAvailable(option.name, value);
               const isSelected = selectedOptions[option.name] === value;
@@ -144,9 +188,15 @@ const ProductVariants = ({ product, selectedVariant, onVariantChange }) => {
               return (
                 <div
                   key={valueIndex}
-                  className={`option-value ${isSelected ? 'active' : ''} ${!isAvailable ? 'disabled' : ''}`}
+                  className={`option-value p-2 border rounded ${isSelected ? 'active bg-primary text-white' : ''} 
+                              ${!isAvailable ? 'disabled opacity-50' : ''}`}
                   onClick={() => isAvailable && handleOptionSelect(option.name, value)}
-                  style={{ cursor: isAvailable ? 'pointer' : 'not-allowed' }}
+                  style={{ 
+                    cursor: isAvailable ? 'pointer' : 'not-allowed',
+                    minWidth: '60px',
+                    textAlign: 'center',
+                    transition: 'all 0.2s ease'
+                  }}
                   title={isSelected ? `Nhấn để hủy chọn "${value}"` : `Chọn "${value}"`}
                 >
                   {value}
@@ -157,22 +207,55 @@ const ProductVariants = ({ product, selectedVariant, onVariantChange }) => {
         </div>
       ))}
       
+      {/* Hiển thị thông tin biến thể đã chọn */}
       {selectedVariant && (
-        <div className="selected-variant-info mt-3">
+        <div className="selected-variant-info mt-4 p-3 border rounded bg-light">
+          {/* Hiển thị giá cả */}
           <div className="variant-price mb-2">
-            <span className="current-price text-danger fw-bold">
+            <span className="current-price text-danger fw-bold fs-4">
               {selectedVariant.price.toLocaleString()}₫
             </span>
-            {selectedVariant.oldPrice && (
+            {selectedVariant.oldPrice && selectedVariant.oldPrice > selectedVariant.price && (
               <>
                 <span className="original-price text-muted text-decoration-line-through ms-2">
                   {selectedVariant.oldPrice.toLocaleString()}₫
                 </span>
-                <span className="discount-percent text-success ms-2">
-                  -{Math.round((1 - selectedVariant.price / selectedVariant.oldPrice) * 100)}%
-                </span>
+                {discountPercent && (
+                  <span className="discount-percent text-success ms-2 fw-bold">
+                    -{discountPercent}%
+                  </span>
+                )}
               </>
             )}
+          </div>
+          
+          {/* Hiển thị trạng thái tồn kho */}
+          <div className={`stock-status ${stockInfo.status} mb-2`}>
+            <i className={`bi ${stockInfo.status === 'in-stock' ? 'bi-check-circle-fill text-success' : 
+                               stockInfo.status === 'low-stock' ? 'bi-exclamation-circle-fill text-warning' : 
+                               'bi-x-circle-fill text-danger'}`}></i>
+            <span className={`ms-2 ${stockInfo.status === 'in-stock' ? 'text-success' : 
+                                      stockInfo.status === 'low-stock' ? 'text-warning' : 
+                                      'text-danger'}`}>
+              {stockInfo.text}
+            </span>
+          </div>
+          
+          {/* Hiển thị ID sản phẩm */}
+          <div className="variant-id text-muted">
+            <small>Mã sản phẩm: {selectedVariant.id}</small>
+          </div>
+          
+          {/* Hiển thị các thuộc tính đã chọn */}
+          <div className="selected-attributes mt-2">
+            <small className="text-muted">
+              {selectedVariant.attributes.map((attr, index) => (
+                <span key={index}>
+                  {options[index]?.name}: <strong>{attr}</strong>
+                  {index < selectedVariant.attributes.length - 1 ? ' | ' : ''}
+                </span>
+              ))}
+            </small>
           </div>
         </div>
       )}

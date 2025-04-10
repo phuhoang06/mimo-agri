@@ -9,9 +9,8 @@ import { useScrollNavigation } from '../hooks';
 import { 
   allProducts,
   topSellingProducts, 
-  newProducts,
-  getUniqueProducts 
-} from '../utils/products';
+  newProducts
+} from '../data/products/index';
 
 // Import product images
 import product1 from '../assets/product/chai-xit/1.png';
@@ -26,8 +25,8 @@ function Home() {
   
   const { navigateWithScroll, scrollToRef } = useScrollNavigation();
   
-  // Loại bỏ trùng lặp để hiển thị trang "Tất cả sản phẩm"
-  const uniqueProducts = getUniqueProducts(allProducts);
+  // Lấy tất cả sản phẩm
+  const products = allProducts();
   
   // Function to handle product page navigation with smooth scroll
   const handleProductsNav = () => navigateWithScroll('/san-pham');
@@ -44,7 +43,7 @@ function Home() {
       <ProductSection 
         id="top-selling" 
         title="SẢN PHẨM BÁN CHẠY"
-        products={topSellingProducts}
+        products={topSellingProducts()}
         limit={5}
       />
 
@@ -52,7 +51,7 @@ function Home() {
       <ProductSection 
         id="all-products" 
         title="TẤT CẢ SẢN PHẨM"
-        products={uniqueProducts}
+        products={products}
         limit={10}
         sectionRef={allProductsRef}
         actionButton={true}

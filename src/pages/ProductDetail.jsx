@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
-import { getProductById } from '../utils/products';
-import { useCart } from '../utils/CartManager';
+import { allProducts } from '../data/products';
+import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
+import { setSelectedProduct } from '../store/slices/productSlice';
+import { addToCart } from '../store/slices/orderSlice';
 import Header from '../components/header/Header.jsx';
 import Footer from '../components/footer/Footer.jsx';
 
@@ -24,13 +26,14 @@ import productImg4 from '../assets/product/tinh-dau/1.png';
 
 const ProductDetail = () => {
   const { productId } = useParams();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useAppDispatch();
+  const { selectedProduct: product, loading } = useAppSelector(state => state.products);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState(null);
-  const { addToCart, isCartEnabled } = useCart();
+  const { cart } = useAppSelector(state => state.order);
+  const isCartEnabled = cart.length > 0;
 
   // Sample product images array for demo (in real app, these would come from the product data)
   const productImages = [
@@ -61,7 +64,8 @@ const ProductDetail = () => {
   useEffect(() => {
     // Convert productId from string to number since IDs in products.js are numbers
     const id = parseInt(productId, 10);
-    const foundProduct = getProductById(id);
+    const products = allProducts();
+    const foundProduct = products.find(p => p.id === id);
     
     if (foundProduct) {
       // Enhance product with more detail for demonstration
@@ -96,13 +100,12 @@ const ProductDetail = () => {
         ];
       }
       
-      setProduct(foundProduct);
+      dispatch(setSelectedProduct(foundProduct));
 
       // Reset selectedVariant when product changes
       setSelectedVariant(null);
     }
-    setLoading(false);
-  }, [productId]);
+  }, [productId, dispatch]);
 
   const handleVariantChange = (variant) => {
     setSelectedVariant(variant);
@@ -137,13 +140,18 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (product) {
-      // Tạo chi tiết sản phẩm với biến thể đã chọn
       const variantText = formatVariantText();
       const title = product.title + (variantText ? ` (${variantText.trim().replace(/\n/g, ', ')})` : '');
       const price = getProductPrice();
-      // Sử dụng ảnh từ biến thể nếu có, nếu không sử dụng ảnh mặc định của sản phẩm
       const image = selectedVariant && selectedVariant.image ? selectedVariant.image : product.img;
-      addToCart(title, price, image, quantity);
+      
+      dispatch(addToCart({
+        id: product.id,
+        name: title,
+        price: price,
+        image: image,
+        quantity: quantity
+      }));
     }
   };
 
@@ -245,80 +253,67 @@ const ProductDetail = () => {
   return (
     <>
       <Header />
-      <Container className="page-content-container py-4">
-        <div className="mb-3">
-          <Link to="/san-pham" className="text-decoration-none">
-            <i className="fa fa-arrow-left me-2"></i>Quay lại danh sách sản phẩm
-          </Link>
-        </div>
-        
-        <Row>
-          {/* Product Images Gallery */}
-          <Col md={6} className="mb-4">
-            <ProductImageGallery 
-              product={product} 
-              selectedImage={selectedImage} 
-              setSelectedImage={setSelectedImage} 
-              selectedVariant={selectedVariant}
-            />
-          </Col>
-          
-          {/* Product Information */}
-          <Col md={6}>
-            <ProductInfo 
-              product={product} 
-              selectedVariant={selectedVariant} 
-            />
-            
-            {/* Product Variants - Hiển thị các phân loại sản phẩm */}
-            <ProductVariants
-              product={product}
-              selectedVariant={selectedVariant}
-              onVariantChange={handleVariantChange}
-            />
-            
-            {/* Quantity Selector - Không cho phép chọn số lượng nếu hết hàng */}
-            {isCartEnabled && !isOutOfStock() && (
-              <QuantitySelector 
-                quantity={quantity} 
-                setQuantity={setQuantity} 
+      <Container className="page-content-container py-5">
+        <div className="product-detail-container">
+          <Row>
+            <Col lg={6} md={6} sm={12} className="mb-4">
+              <ProductImageGallery 
+                product={product || {}} 
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
+                selectedVariant={selectedVariant}
               />
-            )}
+            </Col>
             
-            {/* Hiển thị thông báo hết hàng nếu không còn hàng */}
-            {isOutOfStock() && (
-              <div className="alert alert-danger mb-3">
-                Sản phẩm đã hết hàng
-              </div>
-            )}
-            
-            {/* Product Actions - Vô hiệu hóa các nút khi hết hàng */}
-            <ProductActions 
-              product={product}
-              quantity={quantity}
-              isCartEnabled={isCartEnabled && !isOutOfStock()}
-              handleAddToCart={handleAddToCart}
-              handleBuyNow={handleBuyNow}
-              handleZaloBuy={handleZaloBuy}
-              selectedVariant={selectedVariant}
-              isOutOfStock={isOutOfStock()}
-            />
-            
-            <SocialShare 
-              handleFacebookShare={handleFacebookShare}
-              handleMessengerShare={handleMessengerShare}
-              handleZaloShare={handleZaloShare}
-            />
-          </Col>
-        </Row>
-        
-        {/* Product Details Tabs */}
-        <ProductTabs product={product} />
+            <Col lg={6} md={6} sm={12} className="mb-4">
+              <ProductInfo
+                title={product.title}
+                price={getProductPrice()}
+                oldPrice={getProductOldPrice()}
+                categoryId={product.categoryId}
+                description={product.description}
+              />
+              
+              {/* Render the ProductVariants component */}
+              <ProductVariants
+                product={product}
+                selectedVariant={selectedVariant}
+                onVariantChange={handleVariantChange}
+              />
+              
+              <QuantitySelector
+                quantity={quantity}
+                setQuantity={setQuantity}
+                isDisabled={isOutOfStock()}
+              />
+              
+              <ProductActions
+                onAddToCart={handleAddToCart}
+                onBuyNow={handleBuyNow}
+                onZaloBuy={handleZaloBuy}
+                isOutOfStock={isOutOfStock()}
+              />
+              
+              <SocialShare 
+                onFacebookShare={handleFacebookShare}
+                onMessengerShare={handleMessengerShare}
+                onZaloShare={handleZaloShare}
+              />
+            </Col>
+          </Row>
+          
+          <Row className="mt-5">
+            <Col>
+              <ProductTabs 
+                product={product}
+              />
+            </Col>
+          </Row>
+        </div>
       </Container>
+      
+      <MessengerChat />
       <Footer />
-
-      {/* Facebook Messenger Plugin - Only on desktop */}
-      {!isMobile && <MessengerChat />}
     </>
   );
 };

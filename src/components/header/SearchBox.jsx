@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, ListGroup, Image } from 'react-bootstrap';
-import { searchProducts } from '../../utils/products';
+import { searchProducts } from '../../data/products';
 
 /**
  * Component hiển thị ô tìm kiếm với chức năng gợi ý sản phẩm
@@ -31,7 +31,7 @@ const SearchBox = () => {
     
     // Hiển thị gợi ý khi có ít nhất 2 ký tự
     if (value.trim().length >= 2) {
-      const results = searchProducts(value, 5);
+      const results = searchProducts(value).slice(0, 5); // Giới hạn 5 kết quả
       setSuggestions(results);
       setShowSuggestions(true);
     } else {

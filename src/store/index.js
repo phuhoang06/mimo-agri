@@ -1,20 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './slices/counterSlice';
-import userReducer from './slices/userSlice';
 import productReducer from './slices/productSlice';
-import cartReducer from './slices/cartSlice';
+import orderReducer from './slices/orderSlice';
+import loggerMiddleware from './middleware/loggerMiddleware';
 
 // Import reducers (we'll create these next)
 
 const store = configureStore({
   reducer: {
     counter: counterReducer,
-    user: userReducer,
     products: productReducer,
-    cart: cartReducer,
+    order: orderReducer,
   },
-  // Middleware và các cấu hình khác có thể thêm ở đây
-  devTools: process.env.NODE_ENV !== 'production',
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(loggerMiddleware),
 });
 
 export default store; 

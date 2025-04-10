@@ -3,12 +3,11 @@ import {
   allProducts,
   topSellingProducts,
   newProducts,
-  getUniqueProducts,
-  getProductById,
-  filterProductsByCategory,
+  getProductsByCategory,
+  searchProducts as filterProductsBySearch,
   filterProductsByPrice,
-  filterProductsBySearch
-} from '../utils/products';
+  sortProducts
+} from '../data/products';
 
 /**
  * Hook tái sử dụng cho các thao tác với sản phẩm
@@ -30,22 +29,22 @@ const useProducts = (options = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(limit || 10);
 
-  // Unique products without duplicates
-  const uniqueProducts = useMemo(() => getUniqueProducts(allProducts), []);
+  // Get all products
+  const products = useMemo(() => allProducts(), []);
 
   // Get a specific product by ID
   const product = useMemo(() => 
-    productId ? getProductById(productId) : null, 
-    [productId]
+    productId ? products.find(p => p.id === productId) : null, 
+    [productId, products]
   );
 
   // Filter products based on criteria
   const filteredProducts = useMemo(() => {
-    let results = uniqueProducts;
+    let results = products;
 
     // Filter by category
     if (category && category !== 'all') {
-      results = filterProductsByCategory(results, category);
+      results = getProductsByCategory(category);
     }
 
     // Filter by price range
@@ -55,11 +54,11 @@ const useProducts = (options = {}) => {
 
     // Filter by search term
     if (searchTerm) {
-      results = filterProductsBySearch(results, searchTerm);
+      results = filterProductsBySearch(searchTerm);
     }
 
     return results;
-  }, [uniqueProducts, category, priceRange, searchTerm]);
+  }, [products, category, priceRange, searchTerm]);
 
   // Pagination
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
@@ -78,10 +77,9 @@ const useProducts = (options = {}) => {
   return {
     // Data
     product,
-    allProducts,
-    uniqueProducts,
-    topSellingProducts,
-    newProducts,
+    allProducts: products,
+    topSellingProducts: topSellingProducts(),
+    newProducts: newProducts(),
     filteredProducts,
     paginatedProducts,
     
@@ -99,12 +97,6 @@ const useProducts = (options = {}) => {
     setPriceRange,
     searchTerm,
     setSearchTerm,
-    
-    // Helper functions
-    getProductById,
-    filterProductsByCategory,
-    filterProductsByPrice,
-    filterProductsBySearch
   };
 };
 

@@ -1,0 +1,1 @@
+/* Hướng dẫn thay đổi favicon không hiển thị nền */

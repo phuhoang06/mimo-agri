@@ -389,7 +389,7 @@
   color: #404e5b;
 }
 
-/* Product Variants - Shopee Style */
+/* Product Variations */
 .product-variations {
   margin-bottom: 20px;
 }
@@ -399,8 +399,8 @@
 }
 
 .option-title {
+  font-size: 0.9rem;
   font-weight: 600;
-  font-size: 14px;
   margin-bottom: 8px;
   color: #333;
 }
@@ -408,19 +408,19 @@
 .option-values {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .option-value {
-  cursor: pointer;
   padding: 6px 12px;
-  border: 1px solid #d5d5d5;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 14px;
-  min-width: 40px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  min-width: 60px;
   text-align: center;
-  position: relative;
   transition: all 0.2s ease;
+  position: relative;
   background-color: #fff;
 }
 
@@ -429,69 +429,128 @@
 }
 
 .option-value.active {
-  color: var(--brand-green);
   border-color: var(--brand-green);
-  background-color: rgba(0, 128, 0, 0.05);
-  position: relative;
+  background-color: var(--brand-green);
+  color: white;
+  font-weight: 500;
 }
 
 .option-value.active::after {
-  content: '✓';
+  content: "";
   position: absolute;
-  top: 2px;
-  right: 4px;
-  font-size: 10px;
-  color: var(--brand-green);
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--brand-green);
 }
 
 .option-value.active:hover {
-  background-color: rgba(0, 128, 0, 0.1);
-  box-shadow: 0 0 0 1px var(--brand-green);
+  background-color: var(--brand-green-dark, #218838);
+  border-color: var(--brand-green-dark, #218838);
 }
 
 .option-value.active:hover::after {
-  content: '✕';
-  color: #ff6b6b;
+  border-top-color: var(--brand-green-dark, #218838);
 }
 
 .option-value.disabled {
-  cursor: not-allowed;
-  color: #ccc;
   border-color: #eee;
-  background-color: #f9f9f9;
-  position: relative;
+  background-color: #f8f8f8;
+  color: #bbb;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.7;
 }
 
 .option-value.disabled::after {
-  content: '';
+  content: "✕";
   position: absolute;
   top: 50%;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: #eee;
-  transform: rotate(-20deg);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #d9534f;
+  font-size: 1.2rem;
+  opacity: 0.3;
 }
 
+/* Selected Variant Info */
 .selected-variant-info {
-  background-color: #f8f8f8;
-  padding: 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
   border-radius: 4px;
+  padding: 12px;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .variant-price {
-  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 .variant-price .current-price {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #d50000;
 }
 
-.variant-stock {
-  color: #666;
-  font-size: 14px;
+/* Stock Status */
+.stock-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.stock-status.in-stock {
+  color: #28a745;
+}
+
+.stock-status.low-stock {
+  color: #ffc107;
+}
+
+.stock-status.out-of-stock {
+  color: #dc3545;
+}
+
+.stock-status i {
+  margin-right: 6px;
+  font-size: 1rem;
+}
+
+.variant-id {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 6px;
+}
+
+.selected-attributes {
+  font-size: 0.85rem;
+  color: #495057;
+}
+
+.selected-attributes strong {
+  color: #212529;
+}
+
+/* Variant Image */
+.variant-image {
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px;
+  background-color: #fff;
+  margin-bottom: 15px;
+}
+
+.variant-thumbnail {
+  max-height: 80px;
+  width: auto;
+  object-fit: contain;
 }
 
 /* Responsive adjustments */

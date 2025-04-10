@@ -8,15 +8,14 @@ import FilterSidebar from '../components/sidebar/FilterSidebar.jsx';
 import Pagination from '../components/ui/Pagination.jsx';
 import { categories } from '../data/categories';
 import { 
-  allProducts, 
+  allProducts,
   topSellingProducts, 
   newProducts,
   getProductsByCategory,
   searchProducts,
   filterProductsByPrice,
-  sortProducts,
-  getUniqueProducts
-} from '../utils/products';
+  sortProducts
+} from '../data/products/index';
 
 function Products() {
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -31,14 +30,14 @@ function Products() {
   const location = useLocation();
   const navigate = useNavigate();
   
-  // Loại bỏ các sản phẩm trùng lặp
-  const uniqueProducts = getUniqueProducts(allProducts);
+  // Lấy tất cả sản phẩm
+  const products = allProducts();
   
   // Các danh mục chính
   const mainCategories = [
-    { id: 'all', name: 'Tất cả sản phẩm', products: uniqueProducts },
-    { id: 'top-selling', name: 'Sản phẩm bán chạy', products: topSellingProducts },
-    { id: 'new-products', name: 'Sản phẩm mới', products: newProducts },
+    { id: 'all', name: 'Tất cả sản phẩm', products },
+    { id: 'top-selling', name: 'Sản phẩm bán chạy', products: topSellingProducts() },
+    { id: 'new-products', name: 'Sản phẩm mới', products: newProducts() },
   ];
 
   // Thêm danh mục sản phẩm từ categories
@@ -135,11 +134,11 @@ function Products() {
     
     // Lấy danh sách sản phẩm dựa vào danh mục đang chọn
     if (activeCategory === 'all') {
-      productsToDisplay = uniqueProducts;
+      productsToDisplay = products;
     } else if (activeCategory === 'top-selling') {
-      productsToDisplay = topSellingProducts;
+      productsToDisplay = topSellingProducts();
     } else if (activeCategory === 'new-products') {
-      productsToDisplay = newProducts;
+      productsToDisplay = newProducts();
     } else {
       productsToDisplay = getProductsByCategory(activeCategory);
     }
