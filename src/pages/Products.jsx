@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Button, Tab, Nav } from 'react-bootstrap';
-import Header from '../components/header/Header.jsx';
-import Footer from '../components/footer/Footer.jsx';
-import ProductCard from '../components/product/ProductCard.jsx';
+import { Container, Row, Col, Form, Button, Tab, Nav, Offcanvas } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
+import ProductCard from '../components/product/ProductCard';
+import { useResponsive } from '../utils/responsive';
 import { 
   allProducts, 
   topSellingProducts, 
@@ -16,11 +18,13 @@ import {
 } from '../utils/products';
 
 function Products() {
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const { isMobile, isTablet } = useResponsive();
+  const [filteredProducts, setFilteredProducts] = useState(allProducts);
   const [searchTerm, setSearchTerm] = useState('');
-  const [priceRange, setPriceRange] = useState({ min: 0, max: 1000000 });
-  const [sortBy, setSortBy] = useState('default');
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 500000 });
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showFilters, setShowFilters] = useState(false);
+  const [sortOption, setSortOption] = useState('default');
   
   // Loại bỏ các sản phẩm trùng lặp
   const uniqueProducts = getUniqueProducts(allProducts);
@@ -60,157 +64,209 @@ function Products() {
     };
   }, []);
 
-  // Lọc sản phẩm dựa trên thanh tìm kiếm và các bộ lọc
-  const handleSearch = () => {
-    // Xác định bộ sản phẩm cơ sở dựa trên danh mục đang chọn
-    let baseProducts = uniqueProducts;
-    if (activeCategory !== 'all') {
-      const category = categories.find(cat => cat.id === activeCategory);
-      if (category) {
-        baseProducts = category.products;
-      }
+  // Xử lý lọc và sắp xếp sản phẩm
+  useEffect(() => {
+    let results = [...allProducts];
+    
+    // Lọc theo danh mục
+    if (selectedCategory !== 'all') {
+      results = results.filter(product => product.category === selectedCategory);
     }
     
-    // Lọc theo từ khóa tìm kiếm
-    let results = searchTerm ? searchProducts(searchTerm) : [...baseProducts];
-    
     // Lọc theo khoảng giá
-    results = filterProductsByPrice(results, priceRange.min, priceRange.max);
+    results = results.filter(product => 
+      product.price >= priceRange.min && product.price <= priceRange.max
+    );
+    
+    // Lọc theo từ khóa tìm kiếm
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      results = results.filter(product => 
+        product.title.toLowerCase().includes(term) || 
+        product.category.toLowerCase().includes(term)
+      );
+    }
     
     // Sắp xếp sản phẩm
-    if (sortBy !== 'default') {
-      results = sortProducts(results, sortBy);
+    switch(sortOption) {
+      case 'price-asc':
+        results.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-desc':
+        results.sort((a, b) => b.price - a.price);
+        break;
+      case 'name-asc':
+        results.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'name-desc':
+        results.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case 'popularity':
+        results.sort((a, b) => b.sold - a.sold);
+        break;
+      default:
+        // Mặc định là sắp xếp theo rating
+        results.sort((a, b) => b.rating - a.rating);
     }
     
     setFilteredProducts(results);
-  };
+  }, [selectedCategory, priceRange, searchTerm, sortOption]);
 
-  // Áp dụng bộ lọc khi có thay đổi
+  // Đóng filter sidebar trên mobile khi có sự thay đổi
   useEffect(() => {
-    handleSearch();
-  }, [searchTerm, priceRange, sortBy, activeCategory]);
+    if (isMobile && showFilters) {
+      setShowFilters(false);
+    }
+  }, [selectedCategory, priceRange]);
 
-  // Chọn danh mục
-  const handleCategorySelect = (categoryId) => {
-    setActiveCategory(categoryId);
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
+
+  const handlePriceChange = (e) => {
+    const value = parseInt(e.target.value);
+    setPriceRange({ ...priceRange, max: value });
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
+  };
+
+  // Filter sidebar cho desktop
+  const renderFilterSidebar = () => (
+    <div className="filter-sidebar p-3 border rounded bg-light">
+      <h5 className="mb-3">Danh mục sản phẩm</h5>
+      <Form.Group className="mb-4">
+        <Form.Check
+          type="radio"
+          label="Tất cả sản phẩm"
+          name="category"
+          id="category-all"
+          checked={selectedCategory === 'all'}
+          onChange={() => handleCategoryChange('all')}
+          className="mb-2"
+        />
+        {categories.map((category, index) => (
+          <Form.Check
+            key={index}
+            type="radio"
+            label={category.name}
+            name="category"
+            id={`category-${index}`}
+            checked={selectedCategory === category.id}
+            onChange={() => handleCategoryChange(category.id)}
+            className="mb-2"
+          />
+        ))}
+      </Form.Group>
+
+      <h5 className="mb-3">Giá</h5>
+      <Form.Group className="mb-4">
+        <Form.Label>
+          Tối đa: {priceRange.max.toLocaleString()}₫
+        </Form.Label>
+        <Form.Range
+          min={0}
+          max={500000}
+          step={10000}
+          value={priceRange.max}
+          onChange={handlePriceChange}
+        />
+      </Form.Group>
+    </div>
+  );
 
   return (
     <>
       <Header />
       
-      <Container fluid className="mt-4 px-3 px-md-4">
+      <Container fluid className="px-3 px-md-4 mt-4">
+        <div className="d-flex flex-wrap justify-content-between align-items-center mb-4">
+          <h1 className="h3 mb-3 mb-md-0">Cửa hàng sản phẩm</h1>
+          
+          <div className="d-flex gap-2">
+            {isMobile && (
+              <Button
+                variant="outline-secondary"
+                onClick={() => setShowFilters(true)}
+                className="me-2"
+              >
+                <i className="fa fa-filter me-1"></i> Lọc
+              </Button>
+            )}
+
+            <Form.Select 
+              onChange={handleSortChange} 
+              value={sortOption}
+              className="sort-select"
+              size={isMobile ? "sm" : "md"}
+            >
+              <option value="default">Sắp xếp theo</option>
+              <option value="popularity">Phổ biến nhất</option>
+              <option value="price-asc">Giá: Thấp đến cao</option>
+              <option value="price-desc">Giá: Cao đến thấp</option>
+              <option value="name-asc">Tên: A-Z</option>
+              <option value="name-desc">Tên: Z-A</option>
+            </Form.Select>
+          </div>
+        </div>
+
         <Row>
-          {/* Sidebar - Bộ lọc */}
-          <Col lg={3} className="mb-4">
-            <div className="sidebar-block mb-4">
-              <h5 className="sidebar-title">Tìm kiếm</h5>
-              <Form.Control 
-                type="text" 
-                placeholder="Tìm kiếm sản phẩm..." 
+          {/* Filter sidebar cho desktop */}
+          {!isMobile && (
+            <Col lg={3} className="d-none d-lg-block mb-4">
+              {renderFilterSidebar()}
+            </Col>
+          )}
+          
+          {/* Danh sách sản phẩm */}
+          <Col lg={isMobile ? 12 : 9}>
+            <div className="mb-4">
+              <Form.Control
+                type="search"
+                placeholder="Tìm kiếm sản phẩm..."
+                onChange={handleSearch}
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="mb-3"
               />
             </div>
-
-            <div className="sidebar-block mb-4">
-              <h5 className="sidebar-title">Giá</h5>
-              <div className="price-range mb-3">
-                <div className="d-flex justify-content-between">
-                  <Form.Control 
-                    type="number" 
-                    placeholder="Từ" 
-                    value={priceRange.min}
-                    onChange={(e) => setPriceRange({...priceRange, min: parseInt(e.target.value) || 0})}
-                    className="me-2"
-                  />
-                  <Form.Control 
-                    type="number" 
-                    placeholder="Đến" 
-                    value={priceRange.max}
-                    onChange={(e) => setPriceRange({...priceRange, max: parseInt(e.target.value) || 1000000})}
-                  />
+            
+            <Row className="g-3">
+              {filteredProducts.map((product, index) => (
+                <ProductCard 
+                  key={index} 
+                  product={product}
+                  cols={{ xs: 6, sm: 6, md: 4, lg: 4 }}
+                />
+              ))}
+              
+              {filteredProducts.length === 0 && (
+                <div className="col-12 text-center p-5">
+                  <p className="mb-0">Không tìm thấy sản phẩm phù hợp.</p>
                 </div>
-              </div>
-            </div>
-
-            <div className="sidebar-block mb-4">
-              <h5 className="sidebar-title">Sắp xếp theo</h5>
-              <Form.Select 
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="default">Mặc định</option>
-                <option value="price-asc">Giá: Thấp đến cao</option>
-                <option value="price-desc">Giá: Cao đến thấp</option>
-                <option value="popular">Phổ biến nhất</option>
-              </Form.Select>
-            </div>
-
-            <div className="sidebar-block">
-              <h5 className="sidebar-title">Danh mục sản phẩm</h5>
-              <ul className="category-menu-list">
-                {predefinedCategories.map((category) => (
-                  <li key={category.id} className="menu-item">
-                    <a 
-                      href={`#${category.id}`} 
-                      className="menu-link"
-                      onClick={(e) => {
-                        const categoryProducts = getProductsByCategory(category.id);
-                        setFilteredProducts(categoryProducts);
-                      }}
-                    >
-                      {category.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Col>
-
-          {/* Nội dung chính - Hiển thị sản phẩm */}
-          <Col lg={9}>
-            <div className="d-flex justify-content-between align-items-center mb-4">
-              <h2 className="m-0">Tất cả sản phẩm</h2>
-              <div>
-                <span>Hiển thị {filteredProducts.length} sản phẩm</span>
-              </div>
-            </div>
-
-            <Tab.Container defaultActiveKey="all" activeKey={activeCategory} onSelect={handleCategorySelect}>
-              <Nav variant="tabs" className="mb-3">
-                {categories.map(category => (
-                  <Nav.Item key={category.id}>
-                    <Nav.Link eventKey={category.id}>
-                      {category.name}
-                    </Nav.Link>
-                  </Nav.Item>
-                ))}
-              </Nav>
-
-              <Tab.Content>
-                {categories.map(category => (
-                  <Tab.Pane key={category.id} eventKey={category.id}>
-                    {filteredProducts.length > 0 ? (
-                      <Row className="g-3">
-                        {filteredProducts.map((product, index) => (
-                          <ProductCard key={index} product={product} className="col-6 col-sm-4 col-md-3 col-lg-2-4" />
-                        ))}
-                      </Row>
-                    ) : (
-                      <div className="text-center py-5">
-                        <p className="text-muted">Không tìm thấy sản phẩm nào phù hợp với bộ lọc đã chọn.</p>
-                      </div>
-                    )}
-                  </Tab.Pane>
-                ))}
-              </Tab.Content>
-            </Tab.Container>
+              )}
+            </Row>
           </Col>
         </Row>
       </Container>
-
+      
+      {/* Filter Offcanvas cho mobile */}
+      <Offcanvas 
+        show={showFilters} 
+        onHide={() => setShowFilters(false)} 
+        placement="start"
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Lọc sản phẩm</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          {renderFilterSidebar()}
+        </Offcanvas.Body>
+      </Offcanvas>
+      
       <Footer />
     </>
   );
