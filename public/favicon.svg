@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Vòng tròn xanh lá bên ngoài -->
+  <circle cx="50" cy="50" r="48" fill="#00853C" />
+  <!-- Vòng tròn trắng bên trong -->
+  <circle cx="50" cy="50" r="44" fill="white" />
+  <!-- Đường viền đứt đoạn xanh lá -->
+  <circle cx="50" cy="50" r="40" fill="none" stroke="#00853C" stroke-width="2" stroke-dasharray="5,3" />
+  
+  <!-- Logo MIMO -->
+  <rect x="25" y="25" width="20" height="20" rx="3" fill="#00853C" />
+  <rect x="55" y="25" width="20" height="20" rx="3" fill="#FF8A00" />
+  <rect x="25" y="55" width="20" height="20" rx="3" fill="#FF8A00" />
+  <rect x="55" y="55" width="20" height="20" rx="3" fill="#00853C" />
+  
+  <!-- Chữ M, M, I và O -->
+  <text x="35" y="40" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">M</text>
+  <text x="65" y="40" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">M</text>
+  <text x="35" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">I</text>
+  <circle cx="65" cy="65" r="7" fill="none" stroke="white" stroke-width="2" />
+  
+  <!-- Chữ AGRICULTURE -->
+  <text x="50" y="88" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#333" text-anchor="middle">AGRICULTURE</text>
+</svg>

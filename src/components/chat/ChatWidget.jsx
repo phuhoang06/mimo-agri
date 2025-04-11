@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import facebookIcon from '../../assets/icon/facebook.png';
-import zaloIcon from '../../assets/icon/zalo.png';
-import supportIcon from '../../assets/icon/support-icon.png';
+
 import { useCart } from '../../utils/CartManager';
 import { Button } from '../ui';
+
 
 // Biến toàn cục đơn giản để lưu trữ trạng thái
 if (typeof window !== 'undefined') {
@@ -178,12 +177,13 @@ function ChatWidget() {
         </Button>
         
         <Button 
-          variant="hotline"
-          onClick={() => window.open('tel:0853991995', '_blank')}
-          icon="fas fa-phone-alt"
-        >
-          Hotline
-        </Button>
+  variant="hotline"
+  onClick={() => window.open('tel:0853991995', '_blank')}
+  icon="fas fa-phone hotline-icon me-1"
+  style={{ color: '#ffffff' }} // Thêm inline style
+>
+  Hotline
+</Button>
       </div>
     </div>
   );

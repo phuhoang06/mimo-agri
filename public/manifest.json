@@ -1,11 +1,11 @@
 {
-  "short_name": "Mimo Shop",
-  "name": "Mimo Shop - E-commerce Platform",
+  "short_name": "Mimo Agriculture",
+  "name": "Mimo Agriculture Platform",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "mimo-logo.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
     }
   ],
   "start_url": ".",
