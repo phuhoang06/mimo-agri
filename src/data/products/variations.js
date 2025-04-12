@@ -16,7 +16,7 @@ export const productVariations = {
       { 
         id: "1-1", 
         attributes: ["750ml"], 
-        price: 128500, 
+        price: 129000, 
         oldPrice: 200000,
         stock: 50,
         image: chaiXit
