@@ -34,12 +34,6 @@ function TechnicalDocuments() {
                         <h5 className="tech-doc-title">{doc.title}</h5>
                       </Link>
                       <p className="tech-doc-description">{doc.description}</p>
-                      <div className="tech-doc-meta">
-                        <small className="text-muted">
-                          Ngày đăng: {doc.publishDate || '10/06/2023'} 
-                          {doc.author && <span> | Tác giả: {doc.author}</span>}
-                        </small>
-                      </div>
                       <div className="mt-2">
                         <Link to={`/tai-lieu-ky-thuat/${doc.id}`} className="btn btn-sm btn-outline-primary">
                           Xem chi tiết

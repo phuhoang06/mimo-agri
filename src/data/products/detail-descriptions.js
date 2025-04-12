@@ -862,6 +862,297 @@ Cần tư vấn hỗ trợ quý khách vui lòng inbox cho MiMo
       <li>Cẩn thận khi thao tác với đầu mũi nhọn để tránh gây thương tích.</li>
       <li>Giữ kéo xa tầm tay trẻ em.</li>
     </ul>
+  `,
+  // ID 15: Khay trồng rau mầm
+  15: `
+      🌟 **MiMo - Hạt Giống Nhập Khẩu**: Chuyên cung cấp các loại hạt giống và vật tư CHẤT LƯỢNG CAO từ các nước: Mỹ, Nga, Đài Loan, Trung Quốc, Nhật Bản, Hà Lan và sản phẩm chất lượng trong nước. 🌟 
+
+## 🔥 CAM KẾT VÀ BẢO HÀNH 🔥
+
+- Mimo cam kết sản phẩm chính hãng 100%.
+- Đổi miễn phí nếu gửi sai hoặc nhầm sản phẩm.
+- Hoàn tiền hoặc đổi miễn phí nếu sản phẩm bị hư hỏng trong quá trình vận chuyển.
+- Tư vấn cách sử dụng trọn đời.
+
+## 🍓 THÔNG TIN SẢN PHẨM: KHAY TRỒNG RAU MẦM
+
+### 🌱 Thông số kỹ thuật:
+
+| Kích thước | Chất liệu | Màu sắc | Trọng lượng |
+|------------|-----------|---------|-------------|
+| 25 x 18 x 3cm | Nhựa PP nguyên sinh | Trắng | 150 gram |
+
+### 🌱 Mô tả sản phẩm:
+
+Khay trồng rau mầm Loại 1 được làm từ nhựa nguyên sinh cao cấp, không chứa hóa chất độc hại, an toàn cho sức khỏe. Thiết kế thông minh với các lỗ thoát nước nhỏ giúp giữ ẩm tốt, tạo điều kiện lý tưởng cho hạt nảy mầm và phát triển.
+
+### 🌱 Ưu điểm nổi bật: 
+
+- **An toàn tuyệt đối**: Làm từ nhựa nguyên sinh không độc hại
+- **Bền bỉ, chắc chắn**: Không biến dạng khi sử dụng lâu dài
+- **Thiết kế thông minh**: Có lỗ thoát nước nhỏ giúp giữ ẩm tối ưu
+- **Đa năng**: Phù hợp trồng nhiều loại rau mầm khác nhau
+- **Tiết kiệm không gian**: Xếp chồng được nhiều tầng
+
+### 🌱 Công dụng chính:
+
+1. Trồng các loại rau mầm: đậu xanh, đậu đỏ, cải mầm, củ cải, cải ngọt,...
+2. Ươm hạt giống các loại rau
+3. Trồng rau thủy canh mini
+4. Trồng cây cảnh mini, sen đá
+
+### 🌱 Hướng dẫn sử dụng: 
+
+1. **Chuẩn bị**: Rửa sạch khay trước khi sử dụng
+2. **Lót giá thể**: Trải đều giấy ăn, bông gòn hoặc vải không dệt lên khay
+3. **Gieo hạt**: Rải đều hạt giống lên bề mặt giá thể
+4. **Tưới nước**: Phun sương nhẹ để làm ẩm giá thể
+5. **Bảo quản**: Đặt nơi thoáng mát, có ánh sáng nhẹ
+6. **Chăm sóc**: Tưới nước 1-2 lần/ngày, giữ ẩm đều
+
+### 🌱 Lưu ý khi sử dụng:
+
+- Vệ sinh khay sạch sẽ sau mỗi lần thu hoạch
+- Không để khay tiếp xúc trực tiếp với ánh nắng mặt trời quá lâu
+- Nên xếp chồng không quá 5 khay để đảm bảo độ thông thoáng
+
+## 💌 Hỗ trợ tư vấn: 085 399 1995
+
+#khayuomraumam #raumam #dungcutrongrau #dungculamvuon
+  `,
+  
+  // ID 16: Chậu vải trồng rau
+  16: `
+      🌟 **MiMo - Hạt Giống Nhập Khẩu**: Chuyên cung cấp các loại hạt giống và vật tư CHẤT LƯỢNG CAO từ các nước: Mỹ, Nga, Đài Loan, Trung Quốc, Nhật Bản, Hà Lan và sản phẩm chất lượng trong nước. 🌟 
+
+## 🔥 CAM KẾT VÀ BẢO HÀNH 🔥
+
+- Mimo cam kết sản phẩm chính hãng 100%.
+- Đổi miễn phí nếu gửi sai hoặc nhầm sản phẩm.
+- Hoàn tiền hoặc đổi miễn phí nếu sản phẩm bị hư hỏng trong quá trình vận chuyển.
+- Tư vấn cách sử dụng trọn đời.
+
+## 🍓 THÔNG TIN SẢN PHẨM: CHẬU VẢI TRỒNG RAU, TÚI VẢI TRỒNG CÂY
+
+### 🌱 Thông số kỹ thuật:
+
+| Kích thước | Màu sắc | Vật liệu | Trọng lượng |
+|------------|---------|----------|-------------|
+| Nhiều size từ 1-50 gallon | Đen | Vải địa kỹ thuật không dệt | Tùy kích thước |
+
+### 🌱 Mô tả sản phẩm:
+
+Chậu vải/túi vải trồng cây là giải pháp trồng trọt hiện đại, thông thoáng, thoát nước tốt, phù hợp với nhiều loại cây trồng. Được làm từ vải địa kỹ thuật bền bỉ, thân thiện với môi trường, có thể tái sử dụng nhiều lần.
+
+### 🌱 Ưu điểm nổi bật: 
+
+- **Độ bền cao**: Chịu được tác động của môi trường, thời tiết khắc nghiệt
+- **Thông thoáng**: Cho phép không khí lưu thông, giúp rễ cây khỏe mạnh
+- **Thoát nước tốt**: Không bị ngập úng, giảm nguy cơ thối rễ
+- **Nhẹ và dễ di chuyển**: Thuận tiện cho việc sắp xếp, thay đổi vị trí
+- **Thân thiện môi trường**: Có thể tái sử dụng nhiều lần
+
+### 🌱 Công dụng chính:
+
+1. Trồng rau, hoa, cây cảnh trên ban công, sân thượng
+2. Trồng các loại cây ăn trái trong nhà vườn
+3. Trồng cây trong nhà, văn phòng
+4. Phù hợp cho vườn rau sạch, vườn hữu cơ
+
+### 🌱 Hướng dẫn sử dụng: 
+
+1. **Chuẩn bị**: Mở túi vải ra, xoay tròn vành túi để tạo hình chậu
+2. **Đặt vị trí**: Đặt túi ở nơi bằng phẳng, thoáng mát, có ánh sáng phù hợp
+3. **Đổ giá thể**: Cho đất trồng vào túi, lấp đầy khoảng 90% thể tích
+4. **Trồng cây**: Đào hố nhỏ, đặt cây vào và lấp đất
+5. **Tưới nước**: Tưới nước vừa đủ sau khi trồng
+
+### 🌱 Lưu ý khi sử dụng:
+
+- Không kéo túi khi đã chứa đất để tránh hư hỏng
+- Đặt túi trên bề mặt phẳng để tránh bị nghiêng đổ
+- Chọn kích thước túi phù hợp với loại cây trồng
+
+## 💌 Hỗ trợ tư vấn: 085 399 1995
+
+#chauvaifabric #tuivaitrongcay #chautrongrau #dungculamvuon
+  `,
+  
+  // ID 17: Lưới trồng cây
+  17: `
+      🌟 **MiMo - Hạt Giống Nhập Khẩu**: Chuyên cung cấp các loại hạt giống và vật tư CHẤT LƯỢNG CAO từ các nước: Mỹ, Nga, Đài Loan, Trung Quốc, Nhật Bản, Hà Lan và sản phẩm chất lượng trong nước. 🌟 
+
+## 🔥 CAM KẾT VÀ BẢO HÀNH 🔥
+
+- Mimo cam kết sản phẩm chính hãng 100%.
+- Đổi miễn phí nếu gửi sai hoặc nhầm sản phẩm.
+- Hoàn tiền hoặc đổi miễn phí nếu sản phẩm bị hư hỏng trong quá trình vận chuyển.
+- Tư vấn cách sử dụng trọn đời.
+
+## 🍓 THÔNG TIN SẢN PHẨM: LƯỚI TRỒNG CÂY, LƯỚI LÀM GIÀN LEO
+
+### 🌱 Thông số kỹ thuật:
+
+| Loại | Kích thước mắt lưới | Độ bền | Chất liệu |
+|------|---------------------|--------|-----------|
+| Cao cấp | 15 x 15 cm | 3-5 năm | Nhựa PE cao cấp, có UV |
+
+### 🌱 Mô tả sản phẩm:
+
+Lưới trồng cây, lưới làm giàn leo được thiết kế đặc biệt cho các loại cây leo như mướp, nho, bầu bí, cây hoa và dưa chuột. Sản phẩm có độ bền cao, chịu được các điều kiện thời tiết khắc nghiệt, đồng thời vẫn đảm bảo tính thẩm mỹ cho vườn nhà bạn.
+
+### 🌱 Ưu điểm nổi bật: 
+
+- **Siêu bền**: Chống tia UV, không bị giòn sau thời gian dài sử dụng
+- **Đẹp, chắc chắn**: Giữ nguyên hình dạng, không biến dạng khi chịu lực
+- **Dễ lắp đặt**: Có thể cắt theo kích thước mong muốn
+- **Đa năng**: Phù hợp với nhiều loại cây leo khác nhau
+- **Thân thiện môi trường**: Có thể tái sử dụng nhiều vụ mùa
+
+### 🌱 Công dụng chính:
+
+1. Làm giàn cho các loại cây leo như bầu, bí, mướp, dưa chuột
+2. Làm giàn cho cây hoa leo như hoa giấy, hoa lý, hoa hồng leo
+3. Làm hàng rào, trang trí sân vườn
+4. Chống đổ cho các loại cây trồng
+
+### 🌱 Hướng dẫn sử dụng: 
+
+1. **Chuẩn bị**: Đo đạc khu vực cần làm giàn
+2. **Lắp khung**: Cắm các cọc trụ vững chắc để cố định lưới
+3. **Lắp lưới**: Căng lưới và cố định vào khung trụ bằng dây buộc
+4. **Hướng dẫn cây**: Khi cây bắt đầu leo, hướng dẫn thân cây vào lưới
+5. **Bảo dưỡng**: Kiểm tra định kỳ để đảm bảo lưới vẫn chắc chắn
+
+### 🌱 Lưu ý khi sử dụng:
+
+- Nên cố định lưới chắc chắn để chịu được trọng lượng của cây khi phát triển
+- Tránh để lưới tiếp xúc trực tiếp với lửa
+- Nên thu gom lưới sau mỗi vụ mùa để tăng tuổi thọ sử dụng
+
+## 💌 Hỗ trợ tư vấn: 085 399 1995
+
+#luoitrongcay #luoilamgian #giancayleo #dungculamvuon
+  `,
+  
+  // ID 18: Dây buộc cành cây
+  18: `
+      🌟 **MiMo - Hạt Giống Nhập Khẩu**: Chuyên cung cấp các loại hạt giống và vật tư CHẤT LƯỢNG CAO từ các nước: Mỹ, Nga, Đài Loan, Trung Quốc, Nhật Bản, Hà Lan và sản phẩm chất lượng trong nước. 🌟 
+
+## 🔥 CAM KẾT VÀ BẢO HÀNH 🔥
+
+- Mimo cam kết sản phẩm chính hãng 100%.
+- Đổi miễn phí nếu gửi sai hoặc nhầm sản phẩm.
+- Hoàn tiền hoặc đổi miễn phí nếu sản phẩm bị hư hỏng trong quá trình vận chuyển.
+- Tư vấn cách sử dụng trọn đời.
+
+## 🍓 THÔNG TIN SẢN PHẨM: DÂY BUỘC CÀNH CÂY
+
+### 🌱 Thông số kỹ thuật:
+
+| Thông số | Mô tả |
+|----------|-------|
+| Chiều dài | 50 mét |
+| Vật liệu | Kẽm bọc nhựa PVC |
+| Màu sắc | Xanh lá |
+| Đường kính | 2mm |
+| Tích hợp | Đầu cắt tiện lợi |
+
+### 🌱 Mô tả sản phẩm:
+
+Dây buộc cành cây 50m là sản phẩm chuyên dụng dùng để cố định, điều hướng thân cây, nhánh cây, hỗ trợ cây phát triển theo hướng mong muốn. Sản phẩm được làm từ kẽm bọc nhựa PVC mềm, không làm tổn thương vỏ cây, đồng thời có độ bền cao, chịu được các điều kiện thời tiết khắc nghiệt.
+
+### 🌱 Ưu điểm nổi bật: 
+
+- **Tiện lợi**: Tích hợp đầu cắt, dễ dàng sử dụng
+- **An toàn cho cây**: Lớp nhựa PVC mềm không làm tổn thương vỏ cây
+- **Bền bỉ**: Chống gỉ sét, chịu được mưa nắng
+- **Đa năng**: Sử dụng được cho nhiều loại cây trồng
+- **Tiết kiệm**: Cuộn dài 50m, sử dụng được lâu dài
+
+### 🌱 Công dụng chính:
+
+1. Buộc, cố định thân cây, cành cây vào giàn, trụ
+2. Hỗ trợ cây non phát triển thẳng
+3. Tạo hình, uốn cong cho cây cảnh
+4. Cố định cây vào giàn giáo, khung lưới
+
+### 🌱 Hướng dẫn sử dụng: 
+
+1. **Chuẩn bị**: Xác định vị trí cần buộc trên cây
+2. **Đo chiều dài**: Kéo đoạn dây vừa đủ để buộc
+3. **Cắt dây**: Sử dụng đầu cắt tích hợp để cắt dây
+4. **Buộc dây**: Buộc dây quanh cành cây và giàn/trụ với lực vừa phải
+5. **Điều chỉnh**: Đảm bảo dây không quá chặt để tránh làm tổn thương cây
+
+### 🌱 Lưu ý khi sử dụng:
+
+- Không buộc quá chặt để tránh làm tổn thương thân, cành cây
+- Thường xuyên kiểm tra và điều chỉnh độ chặt của dây khi cây phát triển
+- Bảo quản cuộn dây nơi khô ráo, tránh ánh nắng trực tiếp
+
+## 💌 Hỗ trợ tư vấn: 085 399 1995
+
+#daybuoccanh #daybuoccay #dungculamvuon
+  `,
+  
+  // ID 19: Găng tay làm vườn
+  19: `
+      🌟 **MiMo - Hạt Giống Nhập Khẩu**: Chuyên cung cấp các loại hạt giống và vật tư CHẤT LƯỢNG CAO từ các nước: Mỹ, Nga, Đài Loan, Trung Quốc, Nhật Bản, Hà Lan và sản phẩm chất lượng trong nước. 🌟 
+
+## 🔥 CAM KẾT VÀ BẢO HÀNH 🔥
+
+- Mimo cam kết sản phẩm chính hãng 100%.
+- Đổi miễn phí nếu gửi sai hoặc nhầm sản phẩm.
+- Hoàn tiền hoặc đổi miễn phí nếu sản phẩm bị hư hỏng trong quá trình vận chuyển.
+- Tư vấn cách sử dụng trọn đời.
+
+## 🍓 THÔNG TIN SẢN PHẨM: GĂNG TAY LÀM VƯỜN CHUYÊN DỤNG
+
+### 🌱 Thông số kỹ thuật:
+
+| Thông số | Mô tả |
+|----------|-------|
+| Kích thước | Free size (co giãn) |
+| Vật liệu | Vải dệt kim phủ cao su tổng hợp |
+| Màu sắc | Xanh lá - Đen |
+| Đặc tính | Chống trượt, co giãn tốt, thoáng khí |
+
+### 🌱 Mô tả sản phẩm:
+
+Găng tay làm vườn chuyên dụng được thiết kế đặc biệt để bảo vệ đôi bàn tay trong quá trình làm vườn. Sản phẩm được làm từ vải dệt kim có độ co giãn cao, phối hợp với lớp phủ cao su tổng hợp ở lòng bàn tay và đầu ngón tay giúp tăng độ bám, chống trượt hiệu quả khi làm việc.
+
+### 🌱 Ưu điểm nổi bật: 
+
+- **Bảo vệ tối ưu**: Chống xước, chống đâm thủng từ gai, vật nhọn
+- **Co giãn đàn hồi tốt**: Ôm sát bàn tay, tạo cảm giác thoải mái
+- **Thoáng khí**: Không gây bí, hạn chế mồ hôi tay
+- **Chống trượt**: Lớp phủ cao su giúp cầm nắm chắc chắn
+- **Bền bỉ**: Có thể giặt và tái sử dụng nhiều lần
+
+### 🌱 Công dụng chính:
+
+1. Bảo vệ tay khi làm vườn, trồng cây
+2. Hỗ trợ cầm nắm công cụ làm vườn chắc chắn
+3. Tránh tiếp xúc trực tiếp với đất, phân bón
+4. Chống xước, đâm thủng từ gai, đá, vật sắc nhọn
+
+### 🌱 Hướng dẫn sử dụng và bảo quản: 
+
+1. **Sử dụng**: Đeo găng tay trước khi bắt đầu làm vườn
+2. **Vệ sinh**: Rửa sạch sau mỗi lần sử dụng
+3. **Phơi khô**: Phơi nơi thoáng mát, tránh ánh nắng trực tiếp
+4. **Bảo quản**: Cất nơi khô ráo, tránh côn trùng xâm nhập
+
+### 🌱 Lưu ý khi sử dụng:
+
+- Không sử dụng khi găng tay bị rách, thủng
+- Không tiếp xúc với hóa chất mạnh, dung môi
+- Nên thay găng tay mới khi lớp phủ cao su bị mòn
+
+## 💌 Hỗ trợ tư vấn: 085 399 1995
+
+#gangtaylamvuon #gangtayvuon #dungculamvuon
   `
 };
 

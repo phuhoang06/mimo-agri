@@ -118,6 +118,61 @@ import keoMuiNhon7 from '../../assets/product/keo-613/7.png';
 import keoMuiNhon8 from '../../assets/product/keo-613/8.png';
 import keoMuiNhon9 from '../../assets/product/keo-613/9.png';
 
+// Khay ươm rau mầm
+import khayRauMam1 from '../../assets/product/khay-uom-rau-mam/1.png';
+import khayRauMam2 from '../../assets/product/khay-uom-rau-mam/2.png';
+import khayRauMam3 from '../../assets/product/khay-uom-rau-mam/3.png';
+import khayRauMam4 from '../../assets/product/khay-uom-rau-mam/4.png';
+import khayRauMam5 from '../../assets/product/khay-uom-rau-mam/5.png';
+import khayRauMam6 from '../../assets/product/khay-uom-rau-mam/6.png';
+import khayRauMam7 from '../../assets/product/khay-uom-rau-mam/7.png';
+import khayRauMam8 from '../../assets/product/khay-uom-rau-mam/8.png';
+import khayRauMam9 from '../../assets/product/khay-uom-rau-mam/9.png';
+
+// Chậu vải trồng cây
+import chauVai1 from '../../assets/product/chau-vai/1.png';
+import chauVai2 from '../../assets/product/chau-vai/2.png';
+import chauVai3 from '../../assets/product/chau-vai/3.png';
+import chauVai4 from '../../assets/product/chau-vai/4.png';
+import chauVai5 from '../../assets/product/chau-vai/5.png';
+import chauVai6 from '../../assets/product/chau-vai/6.png';
+import chauVai7 from '../../assets/product/chau-vai/7.png';
+import chauVai8 from '../../assets/product/chau-vai/8.png';
+import chauVai9 from '../../assets/product/chau-vai/9.png';
+
+// Lưới trồng cây
+import luoiTrongCay1 from '../../assets/product/luoi-trong-cay/1.png';
+import luoiTrongCay2 from '../../assets/product/luoi-trong-cay/2.png';
+import luoiTrongCay3 from '../../assets/product/luoi-trong-cay/3.png';
+import luoiTrongCay4 from '../../assets/product/luoi-trong-cay/4.png';
+import luoiTrongCay5 from '../../assets/product/luoi-trong-cay/5.png';
+import luoiTrongCay6 from '../../assets/product/luoi-trong-cay/6.png';
+import luoiTrongCay7 from '../../assets/product/luoi-trong-cay/7.png';
+import luoiTrongCay8 from '../../assets/product/luoi-trong-cay/8.png';
+import luoiTrongCay9 from '../../assets/product/luoi-trong-cay/9.png';
+
+// Dây buộc cành cây
+import dayBuocCanh1 from '../../assets/product/day-buoc-canh-cay/1.png';
+import dayBuocCanh2 from '../../assets/product/day-buoc-canh-cay/2.png';
+import dayBuocCanh3 from '../../assets/product/day-buoc-canh-cay/3.png';
+import dayBuocCanh4 from '../../assets/product/day-buoc-canh-cay/4.png';
+import dayBuocCanh5 from '../../assets/product/day-buoc-canh-cay/5.png';
+import dayBuocCanh6 from '../../assets/product/day-buoc-canh-cay/6.png';
+import dayBuocCanh7 from '../../assets/product/day-buoc-canh-cay/7.png';
+import dayBuocCanh8 from '../../assets/product/day-buoc-canh-cay/8.png';
+import dayBuocCanh9 from '../../assets/product/day-buoc-canh-cay/9.png';
+
+// Găng tay làm vườn
+import gangTay1 from '../../assets/product/gang-tay-lam-vuon/1.png';
+import gangTay2 from '../../assets/product/gang-tay-lam-vuon/2.png';
+import gangTay3 from '../../assets/product/gang-tay-lam-vuon/3.png';
+import gangTay4 from '../../assets/product/gang-tay-lam-vuon/4.png';
+import gangTay5 from '../../assets/product/gang-tay-lam-vuon/5.png';
+import gangTay6 from '../../assets/product/gang-tay-lam-vuon/6.png';
+import gangTay7 from '../../assets/product/gang-tay-lam-vuon/7.png';
+import gangTay8 from '../../assets/product/gang-tay-lam-vuon/8.png';
+import gangTay9 from '../../assets/product/gang-tay-lam-vuon/9.png';
+
 export const productImages = {
   // ID 1: Bẫy ruồi vàng dạng chai
   1: {
@@ -245,7 +300,7 @@ export const productImages = {
       voiDaNang9
     ]
   },
-  // ID 12: Kéo cắt cành tỉa cây V8 SK5
+  // ID 12: Kéo cắt cành tỉa cây V8
   12: {
     main: keoV8_1,
     gallery: [
@@ -284,6 +339,76 @@ export const productImages = {
       keoMuiNhon7,
       keoMuiNhon8,
       keoMuiNhon9
+    ]
+  },
+  // ID 15: Khay trồng rau mầm
+  15: {
+    main: khayRauMam1,
+    gallery: [
+      khayRauMam2,
+      khayRauMam3,
+      khayRauMam4,
+      khayRauMam5,
+      khayRauMam6,
+      khayRauMam7,
+      khayRauMam8,
+      khayRauMam9
+    ]
+  },
+  // ID 16: Chậu vải trồng rau
+  16: {
+    main: chauVai1,
+    gallery: [
+      chauVai2,
+      chauVai3,
+      chauVai4,
+      chauVai5,
+      chauVai6,
+      chauVai7,
+      chauVai8,
+      chauVai9
+    ]
+  },
+  // ID 17: Lưới trồng cây
+  17: {
+    main: luoiTrongCay1,
+    gallery: [
+      luoiTrongCay2,
+      luoiTrongCay3,
+      luoiTrongCay4,
+      luoiTrongCay5,
+      luoiTrongCay6,
+      luoiTrongCay7,
+      luoiTrongCay8,
+      luoiTrongCay9
+    ]
+  },
+  // ID 18: Dây buộc cành cây
+  18: {
+    main: dayBuocCanh1,
+    gallery: [
+      dayBuocCanh2,
+      dayBuocCanh3,
+      dayBuocCanh4,
+      dayBuocCanh5,
+      dayBuocCanh6,
+      dayBuocCanh7,
+      dayBuocCanh8,
+      dayBuocCanh9
+    ]
+  },
+  // ID 19: Găng tay làm vườn
+  19: {
+    main: gangTay1,
+    gallery: [
+      gangTay2,
+      gangTay3,
+      gangTay4,
+      gangTay5,
+      gangTay6,
+      gangTay7,
+      gangTay8,
+      gangTay9
     ]
   }
 };

@@ -65,12 +65,6 @@ function TechnicalDocDetail() {
             <article className="technical-doc-article">
               <h1 className="article-title mb-3">{doc.title}</h1>
               
-              <div className="article-meta mb-3">
-                <span className="article-date">Ngày đăng: {doc.publishDate || '10/06/2023'}</span>
-                <span className="mx-2">|</span>
-                <span className="article-author">Tác giả: {doc.author || 'Nhóm kỹ thuật'}</span>
-              </div>
-              
               <div className="article-featured-image mb-4">
                 <img 
                   src={doc.image} 
