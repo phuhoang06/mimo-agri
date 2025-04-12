@@ -16,6 +16,9 @@ import {
   filterProductsByPrice,
   sortProducts
 } from '../data/products/index';
+import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
+import { usePageTitle } from '../hooks';
+import { setProducts } from '../store/slices/productSlice';
 
 function Products() {
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -440,6 +443,9 @@ function Products() {
       </Col>
     );
   };
+
+  // Sử dụng hook usePageTitle để thiết lập tiêu đề trang
+  usePageTitle('Sản phẩm');
 
   return (
     <>

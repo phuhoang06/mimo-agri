@@ -1,12 +1,16 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { usePageTitle } from '../hooks';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import { Section } from '../components/ui';
 import { technicalDocs } from '../data/technicalDocs';
 
 function TechnicalDocuments() {
+  // Sử dụng hook usePageTitle để thiết lập tiêu đề trang
+  usePageTitle('Tài liệu kỹ thuật');
+  
   return (
     <>
       <Header />

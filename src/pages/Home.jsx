@@ -5,7 +5,8 @@ import VideoCarousel from '../components/video/VideoCarousel.jsx';
 import TechnicalDocList from '../components/technical/TechnicalDocList.jsx';
 import { Section, Card } from '../components/ui';
 import { ProductSection } from '../components/sections';
-import { useScrollNavigation } from '../hooks';
+import { useScrollNavigation, usePageTitle } from '../hooks';
+import MetaTags from '../components/common/MetaTags';
 import { 
   allProducts,
   topSellingProducts, 
@@ -37,8 +38,19 @@ function Home() {
   // Function to navigate to technical documents page
   const handleTechnicalDocsNav = () => navigateWithScroll('/tai-lieu-ky-thuat');
   
+  // Sử dụng hook usePageTitle với tham số trống để thiết lập tiêu đề mặc định
+  usePageTitle('', '');  // Tham số thứ hai là chuỗi rỗng để không thêm hậu tố
+  
   return (
     <MainLayout>
+      {/* Reset meta tags for home page */}
+      <MetaTags
+        title="MiMo Agriculture"
+        description="MiMo-Agri - Sản phẩm nông nghiệp chất lượng cao"
+        url={window.location.origin}
+        type="website"
+      />
+      
       {/* SẢN PHẨM BÁN CHẠY */}
       <ProductSection 
         id="top-selling" 

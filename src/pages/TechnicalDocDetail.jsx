@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Breadcrumb, Card } from 'react-bootstrap';
+import { usePageTitle } from '../hooks';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import { Section } from '../components/ui';
@@ -10,6 +11,9 @@ function TechnicalDocDetail() {
   const { id } = useParams();
   const [doc, setDoc] = useState(null);
   const [relatedDocs, setRelatedDocs] = useState([]);
+
+  // Sử dụng hook usePageTitle để thiết lập tiêu đề trang
+  usePageTitle(doc ? doc.title : 'Chi tiết tài liệu kỹ thuật');
 
   useEffect(() => {
     // Get the document based on the ID from the URL

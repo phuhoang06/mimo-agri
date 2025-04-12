@@ -5,10 +5,14 @@ import Footer from '../components/footer/Footer';
 import { Section } from '../components/ui';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { usePageTitle } from '../hooks';
 
 function SalesPolicy() {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("exchange");
+  
+  // Sử dụng hook usePageTitle để thiết lập tiêu đề trang
+  usePageTitle('Chính sách bán hàng');
   
   useEffect(() => {
     // Check if there's a hash in the URL and set the active tab accordingly

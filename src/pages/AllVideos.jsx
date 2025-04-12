@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Modal } from 'react-bootstrap';
+import { usePageTitle } from '../hooks';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import { Section } from '../components/ui';
@@ -8,6 +9,9 @@ import { videos } from '../data/videos';
 
 function AllVideos() {
   const [selectedVideo, setSelectedVideo] = useState(null);
+  
+  // Sử dụng hook usePageTitle để thiết lập tiêu đề trang
+  usePageTitle('Videos');
 
   const handleVideoClick = (video) => {
     setSelectedVideo(video);

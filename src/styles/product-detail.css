@@ -286,37 +286,40 @@
   margin-bottom: 5px;
 }
 
+/* Product Actions Mobile Optimization */
+@media (max-width: 576px) {
+  .buy-now-btn-wrapper .btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.25rem;
+    white-space: nowrap;
+  }
+  
+  .buy-now-btn-wrapper .btn i {
+    margin-right: 4px;
+  }
+}
+
 /* Product Sharing */
 .product-share {
-  margin-top: 20px;
-}
-
-.share-title {
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.share-icons {
-  display: flex;
-  gap: 10px;
-}
-
-.share-icon {
-  width: 30px;
-  height: 30px;
-  background-color: #f0f0f0;
-  border-radius: 50%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: #333;
-  transition: all 0.3s ease;
+  margin: 20px 0;
 }
 
-.share-icon:hover {
-  background-color: var(--brand-green);
-  color: white;
+.product-share button {
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.product-share button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.product-share button i {
+  margin-right: 8px;
 }
 
 /* Product Tabs */
@@ -603,4 +606,24 @@
   .product-gallery .main-image-container {
     padding-bottom: 80%; /* Tỷ lệ khung hình trên desktop */
   }
+}
+
+/* YouTube-style Share Modal */
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  margin: 5px;
+  transition: all 0.2s ease;
+}
+
+.share-btn i {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 } 

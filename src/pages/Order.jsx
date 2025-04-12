@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { usePageTitle } from '../hooks';
 import Header from '../components/header/Header.jsx';
 import Footer from '../components/footer/Footer.jsx';
 import { Card } from '../components/ui';
@@ -16,6 +17,9 @@ function Order() {
   const [selectedItems, setSelectedItems] = useState(new Set());
   const customerFormRef = useRef(null);
   const [isCartLoaded, setIsCartLoaded] = useState(false);
+  
+  // Sử dụng hook usePageTitle để thiết lập tiêu đề trang
+  usePageTitle('Đặt hàng');
 
   useEffect(() => {
     // Đảm bảo cart đã được nạp từ localStorage

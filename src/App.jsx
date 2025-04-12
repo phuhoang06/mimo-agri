@@ -26,6 +26,11 @@ function App() {
     }
   }, []);
 
+  // Đặt tiêu đề mặc định cho ứng dụng khi khởi động
+  useEffect(() => {
+    document.title = 'MiMo Agriculture';
+  }, []);
+
   return (
     <CartProvider>
       <Router>

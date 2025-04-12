@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { allProducts } from '../data/products';
 import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
 import { setSelectedProduct } from '../store/slices/productSlice';
 import { addToCart } from '../store/slices/orderSlice';
+import { usePageTitle } from '../hooks';
 import Header from '../components/header/Header.jsx';
 import Footer from '../components/footer/Footer.jsx';
+import MetaTags from '../components/common/MetaTags';
 
 // Import extracted components
 import ProductImageGallery from '../components/product/ProductImageGallery';
@@ -26,6 +28,7 @@ import productImg4 from '../assets/product/tinh-dau/1.png';
 
 const ProductDetail = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { selectedProduct: product, loading } = useAppSelector(state => state.products);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -152,53 +155,25 @@ const ProductDetail = () => {
         image: image,
         quantity: quantity
       }));
+      
+      // Navigate to cart page after adding to cart using React Router
+      navigate('/gio-hang');
     }
   };
 
   const handleBuyNow = () => {
-    if (isMobile) {
-      // On mobile, redirect to Facebook Messenger
-      const currentUrl = window.location.href;
-      const variantText = formatVariantText();
-      const priceText = getProductPrice().toLocaleString();
-      const message = encodeURIComponent(`Tôi muốn mua sản phẩm: ${product.title}${variantText}\nGiá: ${priceText}đ\nSố lượng: ${quantity}\nLink: ${currentUrl}`);
-      window.open(`https://m.me/www.mimo.agri?ref=${message}`, '_blank');
-    } else {
-      // On desktop, focus the messenger chat
-      try {
-        window.FB.CustomerChat.show(true);
-        window.FB.CustomerChat.showDialog(true);
-      } catch (e) {
-        console.error('Không thể mở khung chat Messenger:', e);
-        // Fallback if can't open chat
-        const currentUrl = window.location.href;
-        const variantText = formatVariantText();
-        const priceText = getProductPrice().toLocaleString();
-        const message = encodeURIComponent(`Tôi muốn mua sản phẩm: ${product.title}${variantText}\nGiá: ${priceText}đ\nSố lượng: ${quantity}\nLink: ${currentUrl}`);
-        window.open(`https://www.facebook.com/messages/t/108621171549372?ref=${message}`, '_blank');
-      }
-    }
-  };
-
-  // Function to handle Facebook share
-  const handleFacebookShare = () => {
+    // Get current product information
     const currentUrl = window.location.href;
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&quote=${encodeURIComponent(product.title)}`;
-    window.open(shareUrl, '_blank', 'width=600,height=400');
-  };
-  
-  // Function to handle Messenger share
-  const handleMessengerShare = () => {
-    const currentUrl = window.location.href;
-    const shareUrl = `https://www.facebook.com/dialog/send?app_id=936619743392459&link=${encodeURIComponent(currentUrl)}&redirect_uri=${encodeURIComponent(window.location.href)}`;
-    window.open(shareUrl, '_blank', 'width=600,height=400');
-  };
-  
-  // Function to handle Zalo share
-  const handleZaloShare = () => {
-    const currentUrl = window.location.href;
-    const shareUrl = `https://zalo.me/share?u=${encodeURIComponent(currentUrl)}`;
-    window.open(shareUrl, '_blank', 'width=600,height=400');
+    const variantText = formatVariantText();
+    const priceText = getProductPrice().toLocaleString();
+    const productInfo = `Tôi muốn mua sản phẩm: ${product.title}${variantText}\nGiá: ${priceText}đ\nSố lượng: ${quantity}\nLink: ${currentUrl}`;
+    const encodedMessage = encodeURIComponent(productInfo);
+    
+    // Use direct Facebook Messenger URL that works better for both mobile and desktop
+    const messengerUrl = `https://m.me/108621171549372?ref=${encodedMessage}`;
+    
+    // Open in new tab and ensure it opens
+    window.open(messengerUrl, '_blank', 'noopener,noreferrer');
   };
 
   // Function to handle buying through Zalo
@@ -208,10 +183,11 @@ const ProductDetail = () => {
       const currentUrl = window.location.href;
       const variantText = formatVariantText();
       const priceText = getProductPrice().toLocaleString();
-      const message = `Tôi muốn mua sản phẩm: ${product.title}${variantText}\nGiá: ${priceText}đ\nSố lượng: ${quantity}\nLink: ${currentUrl}`;
+      const message = encodeURIComponent(`Tôi muốn mua sản phẩm: ${product.title}${variantText}\nGiá: ${priceText}đ\nSố lượng: ${quantity}\nLink: ${currentUrl}`);
       
       // Open Zalo with the shop's phone number and template message
-      window.open(`https://zalo.me/0853991995?text=${message}`, '_blank');
+      const zaloUrl = `https://zalo.me/0853991995?text=${message}`;
+      window.open(zaloUrl, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -219,6 +195,14 @@ const ProductDetail = () => {
   const isOutOfStock = () => {
     return selectedVariant && selectedVariant.stock <= 0;
   };
+
+  // Lấy URL tuyệt đối của sản phẩm hiện tại
+  const getAbsoluteProductUrl = () => {
+    return window.location.origin + `/san-pham/${productId}`;
+  };
+
+  // Sử dụng hook usePageTitle để quản lý tiêu đề trang
+  usePageTitle(product ? product.title : 'Chi tiết sản phẩm');
 
   if (loading) {
     return (
@@ -252,6 +236,17 @@ const ProductDetail = () => {
 
   return (
     <>
+      {/* Thêm MetaTags để cải thiện chia sẻ mạng xã hội */}
+      {product && (
+        <MetaTags
+          title={`${product.title} | Mimo-Agri`}
+          description={product.description || `Sản phẩm ${product.title} từ Mimo-Agri`}
+          image={product.img}
+          url={getAbsoluteProductUrl()}
+          type="product"
+        />
+      )}
+      
       <Header />
       <Container className="page-content-container py-5">
         <div className="product-detail-container">
@@ -294,11 +289,7 @@ const ProductDetail = () => {
                 isOutOfStock={isOutOfStock()}
               />
               
-              <SocialShare 
-                onFacebookShare={handleFacebookShare}
-                onMessengerShare={handleMessengerShare}
-                onZaloShare={handleZaloShare}
-              />
+              <SocialShare />
             </Col>
           </Row>
           

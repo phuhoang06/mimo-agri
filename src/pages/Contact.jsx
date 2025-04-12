@@ -1,10 +1,14 @@
 import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { usePageTitle } from '../hooks';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import { Section } from '../components/ui';
 
 function Contact() {
+  // Sử dụng hook usePageTitle để thiết lập tiêu đề trang
+  usePageTitle('Liên hệ mua hàng');
+  
   return (
     <>
       <Header />
