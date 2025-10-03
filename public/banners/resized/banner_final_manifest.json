@@ -1,0 +1,22 @@
+{
+  "baseName": "banner_final",
+  "generated": "2025-09-21T04:27:55.892Z",
+  "sizes": {
+    "mobile": {
+      "jpg": "/banners/resized/banner_final_mobile.jpg",
+      "webp": "/banners/resized/banner_final_mobile.webp"
+    },
+    "tablet": {
+      "jpg": "/banners/resized/banner_final_tablet.jpg",
+      "webp": "/banners/resized/banner_final_tablet.webp"
+    },
+    "desktop": {
+      "jpg": "/banners/resized/banner_final_desktop.jpg",
+      "webp": "/banners/resized/banner_final_desktop.webp"
+    },
+    "large": {
+      "jpg": "/banners/resized/banner_final_large.jpg",
+      "webp": "/banners/resized/banner_final_large.webp"
+    }
+  }
+}

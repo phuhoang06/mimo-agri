@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mimo E-commerce App
 
-## Getting Started
+Ứng dụng thương mại điện tử hiện đại được xây dựng với Next.js 15, React 19, và Supabase.
 
-First, run the development server:
+## Tính năng chính
+
+- 🛒 **Giỏ hàng thông minh** - Quản lý sản phẩm và thanh toán
+- 🏷️ **Danh mục động** - Hệ thống phân loại sản phẩm linh hoạt
+- 🎥 **Tích hợp video** - Hỗ trợ video hướng dẫn và YouTube
+- 📱 **Responsive Design** - Tối ưu cho mọi thiết bị
+- 🎨 **UI/UX hiện đại** - Giao diện đẹp với Tailwind CSS
+- 🔐 **Xác thực người dùng** - Bảo mật với Supabase Auth
+- 📊 **Quản trị viên** - Dashboard quản lý sản phẩm và đơn hàng
+
+## Yêu cầu hệ thống
+
+- Node.js 18+ 
+- npm hoặc yarn
+- Tài khoản Supabase
+
+## Cài đặt và chạy
+
+### 1. Clone repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd ecommerce-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Cài đặt dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Cấu hình môi trường
 
-## Learn More
+Tạo file `.env.local` trong thư mục gốc:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Thiết lập database
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Chạy các script SQL trong thư mục `scripts/`:
 
-## Deploy on Vercel
+```bash
+# Chạy script seed dữ liệu mẫu
+node scripts/seed.js
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 5. Chạy ứng dụng
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Development mode
+npm run dev
+
+# Production build
+npm run build
+npm start
+```
+
+Ứng dụng sẽ chạy tại: `http://localhost:3000`
+
+## Cấu trúc dự án
+
+```
+ecommerce-app/
+├── src/
+│   ├── app/                 # Next.js App Router
+│   │   ├── admin/          # Trang quản trị
+│   │   ├── products/       # Trang sản phẩm
+│   │   ├── video/          # Trang video
+│   │   └── ...
+│   ├── components/         # React components
+│   ├── lib/               # Utilities và config
+│   └── contexts/          # React contexts
+├── public/                # Static files
+├── scripts/               # Database scripts
+└── ...
+```
+
+## Scripts có sẵn
+
+- `npm run dev` - Chạy development server
+- `npm run build` - Build production
+- `npm run start` - Chạy production server
+- `npm run lint` - Kiểm tra code quality
+
+## Công nghệ sử dụng
+
+- **Framework**: Next.js 15
+- **UI Library**: React 19
+- **Styling**: Tailwind CSS
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **Language**: TypeScript
+- **Icons**: Heroicons, Lucide React
+
+## Tài liệu bổ sung
+
+Xem các file `.md` trong thư mục gốc để biết thêm chi tiết:
+- `PRODUCTS_PAGE_GUIDE.md` - Hướng dẫn trang sản phẩm
+- `SHOPPING_CART_GUIDE.md` - Hướng dẫn giỏ hàng
+- `VIDEO_PAGE_GUIDE.md` - Hướng dẫn trang video
+- `UX_IMPROVEMENTS.md` - Cải tiến UX
+
+## Hỗ trợ
+
+Nếu gặp vấn đề, vui lòng kiểm tra:
+1. Node.js version (cần 18+)
+2. Cấu hình Supabase
+3. Cài đặt dependencies đầy đủ
+4. Chạy script seed database
+
+## License
+
+MIT License
