@@ -1,35 +1,24 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Enable standalone output for Docker deployment
+  output: 'standalone',
+  
+  // Optimize images
   images: {
+    formats: ['image/webp', 'image/avif'],
     remotePatterns: [
+      // Supabase Storage
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
+        hostname: 'wdrhgnynlchomcsnpzum.supabase.co',
         port: '',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'via.placeholder.com',
-        port: '',
-        pathname: '/**',
-      },
+      // YouTube thumbnails
       {
         protocol: 'https',
         hostname: 'img.youtube.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.shutterstock.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn-media.sforum.vn',
         port: '',
         pathname: '/**',
       },
@@ -39,43 +28,42 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      // External image sources (if needed)
       {
         protocol: 'https',
-        hostname: 'www.google.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.facebook.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.tiktok.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.googleapis.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'd1ud88wu9m1k4s.cloudfront.net',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'wdrhgnynlchomcsnpzum.supabase.co',
+        hostname: 'images.unsplash.com',
         port: '',
         pathname: '/**',
       },
     ],
+  },
+  
+  // Performance optimizations
+  experimental: {
+    optimizeCss: true,
+  },
+  
+  // Security headers
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
   },
 };
 

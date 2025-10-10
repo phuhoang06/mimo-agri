@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { XMarkIcon, ShoppingCartIcon, MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { useCart } from '@/contexts/CartContext'
+import CheckoutModal from './CheckoutModal'
 
 interface CartModalProps {
   isOpen: boolean
@@ -15,7 +16,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
   const [isAnimating, setIsAnimating] = useState(false)
   const [updatingItems, setUpdatingItems] = useState<Set<string>>(new Set())
   const [showRemoveConfirm, setShowRemoveConfirm] = useState<string | null>(null)
-  const [isCheckingOut, setIsCheckingOut] = useState(false)
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false)
 
   const handleClose = () => {
     setIsAnimating(true)
@@ -62,18 +63,21 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
     setShowRemoveConfirm(null)
   }
 
-  const handleCheckout = async () => {
-    setIsCheckingOut(true)
-    try {
-      // Simulate checkout process
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      // TODO: Implement real checkout functionality
-      alert('Tính năng thanh toán đang được phát triển!')
-    } catch (error) {
-      console.error('Error during checkout:', error)
-    } finally {
-      setIsCheckingOut(false)
+  const handleCheckout = () => {
+    setShowCheckoutModal(true)
+  }
+
+  const handleCheckoutSuccess = (orderId: string) => {
+    // Save order ID to localStorage for tracking
+    const savedOrders = JSON.parse(localStorage.getItem('mimo-saved-orders') || '[]')
+    if (!savedOrders.includes(orderId)) {
+      savedOrders.push(orderId)
+      localStorage.setItem('mimo-saved-orders', JSON.stringify(savedOrders))
     }
+    
+    setShowCheckoutModal(false)
+    onClose()
+    console.log('Order created successfully:', orderId)
   }
 
   if (!isOpen) return null
@@ -243,26 +247,12 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                 <div className="space-y-2">
                   <button
                     onClick={handleCheckout}
-                    disabled={isCheckingOut}
-                    className={`w-full flex items-center justify-center gap-2 py-3 rounded-lg transition-all duration-200 font-medium ${
-                      isCheckingOut
-                        ? 'bg-green-500 cursor-not-allowed'
-                        : 'bg-green-500 hover:bg-green-600 hover:shadow-lg active:scale-95'
-                    } text-white`}
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-lg transition-all duration-200 font-medium bg-green-500 hover:bg-green-600 hover:shadow-lg active:scale-95 text-white"
                   >
-                    {isCheckingOut ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        Đang xử lý...
-                      </>
-                    ) : (
-                      <>
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                        </svg>
-                        Thanh toán
-                      </>
-                    )}
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                    </svg>
+                    Thanh toán
                   </button>
                   <button
                     onClick={clearCart}
@@ -281,6 +271,13 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
           )}
         </div>
       </div>
+
+      {/* Checkout Modal */}
+      <CheckoutModal
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        onSuccess={handleCheckoutSuccess}
+      />
     </>
   )
 }

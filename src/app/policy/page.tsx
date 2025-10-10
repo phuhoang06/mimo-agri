@@ -76,7 +76,19 @@ export default function PolicyPage() {
           {active === 'shipping' && (
             <div>
               <h2 className="text-lg font-semibold mb-3">Chính sách vận chuyển</h2>
-              <p className="text-gray-700">Chúng tôi hỗ trợ giao hàng toàn quốc với nhiều lựa chọn vận chuyển. Phí và thời gian giao hàng sẽ được thông báo khi đặt hàng, ưu tiên tối ưu chi phí và tốc độ nhận hàng cho khách.</p>
+              <p className="text-gray-700 mb-4">Chúng tôi hỗ trợ giao hàng toàn quốc với nhiều lựa chọn vận chuyển. Phí và thời gian giao hàng sẽ được thông báo khi đặt hàng, ưu tiên tối ưu chi phí và tốc độ nhận hàng cho khách.</p>
+              
+              <h3 className="font-semibold mb-3">🚚 Phí vận chuyển:</h3>
+              <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                <li><strong>Miễn phí vận chuyển</strong> cho đơn hàng từ 200.000đ</li>
+              </ul>
+              
+              <h3 className="font-semibold mb-3 mt-4">⏰ Thời gian giao hàng:</h3>
+              <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                <li>Nội thành Hà Nội: 1-2 ngày làm việc</li>
+                <li>Các tỉnh thành khác: 2-5 ngày làm việc</li>
+                <li>Khu vực xa: 5-7 ngày làm việc</li>
+              </ul>
             </div>
           )}
 

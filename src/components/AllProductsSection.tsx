@@ -89,9 +89,9 @@ export default function AllProductsSection() {
           <>
             {products.length > 0 ? (
               <div className="bg-white">
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-0">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 p-2">
                   {products.map((product, index) => (
-                    <div key={product.id} className="border-r border-b border-gray-100 last:border-r-0">
+                    <div key={product.id} className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
                       <ProductCard 
                         product={product}
                         isNew={index < 2}

@@ -78,31 +78,31 @@ export default function ProductCard({
         )}
       </div>
 
-      {/* Product Info - Shopee Style */}
-      <div className="p-3 flex flex-col flex-1">
+      {/* Product Info - Improved spacing and height */}
+      <div className="p-4 flex flex-col flex-1 min-h-[140px]">
         <div className="flex-1">
-          <h3 className="font-medium text-gray-900 mb-2 line-clamp-2 leading-tight text-sm h-10">
+          <h3 className="font-medium text-gray-900 mb-3 line-clamp-2 leading-tight text-sm h-10">
             {product.name}
           </h3>
           
-          {/* Price Section - E-commerce Style */}
-          <div className="mb-2 h-6">
+          {/* Price Section - Better spacing and layout */}
+          <div className="mb-3">
             {discountPercent > 0 && product.min_price ? (
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-2">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-red-500 font-bold text-sm">
                     {formatPriceRange(product.min_price, product.max_price)}
                   </span>
-                  <span className="bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded">
+                  <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
                     -{discountPercent}%
                   </span>
                 </div>
-                <span className="text-gray-400 line-through text-xs">
+                <div className="text-gray-400 line-through text-xs break-words leading-relaxed">
                   {product.min_price === product.max_price 
                     ? formatPrice(calculateOriginalPrice(product.min_price, discountPercent))
                     : `${formatPrice(calculateOriginalPrice(product.min_price, discountPercent))} - ${formatPrice(calculateOriginalPrice(product.max_price || product.min_price, discountPercent))}`
                   }
-                </span>
+                </div>
               </div>
             ) : (
               <span className="text-red-500 font-bold text-sm">
@@ -115,7 +115,7 @@ export default function ProductCard({
         
         {/* Action Button - Fixed at bottom */}
         <button 
-          className="w-full font-medium py-2 px-3 rounded text-xs transition-colors bg-green-500 text-white hover:bg-green-600 mt-auto"
+          className="w-full font-medium py-2.5 px-3 rounded text-xs transition-colors bg-green-500 text-white hover:bg-green-600 mt-auto"
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()

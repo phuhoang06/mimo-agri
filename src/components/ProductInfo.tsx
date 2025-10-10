@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CheckIcon, HeartIcon, ShoppingCartIcon, BoltIcon } from '@heroicons/react/24/outline'
-import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
+import { CheckIcon, ShoppingCartIcon, BoltIcon } from '@heroicons/react/24/outline'
 import QuantitySelector from './QuantitySelector'
 
 interface Product {
@@ -32,8 +31,6 @@ export default function ProductInfo({
   calculatedPrice,
   isBuyingNow = false
 }: ProductInfoProps) {
-  const [isWishlisted, setIsWishlisted] = useState(false)
-  const [showWishlistSuccess, setShowWishlistSuccess] = useState(false)
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('vi-VN', {
@@ -44,46 +41,17 @@ export default function ProductInfo({
     }).format(price)
   }
 
-  const handleWishlist = () => {
-    const newWishlistState = !isWishlisted
-    setIsWishlisted(newWishlistState)
-    
-    if (newWishlistState) {
-      setShowWishlistSuccess(true)
-      setTimeout(() => setShowWishlistSuccess(false), 2000)
-    }
-    // TODO: Implement wishlist functionality
-  }
 
   return (
     <div className="space-y-4">
-      {/* Quantity & Actions - Shopee Style */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <span className="text-sm text-gray-600">Số lượng:</span>
-          <QuantitySelector
-            quantity={quantity}
-            onQuantityChange={onQuantityChange}
-            maxQuantity={99}
-          />
-        </div>
-        
-        {/* Wishlist Button - Compact */}
-        <button
-          onClick={handleWishlist}
-          className={`flex items-center gap-1 px-3 py-2 rounded-full border transition-all duration-200 ${
-            isWishlisted
-              ? 'bg-red-50 border-red-200 text-red-600'
-              : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
-          }`}
-        >
-          {isWishlisted ? (
-            <HeartSolidIcon className="w-4 h-4 text-red-600" />
-          ) : (
-            <HeartIcon className="w-4 h-4" />
-          )}
-          <span className="text-xs">Yêu thích</span>
-        </button>
+      {/* Quantity - Shopee Style */}
+      <div className="flex items-center space-x-3">
+        <span className="text-sm text-gray-600">Số lượng:</span>
+        <QuantitySelector
+          quantity={quantity}
+          onQuantityChange={onQuantityChange}
+          maxQuantity={99}
+        />
       </div>
 
       {/* Action Buttons - Shopee Style */}
@@ -120,19 +88,12 @@ export default function ProductInfo({
         </button>
       </div>
 
-      {/* Success Message */}
-      {showWishlistSuccess && (
-        <div className="flex items-center justify-center gap-2 text-green-600 text-sm animate-fade-in">
-          <CheckIcon className="w-4 h-4" />
-          Đã thêm vào danh sách yêu thích!
-        </div>
-      )}
 
       {/* Shipping Info - Compact */}
       <div className="bg-gray-50 rounded-lg p-3">
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <span className="text-green-500">🚚</span>
-          <span>Miễn phí vận chuyển cho đơn hàng từ 99k</span>
+          <span>Miễn phí vận chuyển cho đơn hàng từ 200k</span>
         </div>
       </div>
     </div>

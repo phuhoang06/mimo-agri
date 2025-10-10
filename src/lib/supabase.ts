@@ -40,19 +40,28 @@ export interface Category {
 
 export interface Order {
   id: string
-  user_id: string
-  status: 'pending' | 'shipped' | 'done' | 'cancelled'
-  total_price: number
+  buyer_name: string
+  phone: string
+  address: string
+  total_amount: number
+  status: 'WAITING_CONFIRMATION' | 'CONFIRMED' | 'CANCELLED'
   created_at: string
   updated_at: string
+  verified_by?: string
+  verified_at?: string
+  note?: string
 }
 
 export interface OrderItem {
-  id: string
+  id: number
   order_id: string
   product_id: string
-  qty: number
+  product_name: string
   price: number
+  quantity: number
+  subtotal: number
+  variant_id?: string
+  variant_name?: string
   created_at: string
 }
 

@@ -12,7 +12,6 @@ export default function Footer() {
               <Logo size="sm" showText={true} className="mb-4" />
             </div>
             <div className="space-y-1.5 text-gray-700 text-sm leading-6">
-              <p className="font-semibold text-base text-gray-900">MiMo Agriculture</p>
               <p>Địa chỉ: 3 Ngõ Đương Xóm 1 Đỗ Xá Phú Xuyên Hà Nội</p>
               <p>Hotline: 085 399 1995</p>
               <p>Email: mimoagriculture@gmail.com</p>

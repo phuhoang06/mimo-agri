@@ -1,12 +1,17 @@
 {
-  "name": "ecommerce-app",
-  "version": "0.1.0",
+  "name": "mimo-agriculture-ecommerce",
+  "version": "1.0.0",
+  "description": "MiMo Agriculture E-commerce Platform",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf .next out",
+    "build:analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

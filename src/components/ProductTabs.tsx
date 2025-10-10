@@ -37,39 +37,6 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
             <p className="text-gray-700 leading-relaxed text-lg">
               {product.description}
             </p>
-            
-            {/* Additional description sections */}
-            <div className="mt-8 space-y-6">
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <h3 className="font-semibold text-blue-900 mb-3">🌟 Điểm nổi bật</h3>
-                <ul className="space-y-2 text-blue-800">
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                    Chất lượng cao, bền bỉ theo thời gian
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                    Thiết kế hiện đại, phù hợp với nhiều không gian
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                    Dễ sử dụng và bảo quản
-                  </li>
-                  <li className="flex items-center">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                    Giá trị tuyệt vời cho tiền bạc
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                <h3 className="font-semibold text-green-900 mb-3">✅ Cam kết chất lượng</h3>
-                <p className="text-green-800">
-                  Chúng tôi cam kết mang đến sản phẩm chất lượng tốt nhất với dịch vụ khách hàng tận tâm. 
-                  Mọi sản phẩm đều được kiểm tra kỹ lưỡng trước khi giao hàng.
-                </p>
-              </div>
-            </div>
           </div>
         )
 
@@ -85,7 +52,7 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900">Miễn phí vận chuyển</h4>
-                    <p className="text-gray-600 text-sm">Cho đơn hàng từ 500.000₫ trở lên</p>
+                    <p className="text-gray-600 text-sm">Cho đơn hàng từ 200.000₫ trở lên</p>
                   </div>
                 </div>
                 

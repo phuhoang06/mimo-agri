@@ -209,6 +209,9 @@ export default function Header() {
               <Link href="/articles" className="hover:text-green-200 transition-colors font-medium">
                 Tài liệu kỹ thuật
               </Link>
+              <Link href="/track-order" className="hover:text-green-200 transition-colors font-medium">
+                Kiểm tra đơn hàng
+              </Link>
               <Link href="/contact" className="hover:text-green-200 transition-colors font-medium">
                 Liên Hệ Mua Hàng
               </Link>
@@ -290,6 +293,9 @@ export default function Header() {
               </Link>
               <Link href="/articles" className="text-gray-800 hover:text-green-600 transition-colors font-medium">
                 Tài liệu kỹ thuật
+              </Link>
+              <Link href="/track-order" className="text-gray-800 hover:text-green-600 transition-colors font-medium">
+                Kiểm tra đơn hàng
               </Link>
               <Link href="/contact" className="text-gray-800 hover:text-green-600 transition-colors font-medium">
                 Liên Hệ Mua Hàng

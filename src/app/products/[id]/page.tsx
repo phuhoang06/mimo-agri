@@ -8,10 +8,10 @@ import Breadcrumb from '@/components/Breadcrumb'
 import ProductGallery from '@/components/ProductGallery'
 import ProductInfo from '@/components/ProductInfo'
 import ProductTabs from '@/components/ProductTabs'
-import RelatedProducts from '@/components/RelatedProducts'
 import ProductSkeleton from '@/components/ProductSkeleton'
 import ProductVariantSelector from '@/components/ProductVariantSelector'
 import AddToCartModal from '@/components/AddToCartModal'
+import CheckoutModal from '@/components/CheckoutModal'
 
 interface Product {
   id: string
@@ -51,6 +51,7 @@ export default function ProductDetailPage() {
   const [activeTab, setActiveTab] = useState('description')
   const [isBuyingNow, setIsBuyingNow] = useState(false)
   const [showAddToCartModal, setShowAddToCartModal] = useState(false)
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false)
 
   useEffect(() => {
     if (params.id) {
@@ -138,7 +139,7 @@ export default function ProductDetailPage() {
     
     try {
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, 500))
       
       // Add to cart first
       addToCart({
@@ -152,8 +153,8 @@ export default function ProductDetailPage() {
         sku: selectedVariant.sku
       })
       
-      // Navigate to checkout
-      router.push('/checkout')
+      // Open checkout modal directly
+      setShowCheckoutModal(true)
     } catch (error) {
       console.error('Error processing buy now:', error)
     } finally {
@@ -308,13 +309,6 @@ export default function ProductDetailPage() {
           />
         </div>
 
-        {/* Related Products */}
-        <div className="mt-2">
-          <RelatedProducts 
-            categoryId={product.category_id}
-            currentProductId={product.id}
-          />
-        </div>
       </div>
 
       {/* Add to Cart Modal */}
@@ -323,6 +317,16 @@ export default function ProductDetailPage() {
         onClose={() => setShowAddToCartModal(false)}
         product={product}
         variants={variants}
+      />
+
+      {/* Checkout Modal */}
+      <CheckoutModal
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        onSuccess={(orderId) => {
+          setShowCheckoutModal(false)
+          console.log('Order created successfully:', orderId)
+        }}
       />
     </div>
   )

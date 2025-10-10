@@ -1,121 +1,169 @@
-# Mimo E-commerce App
+# 🌾 MiMo Agriculture E-commerce Platform
 
-Ứng dụng thương mại điện tử hiện đại được xây dựng với Next.js 15, React 19, và Supabase.
+Ứng dụng thương mại điện tử chuyên về nông nghiệp được xây dựng với Next.js 15, React 19, và Supabase.
 
-## Tính năng chính
+## ✨ Tính năng chính
 
-- 🛒 **Giỏ hàng thông minh** - Quản lý sản phẩm và thanh toán
-- 🏷️ **Danh mục động** - Hệ thống phân loại sản phẩm linh hoạt
-- 🎥 **Tích hợp video** - Hỗ trợ video hướng dẫn và YouTube
+- 🛒 **Hệ thống đặt hàng hoàn chỉnh** - Đặt hàng, thanh toán, theo dõi đơn hàng
+- 🏷️ **Quản lý sản phẩm** - Hệ thống phân loại và biến thể sản phẩm linh hoạt
+- 🎥 **Video hướng dẫn** - Tích hợp YouTube cho hướng dẫn kỹ thuật
 - 📱 **Responsive Design** - Tối ưu cho mọi thiết bị
 - 🎨 **UI/UX hiện đại** - Giao diện đẹp với Tailwind CSS
-- 🔐 **Xác thực người dùng** - Bảo mật với Supabase Auth
-- 📊 **Quản trị viên** - Dashboard quản lý sản phẩm và đơn hàng
+- 🔍 **Tìm kiếm thông minh** - Tìm kiếm sản phẩm nhanh chóng
+- 📊 **Theo dõi đơn hàng** - Kiểm tra trạng thái đơn hàng real-time
 
-## Yêu cầu hệ thống
+## 🚀 Quick Start
 
-- Node.js 18+ 
+### Yêu cầu hệ thống
+- Node.js 18+
 - npm hoặc yarn
 - Tài khoản Supabase
 
-## Cài đặt và chạy
-
-### 1. Clone repository
+### 1. Clone và cài đặt
 
 ```bash
 git clone <repository-url>
-cd ecommerce-app
-```
-
-### 2. Cài đặt dependencies
-
-```bash
+cd mimo-agriculture-ecommerce
 npm install
 ```
 
-### 3. Cấu hình môi trường
+### 2. Cấu hình môi trường
 
-Tạo file `.env.local` trong thư mục gốc:
+Tạo file `.env.local`:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 ```
 
-### 4. Thiết lập database
+### 3. Thiết lập database
 
-Chạy các script SQL trong thư mục `scripts/`:
+Chạy SQL script trong Supabase SQL Editor:
 
-```bash
-# Chạy script seed dữ liệu mẫu
-node scripts/seed.js
+```sql
+-- Xem DEPLOYMENT_GUIDE.md để biết chi tiết
 ```
 
-### 5. Chạy ứng dụng
+### 4. Chạy ứng dụng
 
 ```bash
-# Development mode
+# Development
 npm run dev
 
-# Production build
+# Production
 npm run build
 npm start
 ```
 
-Ứng dụng sẽ chạy tại: `http://localhost:3000`
-
-## Cấu trúc dự án
+## 🏗️ Cấu trúc dự án
 
 ```
-ecommerce-app/
+mimo-agriculture-ecommerce/
 ├── src/
-│   ├── app/                 # Next.js App Router
-│   │   ├── admin/          # Trang quản trị
-│   │   ├── products/       # Trang sản phẩm
-│   │   ├── video/          # Trang video
+│   ├── app/                    # Next.js App Router
+│   │   ├── api/buyer/orders/   # API đặt hàng
+│   │   ├── products/           # Trang sản phẩm
+│   │   ├── orders/             # Theo dõi đơn hàng
+│   │   ├── track-order/        # Kiểm tra đơn hàng
+│   │   ├── video/              # Video hướng dẫn
+│   │   └── policy/             # Chính sách bán hàng
+│   ├── components/             # React components
+│   │   ├── CartModal.tsx       # Giỏ hàng
+│   │   ├── CheckoutModal.tsx   # Thanh toán
+│   │   ├── ProductInfo.tsx     # Thông tin sản phẩm
 │   │   └── ...
-│   ├── components/         # React components
-│   ├── lib/               # Utilities và config
-│   └── contexts/          # React contexts
-├── public/                # Static files
-├── scripts/               # Database scripts
+│   ├── contexts/               # React contexts
+│   │   ├── CartContext.tsx     # Quản lý giỏ hàng
+│   │   └── ToastContext.tsx    # Thông báo
+│   └── lib/                    # Utilities
+│       ├── supabase.ts         # Supabase config
+│       └── categories.ts       # Danh mục sản phẩm
+├── public/                     # Static files
+├── DEPLOYMENT_GUIDE.md         # Hướng dẫn deploy
 └── ...
 ```
 
-## Scripts có sẵn
+## 📦 Scripts có sẵn
 
-- `npm run dev` - Chạy development server
-- `npm run build` - Build production
-- `npm run start` - Chạy production server
-- `npm run lint` - Kiểm tra code quality
+- `npm run dev` - Development server
+- `npm run build` - Production build
+- `npm run start` - Production server
+- `npm run lint` - Code linting
+- `npm run lint:fix` - Auto-fix linting issues
+- `npm run type-check` - TypeScript type checking
 
-## Công nghệ sử dụng
+## 🛠️ Công nghệ sử dụng
 
-- **Framework**: Next.js 15
+- **Framework**: Next.js 15 (App Router)
 - **UI Library**: React 19
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS 4
 - **Database**: Supabase (PostgreSQL)
-- **Authentication**: Supabase Auth
 - **Language**: TypeScript
-- **Icons**: Heroicons, Lucide React
+- **Icons**: Heroicons
+- **State Management**: React Context
 
-## Tài liệu bổ sung
+## 🚀 Deployment
 
-Xem các file `.md` trong thư mục gốc để biết thêm chi tiết:
-- `PRODUCTS_PAGE_GUIDE.md` - Hướng dẫn trang sản phẩm
-- `SHOPPING_CART_GUIDE.md` - Hướng dẫn giỏ hàng
-- `VIDEO_PAGE_GUIDE.md` - Hướng dẫn trang video
-- `UX_IMPROVEMENTS.md` - Cải tiến UX
+### Vercel (Recommended)
+1. Connect GitHub repository
+2. Add environment variables
+3. Deploy automatically
 
-## Hỗ trợ
+### Docker
+```bash
+docker build -t mimo-agri-app .
+docker run -p 3000:3000 mimo-agri-app
+```
 
-Nếu gặp vấn đề, vui lòng kiểm tra:
-1. Node.js version (cần 18+)
-2. Cấu hình Supabase
-3. Cài đặt dependencies đầy đủ
-4. Chạy script seed database
+### Manual
+```bash
+npm run build
+npm start
+```
 
-## License
+Xem `DEPLOYMENT_GUIDE.md` để biết chi tiết.
 
-MIT License
+## 📱 Tính năng đặt hàng
+
+- ✅ Thêm sản phẩm vào giỏ hàng
+- ✅ Thanh toán với thông tin giao hàng
+- ✅ Lưu mã đơn hàng tự động
+- ✅ Theo dõi trạng thái đơn hàng
+- ✅ Lịch sử đơn hàng theo số điện thoại
+
+## 🎯 Tính năng sản phẩm
+
+- ✅ Hiển thị sản phẩm với gallery ảnh
+- ✅ Hệ thống biến thể sản phẩm
+- ✅ Tìm kiếm và lọc sản phẩm
+- ✅ Video hướng dẫn kỹ thuật
+- ✅ Responsive design
+
+## 🔒 Bảo mật
+
+- ✅ Input validation đầy đủ
+- ✅ Security headers
+- ✅ HTTPS enforcement
+- ✅ SQL injection protection (Supabase)
+
+## 📊 Performance
+
+- ✅ Image optimization tự động
+- ✅ Code splitting
+- ✅ Static generation
+- ✅ WebP/AVIF support
+- ✅ SEO optimized
+
+## 🆘 Hỗ trợ
+
+- **Email**: mimoagriculture@gmail.com
+- **Hotline**: 0853.991.995
+- **Documentation**: DEPLOYMENT_GUIDE.md
+
+## 📄 License
+
+MIT License - Xem file LICENSE để biết chi tiết.
+
+---
+
+**MiMo Agriculture** - Nông nghiệp thông minh, giao hàng tận nơi 🌾

@@ -84,19 +84,19 @@ export default function HotProductsSection() {
         {/* Hot Products Grid - Shopee Style */}
         {!loading && !error && (
           <>
-            {products.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-0">
-                {products.map((product, index) => (
-                  <div key={product.id} className="border-r border-b border-gray-100 last:border-r-0">
-                    <ProductCard 
-                      product={product}
-                      isHot={true}
-                      isNew={index === 0}
-                      discountPercent={index === 0 ? 40 : index === 1 ? 34 : index === 2 ? 46 : 0}
-                    />
-                  </div>
-                ))}
-              </div>
+                   {products.length > 0 ? (
+                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 p-2">
+                       {products.map((product, index) => (
+                         <div key={product.id} className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                           <ProductCard 
+                             product={product}
+                             isHot={true}
+                             isNew={index === 0}
+                             discountPercent={index === 0 ? 40 : index === 1 ? 34 : index === 2 ? 46 : 0}
+                           />
+                         </div>
+                       ))}
+                     </div>
             ) : (
               <div className="text-center py-12 px-4">
                 <span className="text-4xl mb-3 block">🔥</span>
