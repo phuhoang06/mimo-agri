@@ -117,7 +117,7 @@ export default function ProductCardList({
           {/* Action Button */}
           <button 
             className={`w-full font-bold py-2 px-4 rounded transition-colors ${
-              isInCart(product.id)
+              isInCart(product.id, '')
                 ? 'bg-orange-500 text-white hover:bg-orange-600'
                 : 'bg-green-500 text-white hover:bg-green-600'
             }`}
@@ -138,12 +138,12 @@ export default function ProductCardList({
               addToCart(productData)
             }}
           >
-            {isInCart(product.id) ? (
+            {isInCart(product.id, '') ? (
               <span className="flex items-center justify-center gap-2">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                Đã thêm ({getItemQuantity(product.id)})
+                Đã thêm ({getItemQuantity(product.id, '')})
               </span>
             ) : (
               'Thêm vào giỏ'
