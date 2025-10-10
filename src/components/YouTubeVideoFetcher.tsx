@@ -24,8 +24,8 @@ export default function YouTubeVideoFetcher({ videoIds, onVideosLoaded }: YouTub
 
   const fetchVideoData = async () => {
     try {
-      setLoading(true)
-      setError(null)
+      // setLoading(true)
+      // setError(null)
 
       // Fallback titles - trong production sẽ dùng YouTube Data API
       const fallbackTitles = [
@@ -45,10 +45,10 @@ export default function YouTubeVideoFetcher({ videoIds, onVideosLoaded }: YouTub
       
       onVideosLoaded(videos)
     } catch (err) {
-      setError('Không thể tải thông tin video')
+      // setError('Không thể tải thông tin video')
       console.error('Error fetching video data:', err)
     } finally {
-      setLoading(false)
+      // setLoading(false)
     }
   }
 
