@@ -1,21 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import ProductReviews from './ProductReviews'
 import ProductSpecifications from './ProductSpecifications'
 
 interface Product {
   id: string
   name: string
   description: string
-  long_description?: string
-  weight?: number
-  dimensions?: string
-  material?: string
-  brand?: string
-  warranty?: string
-  rating?: number
-  review_count?: number
 }
 
 interface ProductTabsProps {
@@ -28,22 +19,12 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
   const tabs = [
     {
       id: 'description',
-      label: 'Mô tả sản phẩm',
+      label: 'Mô tả',
       icon: '📝'
     },
     {
-      id: 'specifications',
-      label: 'Thông số kỹ thuật',
-      icon: '⚙️'
-    },
-    {
-      id: 'reviews',
-      label: `Đánh giá (${product.review_count || 0})`,
-      icon: '⭐'
-    },
-    {
       id: 'shipping',
-      label: 'Vận chuyển & Đổi trả',
+      label: 'Vận chuyển',
       icon: '🚚'
     }
   ]
@@ -53,12 +34,9 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
       case 'description':
         return (
           <div className="prose max-w-none">
-            <div 
-              dangerouslySetInnerHTML={{ 
-                __html: product.long_description || product.description 
-              }}
-              className="text-gray-700 leading-relaxed"
-            />
+            <p className="text-gray-700 leading-relaxed text-lg">
+              {product.description}
+            </p>
             
             {/* Additional description sections */}
             <div className="mt-8 space-y-6">
@@ -94,12 +72,6 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
             </div>
           </div>
         )
-
-      case 'specifications':
-        return <ProductSpecifications product={product} />
-
-      case 'reviews':
-        return <ProductReviews productId={product.id} />
 
       case 'shipping':
         return (
@@ -192,21 +164,21 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm">
-      {/* Tab Navigation */}
+    <div className="bg-white">
+      {/* Tab Navigation - Shopee Style */}
       <div className="border-b border-gray-200">
-        <nav className="flex space-x-8 px-6">
+        <nav className="flex">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+              className={`flex-1 py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
                 activeTab === tab.id
                   ? 'border-green-500 text-green-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
-              <span className="mr-2">{tab.icon}</span>
+              <span className="mr-1">{tab.icon}</span>
               {tab.label}
             </button>
           ))}
@@ -214,7 +186,7 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
       </div>
 
       {/* Tab Content */}
-      <div className="p-6">
+      <div className="p-4">
         {renderTabContent()}
       </div>
     </div>

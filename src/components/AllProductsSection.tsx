@@ -40,38 +40,43 @@ export default function AllProductsSection() {
   }
 
   return (
-    <section className="py-16 bg-white w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-800">
-            TẤT CẢ SẢN PHẨM
-          </h2>
-          <a
-            href="/products"
-            className="text-green-600 font-medium hover:text-green-700 transition-colors border border-green-200 px-4 py-2 rounded-lg hover:bg-green-50"
-          >
-            xem thêm
-          </a>
+    <section className="bg-gray-50 mt-2">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header - Shopee Style */}
+        <div className="px-4 py-4 border-b border-gray-200 bg-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <span className="text-2xl">📦</span>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Tất cả sản phẩm
+              </h2>
+            </div>
+            <a
+              href="/products"
+              className="text-sm text-gray-600 hover:text-gray-800"
+            >
+              Xem tất cả →
+            </a>
+          </div>
         </div>
 
         {/* Loading State */}
         {loading && (
-          <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+          <div className="flex justify-center py-12 bg-white">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500"></div>
           </div>
         )}
 
         {/* Error State */}
         {error && (
-          <div className="text-center py-12">
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-              <span className="text-4xl mb-4 block">⚠️</span>
-              <h3 className="font-semibold text-red-800 mb-2">Lỗi kết nối</h3>
-              <p className="text-red-600 text-sm">{error}</p>
+          <div className="text-center py-8 px-4 bg-white">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <span className="text-2xl mb-2 block">⚠️</span>
+              <h3 className="font-medium text-red-800 mb-1">Lỗi kết nối</h3>
+              <p className="text-red-600 text-sm mb-3">{error}</p>
               <button 
                 onClick={fetchAllProducts}
-                className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
+                className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition-colors"
               >
                 Thử lại
               </button>
@@ -79,28 +84,31 @@ export default function AllProductsSection() {
           </div>
         )}
 
-        {/* Products Grid */}
+        {/* Products Grid - Shopee Style */}
         {!loading && !error && (
           <>
             {products.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                {products.map((product, index) => (
-                  <ProductCard 
-                    key={product.id} 
-                    product={product}
-                    isNew={index < 2}
-                    isHot={index < 3}
-                    discountPercent={[36, 34, 38, 0, 41, 0, 0, 0, 0, 0][index] || 0}
-                  />
-                ))}
+              <div className="bg-white">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-0">
+                  {products.map((product, index) => (
+                    <div key={product.id} className="border-r border-b border-gray-100 last:border-r-0">
+                      <ProductCard 
+                        product={product}
+                        isNew={index < 2}
+                        isHot={index < 3}
+                        discountPercent={[36, 34, 38, 0, 41, 0, 0, 0, 0, 0][index] || 0}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : (
-              <div className="text-center py-12">
-                <span className="text-6xl mb-4 block">📦</span>
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
+              <div className="text-center py-12 px-4 bg-white">
+                <span className="text-4xl mb-3 block">📦</span>
+                <h3 className="text-lg font-medium text-gray-600 mb-1">
                   Chưa có sản phẩm nào
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-gray-500 text-sm">
                   Hãy quay lại sau để xem những sản phẩm mới nhất
                 </p>
               </div>

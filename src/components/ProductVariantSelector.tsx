@@ -1,121 +1,127 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+
 interface ProductVariant {
   id: string
+  product_id: string
   name: string
-  type: 'color' | 'size' | 'style'
-  options: {
-    value: string
-    label: string
-    price_adjustment?: number
-    stock?: number
-    image?: string
-  }[]
+  sku: string
+  price: number
+  stock: number
+  created_at: string
+  updated_at: string
 }
 
 interface ProductVariantSelectorProps {
-  variant: ProductVariant
-  selectedValue: string
-  onValueChange: (value: string) => void
+  variants: ProductVariant[]
+  selectedVariant: ProductVariant | null
+  onVariantChange: (variant: ProductVariant | null) => void
+  className?: string
 }
 
 export default function ProductVariantSelector({
-  variant,
-  selectedValue,
-  onValueChange
+  variants,
+  selectedVariant,
+  onVariantChange,
+  className = ''
 }: ProductVariantSelectorProps) {
-  const isColorVariant = variant.type === 'color'
-  const isSizeVariant = variant.type === 'size'
+  const [selectedId, setSelectedId] = useState<string>('')
+
+  // Auto-select first variant if none selected
+  useEffect(() => {
+    if (!selectedVariant && variants.length > 0) {
+      const firstVariant = variants[0]
+      setSelectedId(firstVariant.id)
+      onVariantChange(firstVariant)
+    }
+  }, [variants, selectedVariant, onVariantChange])
+
+  const handleVariantChange = (variantId: string) => {
+    const variant = variants.find(v => v.id === variantId)
+    setSelectedId(variantId)
+    onVariantChange(variant || null)
+  }
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(price)
+  }
+
+  if (variants.length === 0) {
+    return null
+  }
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between">
-        <h3 className="font-medium text-gray-900">{variant.name}:</h3>
-        {selectedValue && (
-          <span className="text-sm text-gray-600">
-            {variant.options.find(opt => opt.value === selectedValue)?.label}
-          </span>
-        )}
-      </div>
-
-      <div className={`flex flex-wrap gap-2 ${
-        isColorVariant ? 'space-x-2' : 'space-x-3'
-      }`}>
-        {variant.options.map((option) => {
-          const isSelected = selectedValue === option.value
-          const isOutOfStock = option.stock === 0
-
-          if (isColorVariant) {
+    <div className={`space-y-3 ${className}`}>
+      <div>
+        <h3 className="text-sm font-medium text-gray-900 mb-2">
+          Phân loại hàng
+        </h3>
+        
+        <div className="grid grid-cols-2 gap-2">
+          {variants.map((variant) => {
+            const isSelected = selectedId === variant.id
+            const isOutOfStock = variant.stock === 0
+            
             return (
-              <button
-                key={option.value}
-                onClick={() => !isOutOfStock && onValueChange(option.value)}
-                disabled={isOutOfStock}
-                className={`relative w-10 h-10 rounded-full border-2 transition-all ${
+              <label
+                key={variant.id}
+                className={`relative flex flex-col p-3 border rounded-lg cursor-pointer transition-all ${
                   isSelected
-                    ? 'border-green-500 ring-2 ring-green-200'
-                    : 'border-gray-300 hover:border-gray-400'
-                } ${isOutOfStock ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                style={{
-                  backgroundColor: option.value === 'red' ? '#ff0000' :
-                                  option.value === 'blue' ? '#0000ff' :
-                                  option.value === 'green' ? '#00ff00' :
-                                  option.value === 'black' ? '#000000' : '#f3f4f6'
-                }}
-                title={`${option.label}${option.price_adjustment ? ` (+${option.price_adjustment.toLocaleString()}₫)` : ''}`}
+                    ? 'border-green-500 bg-green-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                } ${isOutOfStock ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                {option.image && (
-                  <img
-                    src={option.image}
-                    alt={option.label}
-                    className="w-full h-full rounded-full object-cover"
-                  />
-                )}
-                {isOutOfStock && (
-                  <div className="absolute inset-0 bg-gray-400 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">×</span>
-                  </div>
-                )}
-              </button>
+                <input
+                  type="radio"
+                  name="variant"
+                  value={variant.id}
+                  checked={isSelected}
+                  onChange={() => handleVariantChange(variant.id)}
+                  disabled={isOutOfStock}
+                  className="sr-only"
+                />
+                
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm font-medium text-gray-900">
+                    {variant.name}
+                  </span>
+                  {isSelected && (
+                    <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                      <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-red-500">
+                    {formatPrice(variant.price)}
+                  </span>
+                  <span className={`text-xs ${
+                    variant.stock > 10 
+                      ? 'text-green-600' 
+                      : variant.stock > 0 
+                        ? 'text-yellow-600' 
+                        : 'text-red-600'
+                  }`}>
+                    {variant.stock > 0 
+                      ? `${variant.stock} còn`
+                      : 'Hết hàng'
+                    }
+                  </span>
+                </div>
+              </label>
             )
-          }
-
-          return (
-            <button
-              key={option.value}
-              onClick={() => !isOutOfStock && onValueChange(option.value)}
-              disabled={isOutOfStock}
-              className={`px-4 py-2 rounded-lg border-2 transition-all text-sm font-medium ${
-                isSelected
-                  ? 'border-green-500 bg-green-50 text-green-700'
-                  : 'border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50'
-              } ${isOutOfStock ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-            >
-              <div className="flex flex-col items-center">
-                <span>{option.label}</span>
-                {option.price_adjustment && option.price_adjustment > 0 && (
-                  <span className="text-xs text-gray-500">
-                    +{option.price_adjustment.toLocaleString()}₫
-                  </span>
-                )}
-                {option.stock !== undefined && (
-                  <span className="text-xs text-gray-400">
-                    ({option.stock})
-                  </span>
-                )}
-              </div>
-            </button>
-          )
-        })}
-      </div>
-
-      {/* Price adjustment info */}
-      {selectedValue && variant.options.find(opt => opt.value === selectedValue)?.price_adjustment && (
-        <div className="text-sm text-gray-600">
-          <span className="text-green-600">
-            +{variant.options.find(opt => opt.value === selectedValue)?.price_adjustment?.toLocaleString()}₫
-          </span>
-          <span className="ml-1">cho {variant.name.toLowerCase()}</span>
+          })}
         </div>
-      )}
+      </div>
     </div>
   )
 }

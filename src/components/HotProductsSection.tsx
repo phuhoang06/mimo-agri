@@ -40,37 +40,40 @@ export default function HotProductsSection() {
   }
 
   return (
-    <section className="py-16 bg-gray-100 w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="bg-white rounded-lg p-6 max-w-4xl mx-auto shadow-sm">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              SẢN PHẨM BÁN CHẠY
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Top 5 sản phẩm được nông dân tin tưởng và sử dụng nhiều nhất
-            </p>
+    <section className="bg-white">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header - Shopee Style */}
+        <div className="px-4 py-4 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <span className="text-2xl">🔥</span>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Sản phẩm bán chạy
+              </h2>
+            </div>
+            <button className="text-sm text-gray-600 hover:text-gray-800">
+              Xem tất cả →
+            </button>
           </div>
         </div>
 
         {/* Loading State */}
         {loading && (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500"></div>
           </div>
         )}
 
         {/* Error State */}
         {error && (
-          <div className="text-center py-12">
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-              <span className="text-4xl mb-4 block">⚠️</span>
-              <h3 className="font-semibold text-red-800 mb-2">Lỗi kết nối</h3>
-              <p className="text-red-600 text-sm">{error}</p>
+          <div className="text-center py-8 px-4">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <span className="text-2xl mb-2 block">⚠️</span>
+              <h3 className="font-medium text-red-800 mb-1">Lỗi kết nối</h3>
+              <p className="text-red-600 text-sm mb-3">{error}</p>
               <button 
                 onClick={fetchHotProducts}
-                className="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
+                className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition-colors"
               >
                 Thử lại
               </button>
@@ -78,28 +81,29 @@ export default function HotProductsSection() {
           </div>
         )}
 
-        {/* Hot Products Grid */}
+        {/* Hot Products Grid - Shopee Style */}
         {!loading && !error && (
           <>
             {products.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-0">
                 {products.map((product, index) => (
-                  <ProductCard 
-                    key={product.id} 
-                    product={product}
-                    isHot={true}
-                    isNew={index === 0}
-                    discountPercent={index === 0 ? 40 : index === 1 ? 34 : index === 2 ? 46 : 0}
-                  />
+                  <div key={product.id} className="border-r border-b border-gray-100 last:border-r-0">
+                    <ProductCard 
+                      product={product}
+                      isHot={true}
+                      isNew={index === 0}
+                      discountPercent={index === 0 ? 40 : index === 1 ? 34 : index === 2 ? 46 : 0}
+                    />
+                  </div>
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <span className="text-6xl mb-4 block">🔥</span>
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
+              <div className="text-center py-12 px-4">
+                <span className="text-4xl mb-3 block">🔥</span>
+                <h3 className="text-lg font-medium text-gray-600 mb-1">
                   Chưa có sản phẩm bán chạy
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-gray-500 text-sm">
                   Hãy quay lại sau để xem những sản phẩm hot nhất
                 </p>
               </div>

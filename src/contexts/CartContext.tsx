@@ -3,15 +3,16 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
 export interface CartItem {
-  id: string
+  id: string // product_id
+  variantId: string // product_variant_id
   name: string
+  variantName: string
   price: number
-  originalPrice?: number
   quantity: number
   image: string
   description?: string
   category?: string
-  variant?: string
+  sku?: string
 }
 
 interface CartContextType {
@@ -19,11 +20,11 @@ interface CartContextType {
   totalItems: number
   totalPrice: number
   addToCart: (product: Omit<CartItem, 'quantity'>) => void
-  removeFromCart: (productId: string) => void
-  updateQuantity: (productId: string, quantity: number) => void
+  removeFromCart: (productId: string, variantId: string) => void
+  updateQuantity: (productId: string, variantId: string, quantity: number) => void
   clearCart: () => void
-  isInCart: (productId: string) => boolean
-  getItemQuantity: (productId: string) => number
+  isInCart: (productId: string, variantId: string) => boolean
+  getItemQuantity: (productId: string, variantId: string) => number
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -66,12 +67,14 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   const addToCart = (product: Omit<CartItem, 'quantity'>) => {
     setItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id)
+      const existingItem = prevItems.find(item => 
+        item.id === product.id && item.variantId === product.variantId
+      )
       
       if (existingItem) {
         // If item exists, increase quantity
         return prevItems.map(item =>
-          item.id === product.id
+          item.id === product.id && item.variantId === product.variantId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
@@ -82,19 +85,21 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     })
   }
 
-  const removeFromCart = (productId: string) => {
-    setItems(prevItems => prevItems.filter(item => item.id !== productId))
+  const removeFromCart = (productId: string, variantId: string) => {
+    setItems(prevItems => 
+      prevItems.filter(item => !(item.id === productId && item.variantId === variantId))
+    )
   }
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = (productId: string, variantId: string, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(productId)
+      removeFromCart(productId, variantId)
       return
     }
 
     setItems(prevItems =>
       prevItems.map(item =>
-        item.id === productId
+        item.id === productId && item.variantId === variantId
           ? { ...item, quantity }
           : item
       )
@@ -105,12 +110,12 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     setItems([])
   }
 
-  const isInCart = (productId: string) => {
-    return items.some(item => item.id === productId)
+  const isInCart = (productId: string, variantId: string) => {
+    return items.some(item => item.id === productId && item.variantId === variantId)
   }
 
-  const getItemQuantity = (productId: string) => {
-    const item = items.find(item => item.id === productId)
+  const getItemQuantity = (productId: string, variantId: string) => {
+    const item = items.find(item => item.id === productId && item.variantId === variantId)
     return item ? item.quantity : 0
   }
 
