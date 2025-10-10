@@ -132,7 +132,9 @@ export default function ProductCardList({
                 originalPrice: discountPercent > 0 ? (product.min_price || 0) / (1 - discountPercent / 100) : undefined,
                 image: product.image_url || '/images/placeholder.jpg',
                 description: product.description,
-                category: 'Nông nghiệp'
+                category: 'Nông nghiệp',
+                variantId: '',
+                variantName: ''
               }
               
               addToCart(productData)
