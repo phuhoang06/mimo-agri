@@ -332,17 +332,17 @@ export default function ProductDetailPage() {
   )
 }
 
-function extractYouTubeId(url: string): string {
-  try {
-    // Support youtu.be/<id> and youtube.com/watch?v=<id>
-    const u = new URL(url)
-    if (u.hostname.includes('youtu.be')) return u.pathname.replace('/', '')
-    const v = u.searchParams.get('v')
-    if (v) return v
-    // Fallback try to get last path segment
-    const parts = u.pathname.split('/')
-    return parts[parts.length - 1] || ''
-  } catch {
-    return ''
-  }
-}
+// function extractYouTubeId(url: string): string {
+//   try {
+//     // Support youtu.be/<id> and youtube.com/watch?v=<id>
+//     const u = new URL(url)
+//     if (u.hostname.includes('youtu.be')) return u.pathname.replace('/', '')
+//     const v = u.searchParams.get('v')
+//     if (v) return v
+//     // Fallback try to get last path segment
+//     const parts = u.pathname.split('/')
+//     return parts[parts.length - 1] || ''
+//   } catch {
+//     return ''
+//   }
+// }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+// import { useState } from 'react'
 import { ShoppingCartIcon, BoltIcon } from '@heroicons/react/24/outline'
 import QuantitySelector from './QuantitySelector'
 

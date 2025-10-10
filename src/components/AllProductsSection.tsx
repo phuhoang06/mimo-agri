@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import ProductCard from './ProductCard'
 
@@ -51,12 +52,12 @@ export default function AllProductsSection() {
                 Tất cả sản phẩm
               </h2>
             </div>
-            <a
+            <Link
               href="/products"
               className="text-sm text-gray-600 hover:text-gray-800"
             >
               Xem tất cả →
-            </a>
+            </Link>
           </div>
         </div>
 

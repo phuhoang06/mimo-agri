@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import ProductCard from './ProductCard'
 
@@ -105,12 +106,12 @@ export default function ProductsSection() {
           {/* View All Button */}
           {products.length > 0 && (
             <div className="text-center mt-12">
-              <a
+              <Link
                 href="/products"
                 className="inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-600 transition-all transform hover:scale-105"
               >
                 Xem tất cả sản phẩm
-              </a>
+              </Link>
             </div>
           )}
         </>

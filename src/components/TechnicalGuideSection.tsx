@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
 interface Article {
@@ -57,12 +58,12 @@ export default function TechnicalGuideSection() {
           <h2 className="text-2xl font-bold text-gray-800">
             HƯỚNG DẪN VÀ CHĂM SÓC
           </h2>
-          <a
+          <Link
             href="/articles"
             className="text-green-600 font-medium hover:text-green-700 transition-colors border border-green-200 px-4 py-2 rounded-lg hover:bg-green-50"
           >
             xem thêm
-          </a>
+          </Link>
         </div>
 
         {/* Loading State */}
