@@ -35,6 +35,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn-media.sforum.vn',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   
