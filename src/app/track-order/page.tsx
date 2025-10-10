@@ -105,8 +105,8 @@ export default function TrackOrderPage() {
     }
   }
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSearch = async (e?: React.FormEvent) => {
+    e?.preventDefault()
     
     if (!orderId.trim()) {
       setError('Vui lòng nhập mã đơn hàng')
@@ -150,7 +150,7 @@ export default function TrackOrderPage() {
 
   const handleSelectSavedOrder = (orderId: string) => {
     setOrderId(orderId)
-    handleSearch(new Event('submit') as React.FormEvent)
+    handleSearch()
   }
 
   const copyOrderId = (orderId: string) => {
