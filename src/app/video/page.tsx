@@ -24,9 +24,9 @@ export default function VideoPage() {
   const [filteredVideos, setFilteredVideos] = useState<Video[]>([])
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-  const [selectedCategory] = useState('all')
-  const [searchQuery] = useState('')
-  const [sortBy] = useState('newest')
+  // const [selectedCategory] = useState('all')
+  // const [searchQuery] = useState('')
+  // const [sortBy] = useState('newest')
   
   const videosPerPage = 12
 
@@ -130,7 +130,7 @@ export default function VideoPage() {
   }
 
   const applyFilters = () => {
-    let filtered = [...videos]
+    const filtered = [...videos]
 
     // Sort videos by newest
     filtered.sort((a, b) => {
@@ -142,15 +142,15 @@ export default function VideoPage() {
   }
 
   // Pagination
-  const totalPages = Math.ceil(filteredVideos.length / videosPerPage)
+  // const totalPages = Math.ceil(filteredVideos.length / videosPerPage)
   const startIndex = (currentPage - 1) * videosPerPage
   const endIndex = startIndex + videosPerPage
   const currentVideos = filteredVideos.slice(startIndex, endIndex)
 
-  const goToPage = (page: number) => {
-    setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  // const goToPage = (page: number) => {
+  //   setCurrentPage(page)
+  //   window.scrollTo({ top: 0, behavior: 'smooth' })
+  // }
 
   return (
     <>

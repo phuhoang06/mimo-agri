@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { XMarkIcon, ShoppingCartIcon, CheckIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'
 import { useCart } from '@/contexts/CartContext'
 import { useToast } from '@/contexts/ToastContext'
 import ProductVariantSelector from './ProductVariantSelector'

@@ -150,7 +150,7 @@ export default function TrackOrderPage() {
 
   const handleSelectSavedOrder = (orderId: string) => {
     setOrderId(orderId)
-    handleSearch(new Event('submit') as any)
+    handleSearch(new Event('submit') as React.FormEvent)
   }
 
   const copyOrderId = (orderId: string) => {

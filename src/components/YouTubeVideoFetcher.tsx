@@ -16,7 +16,7 @@ interface YouTubeVideoFetcherProps {
 
 export default function YouTubeVideoFetcher({ videoIds, onVideosLoaded }: YouTubeVideoFetcherProps) {
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  // const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     fetchVideoData()
@@ -84,7 +84,7 @@ export const fetchYouTubeVideoData = async (videoIds: string[], apiKey?: string)
 
     const data = await response.json()
     
-    return data.items.map((item: any, index: number) => ({
+    return data.items.map((item: { snippet: { title: string; description: string; thumbnails: { medium: { url: string } } }; id: { videoId: string } }, index: number) => ({
       id: (index + 1).toString(),
       title: item.snippet.title,
       videoId: item.id,

@@ -137,7 +137,7 @@ export default function ProductsPage() {
     setCurrentPage(1)
   }
 
-  const handleFilterChange = (key: keyof FilterState, value: any) => {
+  const handleFilterChange = (key: keyof FilterState, value: string | number) => {
     setFilters(prev => ({ ...prev, [key]: value }))
   }
 

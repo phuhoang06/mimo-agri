@@ -23,6 +23,9 @@ export default function ProductCard({
   discountPercent = 0,
   isHot = false
 }: ProductCardProps) {
+  // Suppress unused parameter warnings for future use
+  void isNew;
+  void isHot;
   const { addToCart } = useCart()
   const { success } = useToast()
   const formatPrice = (price: number) => {

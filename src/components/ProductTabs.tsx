@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import ProductSpecifications from './ProductSpecifications'
+// import ProductSpecifications from './ProductSpecifications'
 
 interface Product {
   id: string

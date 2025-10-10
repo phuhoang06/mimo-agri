@@ -34,10 +34,10 @@ export default function ArticleDetailPage() {
           .select('*')
           .eq('id', slug)
           .single()
-        data = fallback.data as any
+        data = fallback.data as Article | null
       }
 
-      setArticle((data as any) || null)
+      setArticle(data || null)
     }
     fetchArticle()
   }, [slug])

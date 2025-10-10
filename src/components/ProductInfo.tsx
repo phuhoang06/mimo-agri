@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CheckIcon, ShoppingCartIcon, BoltIcon } from '@heroicons/react/24/outline'
+import { ShoppingCartIcon, BoltIcon } from '@heroicons/react/24/outline'
 import QuantitySelector from './QuantitySelector'
 
 interface Product {
@@ -31,15 +31,18 @@ export default function ProductInfo({
   calculatedPrice,
   isBuyingNow = false
 }: ProductInfoProps) {
+  // Suppress unused parameter warnings for future use
+  void product;
+  void calculatedPrice;
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price)
-  }
+  // const formatPrice = (price: number) => {
+  //   return new Intl.NumberFormat('vi-VN', {
+  //     style: 'currency',
+  //     currency: 'VND',
+  //     minimumFractionDigits: 0,
+  //     maximumFractionDigits: 0
+  //   }).format(price)
+  // }
 
 
   return (

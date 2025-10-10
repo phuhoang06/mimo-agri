@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+// import { useState } from 'react'
 import Link from 'next/link'
 
 export default function VideoHero() {
-  const [isPlaying, setIsPlaying] = useState(false)
+  // const [isPlaying, setIsPlaying] = useState(false)
 
-  const handlePlay = () => {
-    setIsPlaying(true)
-  }
+  // const handlePlay = () => {
+  //   setIsPlaying(true)
+  // }
 
   return (
     <div className="relative bg-gradient-to-r from-green-600 to-green-800 text-white">
