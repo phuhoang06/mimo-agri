@@ -30,7 +30,7 @@ interface OrderItem {
   variant_name?: string
 }
 
-export default function OrderDetailPage({ params }: { params: { id: string } }) {
+export default function OrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
   const [order, setOrder] = useState<Order | null>(null)
   const [loading, setLoading] = useState(true)
@@ -95,7 +95,8 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await fetch(`/api/buyer/orders/${params.id}`)
+        const { id } = await params
+        const response = await fetch(`/api/buyer/orders/${id}`)
         const result = await response.json()
 
         if (!response.ok) {
@@ -112,7 +113,7 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
     }
 
     fetchOrder()
-  }, [params.id])
+  }, [params])
 
   if (loading) {
     return (
