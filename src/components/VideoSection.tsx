@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import YouTubeVideoFetcher from './YouTubeVideoFetcher'
 
 interface Video {
@@ -40,12 +41,12 @@ export default function VideoSection() {
           <h2 className="text-2xl font-bold text-gray-800">
             VIDEO
           </h2>
-          <a
+          <Link
             href="/videos"
             className="text-green-600 font-medium hover:text-green-700 transition-colors border border-green-200 px-4 py-2 rounded-lg hover:bg-green-50"
           >
-            xem thêm
-          </a>
+            Xem thêm video
+          </Link>
         </div>
 
         {/* YouTube Video Fetcher */}
