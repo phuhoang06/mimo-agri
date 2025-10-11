@@ -84,7 +84,7 @@ export const fetchYouTubeVideoData = async (videoIds: string[], apiKey?: string)
 
     const data = await response.json()
     
-    return data.items.map((item: { snippet: { title: string; description: string; thumbnails: { medium: { url: string } } }; id: { videoId: string } }, index: number) => ({
+    return data.items.map((item: { snippet: { title: string; description: string; thumbnails: { medium: { url: string }; maxres?: { url: string } } }; id: { videoId: string } }, index: number) => ({
       id: (index + 1).toString(),
       title: item.snippet.title,
       videoId: item.id,
@@ -93,6 +93,16 @@ export const fetchYouTubeVideoData = async (videoIds: string[], apiKey?: string)
   } catch (error) {
     console.error('Error fetching YouTube data:', error)
     // Return fallback data
-    return fetchYouTubeVideoData(videoIds) // Recursive call without API key
+    const fallbackTitles = [
+      'Bẫy RUỒI VÀNG - Hướng dẫn sử dụng hiệu quả, tiết kiệm và an toàn',
+      'BẪY RUỒI VÀNG Chai Xịt - Sản phẩm diệt ruồi vàng hiệu quả 40%'
+    ]
+
+    return videoIds.map((videoId, index) => ({
+      id: (index + 1).toString(),
+      title: fallbackTitles[index] || 'Video không có tiêu đề',
+      videoId: videoId,
+      thumbnail: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+    }))
   }
 }

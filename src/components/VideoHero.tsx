@@ -46,7 +46,7 @@ export default function VideoHero() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/video/1"
+                href="/videos/1"
                 className="bg-white text-green-600 font-bold py-3 px-8 rounded-lg hover:bg-green-50 transition-colors flex items-center justify-center gap-2"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -55,7 +55,7 @@ export default function VideoHero() {
                 Xem video nổi bật
               </Link>
               <Link
-                href="/video"
+                href="/videos"
                 className="border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-green-600 transition-colors text-center"
               >
                 Khám phá tất cả
@@ -75,7 +75,7 @@ export default function VideoHero() {
               {/* Play Button Overlay */}
               <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                 <Link
-                  href="/video/1"
+                  href="/videos/1"
                   className="bg-red-600 text-white rounded-full w-20 h-20 flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg"
                 >
                   <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">

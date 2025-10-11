@@ -173,7 +173,7 @@ export default function RelatedVideos({ currentVideoId, category }: RelatedVideo
         {videos.map((video) => (
           <Link
             key={video.id}
-            href={`/video/${video.id}`}
+            href={`/videos/${video.id}`}
             className="flex gap-3 hover:bg-gray-50 p-2 rounded-lg transition-colors group"
           >
             <div className="relative w-24 h-16 bg-gray-200 rounded overflow-hidden flex-shrink-0">
@@ -204,7 +204,7 @@ export default function RelatedVideos({ currentVideoId, category }: RelatedVideo
       
       <div className="mt-4 pt-4 border-t">
         <Link
-          href="/video"
+          href="/videos"
           className="text-green-600 hover:text-green-700 text-sm font-medium transition-colors"
         >
           Xem tất cả video →
