@@ -1,129 +1,50 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Breadcrumb from '@/components/Breadcrumb'
-import VideoPlayer from '@/components/VideoPlayer'
-import RelatedVideos from '@/components/RelatedVideos'
+import { supabase, YoutubeVideo } from '@/lib/supabase'
 
-interface Video {
-  id: string
-  title: string
-  description: string
-  videoId: string
-  thumbnail: string
-  category: string
-  duration: string
-  views: number
-  publishedAt: string
-  featured: boolean
-  tags: string[]
-  author: string
-}
-
-export default function VideoDetailPage() {
-  const params = useParams()
-  const router = useRouter()
-  const [video, setVideo] = useState<Video | null>(null)
+export default function VideoDetailPage({ params }: { params: { id: string } }) {
+  const [video, setVideo] = useState<YoutubeVideo | null>(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    if (params.id) {
-      fetchVideo()
+    const fetchVideo = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('youtube_video')
+          .select('*')
+          .eq('id', params.id)
+          .single()
+
+        if (error || !data) {
+          setError(true)
+        } else {
+          setVideo(data)
+        }
+      } catch (err) {
+        setError(true)
+      } finally {
+        setLoading(false)
+      }
     }
+
+    fetchVideo()
   }, [params.id])
 
-  const fetchVideo = async () => {
-    try {
-      setLoading(true)
-      
-      // Mock data - trong thực tế sẽ lấy từ database
-      const mockVideos: Video[] = [
-        {
-          id: '1',
-          title: 'Bẫy RUỒI VÀNG - Hướng dẫn sử dụng hiệu quả, tiết kiệm và an toàn',
-          description: 'Hướng dẫn chi tiết cách sử dụng bẫy ruồi vàng dạng chai để bảo vệ cây trồng hiệu quả. Video này sẽ giúp bạn hiểu rõ cách thức hoạt động của sản phẩm và cách sử dụng đúng cách để đạt hiệu quả tối đa.',
-          videoId: 'OHqcNAyqV2A',
-          thumbnail: 'https://img.youtube.com/vi/OHqcNAyqV2A/maxresdefault.jpg',
-          category: 'huong-dan',
-          duration: '5:30',
-          views: 1250,
-          publishedAt: '2024-01-15',
-          featured: true,
-          tags: ['bẫy ruồi', 'hướng dẫn', 'nông nghiệp', 'bảo vệ cây trồng'],
-          author: 'MIMO Agriculture'
-        },
-        {
-          id: '2',
-          title: 'BẪY RUỒI VÀNG Chai Xịt - Sản phẩm diệt ruồi vàng hiệu quả 40%',
-          description: 'Giới thiệu sản phẩm xịt bẫy ruồi vàng với hiệu quả cao, an toàn cho cây trồng. Sản phẩm được nghiên cứu và phát triển đặc biệt để đối phó với ruồi vàng gây hại.',
-          videoId: 'osD0RAxQsbE',
-          thumbnail: 'https://img.youtube.com/vi/osD0RAxQsbE/maxresdefault.jpg',
-          category: 'san-pham',
-          duration: '4:15',
-          views: 890,
-          publishedAt: '2024-01-10',
-          featured: true,
-          tags: ['sản phẩm', 'xịt ruồi', 'diệt côn trùng', 'hiệu quả cao'],
-          author: 'MIMO Agriculture'
-        }
-      ]
-
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      const foundVideo = mockVideos.find(v => v.id === params.id)
-      if (foundVideo) {
-        setVideo(foundVideo)
-      } else {
-        setError('Video không tồn tại')
-      }
-    } catch (err) {
-      setError('Không thể tải video')
-      console.error('Error fetching video:', err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const formatViews = (views: number) => {
-    if (views >= 1000) {
-      return `${(views / 1000).toFixed(1)}K`
-    }
-    return views.toString()
-  }
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('vi-VN', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
-  }
-
-  const getCategoryLabel = (category: string) => {
-    const labels: Record<string, string> = {
-      'huong-dan': 'Hướng dẫn',
-      'san-pham': 'Sản phẩm',
-      'tips': 'Tips & Tricks',
-      'cong-nghe': 'Công nghệ'
-    }
-    return labels[category] || category
-  }
+  const cleanId = video?.video_id?.split('&')[0].split('?')[0]
 
   if (loading) {
     return (
       <>
         <Header />
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
-            <p className="text-gray-600">Đang tải video...</p>
-          </div>
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="animate-pulse text-gray-500">Đang tải...</div>
         </div>
         <Footer />
       </>
@@ -134,144 +55,130 @@ export default function VideoDetailPage() {
     return (
       <>
         <Header />
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="text-center">
-            <span className="text-6xl mb-4 block">😞</span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              {error || 'Video không tồn tại'}
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Không thể tìm thấy video bạn đang tìm kiếm
-            </p>
-            <button
-              onClick={() => router.push('/video')}
-              className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors"
-            >
-              Quay lại danh sách video
-            </button>
-          </div>
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <h1 className="text-2xl font-bold mb-4">Video không tồn tại</h1>
+          <Link href="/videos" className="text-green-600 hover:text-green-700 underline">
+            Quay lại danh sách video
+          </Link>
         </div>
         <Footer />
       </>
     )
   }
 
+  // Format duration from ISO 8601 (PT5M32S) to readable format
+  const formatDuration = (duration: string) => {
+    if (!duration) return 'N/A'
+    const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/)
+    if (!match) return duration
+
+    const hours = (match[1] || '').replace('H', '')
+    const minutes = (match[2] || '').replace('M', '')
+    const seconds = (match[3] || '').replace('S', '')
+
+    let result = ''
+    if (hours) result += `${hours}:`
+    result += `${minutes.padStart(2, '0')}:`
+    result += seconds.padStart(2, '0')
+
+    return result
+  }
+
   return (
     <>
       <Header />
-      
-      <div className="min-h-screen bg-gray-50">
-        {/* Breadcrumb */}
-        <div className="bg-white border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <Breadcrumb 
-              items={[
-                { label: 'Video', href: '/video' },
-                { label: video.title }
-              ]} 
-            />
-          </div>
-        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2">
-              {/* Video Player */}
-              <VideoPlayer video={video} />
-
-              {/* Video Info */}
-              <div className="bg-white rounded-lg shadow-sm p-6 mt-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                      {video.title}
-                    </h1>
-                    <div className="flex items-center gap-4 text-sm text-gray-600">
-                      <span>{formatViews(video.views)} lượt xem</span>
-                      <span>•</span>
-                      <span>{formatDate(video.publishedAt)}</span>
-                      <span>•</span>
-                      <span>{video.duration}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                      </svg>
-                      Yêu thích
-                    </button>
-                    <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                      </svg>
-                      Chia sẻ
-                    </button>
-                  </div>
-                </div>
-
-                {/* Tags */}
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-2">
-                    {video.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Description */}
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Mô tả</h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    {video.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Sidebar */}
-            <div className="lg:col-span-1">
-              {/* Video Info Card */}
-              <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-                <h3 className="font-semibold text-gray-900 mb-4">Thông tin video</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Danh mục:</span>
-                    <span className="font-medium">{getCategoryLabel(video.category)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Tác giả:</span>
-                    <span className="font-medium">{video.author}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Lượt xem:</span>
-                    <span className="font-medium">{formatViews(video.views)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Thời lượng:</span>
-                    <span className="font-medium">{video.duration}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Ngày đăng:</span>
-                    <span className="font-medium">{formatDate(video.publishedAt)}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Related Videos */}
-              <RelatedVideos currentVideoId={video.id} category={video.category} />
-            </div>
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-r from-green-600 to-green-800 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <h1 className="text-3xl lg:text-4xl font-bold leading-tight">
+              {video.title || 'Video Hướng Dẫn'}
+            </h1>
           </div>
         </div>
       </div>
-      
+
+      {/* Breadcrumb */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <Breadcrumb
+            items={[
+              { label: 'Videos', href: '/videos' },
+              { label: video.title || 'Chi tiết video' }
+            ]}
+          />
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="bg-gray-50 py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Video Player */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
+            <div className="relative aspect-video">
+              <iframe
+                src={`https://www.youtube.com/embed/${cleanId}`}
+                title={video.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+
+          {/* Video Info */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              {video.title || 'Video không có tiêu đề'}
+            </h2>
+
+            {/* Stats */}
+            <div className="flex items-center space-x-6 mb-6 pb-6 border-b border-gray-200">
+              <div className="flex items-center space-x-2">
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <span className="text-gray-700 font-medium">
+                  {video.view_count?.toLocaleString() || 0} lượt xem
+                </span>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-gray-700 font-medium">
+                  {formatDuration(video.duration)}
+                </span>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Mô tả</h3>
+              <p className="text-gray-700 whitespace-pre-line leading-relaxed">
+                {video.description || 'Không có mô tả'}
+              </p>
+            </div>
+          </div>
+
+          {/* Back Button */}
+          <div className="text-center">
+            <Link
+              href="/videos"
+              className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-200 shadow-md hover:shadow-lg"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Quay lại danh sách video
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <Footer />
     </>
   )

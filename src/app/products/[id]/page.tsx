@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import type { Product, ProductVariant } from '@/lib/supabase'
+import { getAllImages } from '@/lib/product-utils'
 import { useCart } from '@/contexts/CartContext'
 import Breadcrumb from '@/components/Breadcrumb'
 import ProductGallery from '@/components/ProductGallery'
@@ -12,31 +14,6 @@ import ProductSkeleton from '@/components/ProductSkeleton'
 import ProductVariantSelector from '@/components/ProductVariantSelector'
 import AddToCartModal from '@/components/AddToCartModal'
 import CheckoutModal from '@/components/CheckoutModal'
-
-interface Product {
-  id: string
-  name: string
-  description: string
-  category_id?: string
-  image_url?: string
-  images?: string[]
-  video_url?: string
-  min_price?: number
-  max_price?: number
-  created_at: string
-  updated_at: string
-}
-
-interface ProductVariant {
-  id: string
-  product_id: string
-  name: string
-  sku: string
-  price: number
-  stock: number
-  created_at: string
-  updated_at: string
-}
 
 export default function ProductDetailPage() {
   const params = useParams()
@@ -52,6 +29,7 @@ export default function ProductDetailPage() {
   const [isBuyingNow, setIsBuyingNow] = useState(false)
   const [showAddToCartModal, setShowAddToCartModal] = useState(false)
   const [showCheckoutModal, setShowCheckoutModal] = useState(false)
+  const [productImages, setProductImages] = useState<string[]>([])
 
   useEffect(() => {
     if (params.id) {
@@ -62,26 +40,27 @@ export default function ProductDetailPage() {
   const fetchProduct = async () => {
     try {
       setLoading(true)
-      
-      // Fetch product data
+
+      // Fetch product data from new table
       const { data: productData, error: productError } = await supabase
-        .from('products')
+        .from('tb_agricultural_product')
         .select('*')
         .eq('id', params.id)
         .single()
-      
+
       if (productError) throw productError
-      
+
       if (!productData) {
         setError('Sản phẩm không tồn tại')
         return
       }
 
-      // Fetch product variants
+      // Fetch product variants from new table
       const { data: variantsData, error: variantsError } = await supabase
-        .from('product_variants')
+        .from('tb_product_variant')
         .select('*')
         .eq('product_id', params.id)
+        .eq('status', 'active')
         .order('price', { ascending: true })
 
       if (variantsError) {
@@ -89,31 +68,18 @@ export default function ProductDetailPage() {
       }
 
       // Process product data
-      const product: Product = {
-        ...productData,
-        images: productData.images && Array.isArray(productData.images) && productData.images.length > 0
-          ? productData.images
-          : productData.image_url 
-            ? [productData.image_url]
-            : ['https://via.placeholder.com/600x600?text=No+Image'],
-        video_url: productData.video_url || undefined,
-      }
+      const product = productData as Product
+      const images = getAllImages(product)
 
       setProduct(product)
+      setProductImages(images)
       setVariants(variantsData || [])
-      
+
       // Auto-select first variant if available
       if (variantsData && variantsData.length > 0) {
         setSelectedVariant(variantsData[0])
       }
-      
-      console.log('Product loaded:', {
-        name: product.name,
-        variants: variantsData?.length || 0,
-        images: product.images,
-        video_url: product.video_url
-      })
-      
+
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error')
     } finally {
@@ -134,13 +100,13 @@ export default function ProductDetailPage() {
       alert('Vui lòng chọn biến thể sản phẩm')
       return
     }
-    
+
     setIsBuyingNow(true)
-    
+
     try {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 500))
-      
+
       // Add to cart first
       addToCart({
         id: product.id,
@@ -148,11 +114,11 @@ export default function ProductDetailPage() {
         name: product.name,
         variantName: selectedVariant.name,
         price: selectedVariant.price,
-        image: product.images?.[0] || product.image_url || '',
-        description: product.description,
-        sku: selectedVariant.sku
+        image: productImages[0] || '',
+        description: product.description || '',
+        sku: selectedVariant.sku || ''
       })
-      
+
       // Open checkout modal directly
       setShowCheckoutModal(true)
     } catch (error) {
@@ -202,113 +168,112 @@ export default function ProductDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Mobile-first Header */}
+    <div className="min-h-screen bg-gray-50 pb-12">
+      {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="px-4 py-3">
-          <Breadcrumb 
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <Breadcrumb
             items={[
               { label: 'Sản phẩm', href: '/products' },
               { label: product.name }
-            ]} 
+            ]}
           />
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto">
-        {/* Product Gallery - Full width on mobile */}
-        <div className="bg-white">
-          <ProductGallery 
-            images={product.images || [product.image_url || '']}
-            name={product.name}
-          />
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-8">
 
-        {/* Product Info Section - Shopee Style */}
-        <div className="bg-white mt-2">
-          <div className="p-4">
-            {/* Product Title & Rating */}
-            <div className="mb-4">
-              <h1 className="text-lg font-medium text-gray-900 leading-tight mb-2">
-                {product.name}
-              </h1>
-              
+            {/* Left Column: Gallery (60% on desktop) */}
+            <div className="lg:col-span-7 p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-gray-100">
+              <ProductGallery
+                images={productImages}
+                name={product.name}
+              />
+            </div>
 
-              {/* Price Section - E-commerce Style */}
-              <div className="mb-4">
-                <div className="flex items-center space-x-3 mb-2">
-                  <span className="text-3xl font-bold text-red-500">
-                    {new Intl.NumberFormat('vi-VN', {
-                      style: 'currency',
-                      currency: 'VND',
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 0
-                    }).format(getCurrentPrice())}
-                  </span>
-                  {product.min_price && (
-                    <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      -23%
-                    </span>
-                  )}
-                </div>
-                {product.min_price && (
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg text-gray-400 line-through">
+            {/* Right Column: Info (40% on desktop) */}
+            <div className="lg:col-span-5 p-6 lg:p-8 flex flex-col">
+              <div className="flex-1">
+                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 leading-tight mb-4">
+                  {product.name}
+                </h1>
+
+                {/* Price Section */}
+                <div className="mb-6 bg-gray-50 p-4 rounded-xl">
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-3xl lg:text-4xl font-bold text-red-600">
                       {new Intl.NumberFormat('vi-VN', {
                         style: 'currency',
                         currency: 'VND',
                         minimumFractionDigits: 0,
                         maximumFractionDigits: 0
-                      }).format(product.min_price * 1.3)}
+                      }).format(getCurrentPrice())}
                     </span>
-                    <span className="text-sm text-gray-600">
-                      Tiết kiệm {new Intl.NumberFormat('vi-VN', {
-                        style: 'currency',
-                        currency: 'VND',
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0
-                      }).format((product.min_price * 1.3) - getCurrentPrice())}
-                    </span>
+                    {product.min_price && (
+                      <span className="text-lg text-gray-400 line-through">
+                        {new Intl.NumberFormat('vi-VN', {
+                          style: 'currency',
+                          currency: 'VND',
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0
+                        }).format(product.min_price * 1.3)}
+                      </span>
+                    )}
+                  </div>
+                  {product.min_price && (
+                    <div className="mt-2 flex items-center gap-2">
+                      <span className="bg-red-100 text-red-700 px-2 py-1 rounded text-sm font-medium">
+                        -23%
+                      </span>
+                      <span className="text-sm text-gray-600">
+                        Tiết kiệm {new Intl.NumberFormat('vi-VN', {
+                          style: 'currency',
+                          currency: 'VND',
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0
+                        }).format((product.min_price * 1.3) - getCurrentPrice())}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Variant Selection */}
+                {variants.length > 0 && (
+                  <div className="mb-6">
+                    <ProductVariantSelector
+                      variants={variants}
+                      selectedVariant={selectedVariant}
+                      onVariantChange={handleVariantChange}
+                    />
                   </div>
                 )}
-              </div>
-            </div>
 
-            {/* Variant Selection */}
-            {variants.length > 0 && (
-              <div className="mb-4">
-                <ProductVariantSelector
-                  variants={variants}
-                  selectedVariant={selectedVariant}
-                  onVariantChange={handleVariantChange}
-                />
+                <div className="border-t border-gray-100 pt-6 mt-auto">
+                  <ProductInfo
+                    product={product}
+                    quantity={quantity}
+                    onQuantityChange={setQuantity}
+                    onAddToCart={handleAddToCart}
+                    onBuyNow={handleBuyNow}
+                    calculatedPrice={getCurrentPrice()}
+                    isBuyingNow={isBuyingNow}
+                  />
+                </div>
               </div>
-            )}
-
-            {/* Quantity & Actions */}
-            <div className="border-t border-gray-200 pt-4">
-              <ProductInfo
-                product={product}
-                quantity={quantity}
-                onQuantityChange={setQuantity}
-                onAddToCart={handleAddToCart}
-                onBuyNow={handleBuyNow}
-                calculatedPrice={getCurrentPrice()}
-                isBuyingNow={isBuyingNow}
-              />
             </div>
           </div>
         </div>
 
-        {/* Product Tabs - Shopee Style */}
-        <div className="bg-white mt-2">
+        {/* Product Tabs Section */}
+        <div className="mt-8 bg-white rounded-2xl shadow-sm overflow-hidden">
           <ProductTabs
             product={product}
             activeTab={activeTab}
             onTabChange={setActiveTab}
           />
         </div>
-
       </div>
 
       {/* Add to Cart Modal */}
@@ -331,18 +296,3 @@ export default function ProductDetailPage() {
     </div>
   )
 }
-
-// function extractYouTubeId(url: string): string {
-//   try {
-//     // Support youtu.be/<id> and youtube.com/watch?v=<id>
-//     const u = new URL(url)
-//     if (u.hostname.includes('youtu.be')) return u.pathname.replace('/', '')
-//     const v = u.searchParams.get('v')
-//     if (v) return v
-//     // Fallback try to get last path segment
-//     const parts = u.pathname.split('/')
-//     return parts[parts.length - 1] || ''
-//   } catch {
-//     return ''
-//   }
-// }

@@ -2,80 +2,115 @@
 @import '../styles/banner.css';
 
 :root {
+  /* Modern Agri Palette */
+  --color-primary: #059669; /* Emerald 600 */
+  --color-primary-dark: #047857; /* Emerald 700 */
+  --color-primary-light: #10b981; /* Emerald 500 */
+  
+  --color-secondary: #f3f4f6; /* Gray 100 */
+  --color-secondary-dark: #e5e7eb; /* Gray 200 */
+  
+  --color-accent: #d97706; /* Amber 600 */
+  --color-accent-hover: #b45309; /* Amber 700 */
+  
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #111827; /* Gray 900 */
+  
+  --color-muted: #6b7280; /* Gray 500 */
+  --color-border: #e5e7eb; /* Gray 200 */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-light: var(--color-primary-light);
+  
+  --color-secondary: var(--color-secondary);
+  --color-secondary-dark: var(--color-secondary-dark);
+  
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-slide-in: slide-in 0.5s ease-out;
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Force nền trắng nhất quán cho toàn site (bỏ dark mode hệ thống) */
-
+/* Base Styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom animations for improved UX */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Animations */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slide-in {
-  from {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse-success {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
+/* Utilities */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
 }
 
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+.container-custom {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-.animate-slide-in {
-  animation: slide-in 0.3s ease-out;
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  transition: all 0.3s ease;
 }
 
-.animate-slide-up {
-  animation: slide-up 0.3s ease-out;
-}
-
-.animate-pulse-success {
-  animation: pulse-success 1s ease-in-out;
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.2), 0 2px 4px -1px rgba(5, 150, 105, 0.1);
 }

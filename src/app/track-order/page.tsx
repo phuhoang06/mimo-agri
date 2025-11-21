@@ -26,7 +26,6 @@ interface OrderItem {
   quantity: number
   subtotal: number
   variant_id?: string
-  variant_name?: string
 }
 
 export default function TrackOrderPage() {
@@ -107,7 +106,7 @@ export default function TrackOrderPage() {
 
   const handleSearch = async (e?: React.FormEvent) => {
     e?.preventDefault()
-    
+
     if (!orderId.trim()) {
       setError('Vui lòng nhập mã đơn hàng')
       return
@@ -178,7 +177,7 @@ export default function TrackOrderPage() {
               <MagnifyingGlassIcon className="w-5 h-5" />
               Tìm kiếm đơn hàng khác
             </button>
-            
+
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
@@ -210,15 +209,12 @@ export default function TrackOrderPage() {
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                 <div className="p-6">
                   <h2 className="text-xl font-semibold text-gray-900 mb-4">Sản phẩm đã đặt</h2>
-                  
+
                   <div className="space-y-4">
                     {order.order_items.map((item) => (
                       <div key={item.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
                         <div className="flex-1">
                           <h3 className="font-medium text-gray-900">{item.product_name}</h3>
-                          {item.variant_name && (
-                            <p className="text-sm text-gray-600">Biến thể: {item.variant_name}</p>
-                          )}
                           <p className="text-sm text-gray-500">
                             {formatPrice(item.price)} x {item.quantity}
                           </p>
@@ -257,7 +253,7 @@ export default function TrackOrderPage() {
                   </span>
                 </div>
                 <p className="text-sm text-gray-600">{statusInfo.description}</p>
-                
+
                 {order.verified_at && (
                   <div className="mt-4 pt-4 border-t border-gray-200">
                     <p className="text-sm text-gray-600">
@@ -367,7 +363,7 @@ export default function TrackOrderPage() {
               Tìm kiếm
             </button>
           </form>
-          
+
           {error && (
             <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-600 text-sm">{error}</p>

@@ -38,7 +38,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
   const handleUpdateQuantity = async (productId: string, variantId: string, newQuantity: number) => {
     const itemKey = `${productId}-${variantId}`
     setUpdatingItems(prev => new Set(prev).add(itemKey))
-    
+
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 500))
@@ -74,10 +74,9 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
       savedOrders.push(orderId)
       localStorage.setItem('mimo-saved-orders', JSON.stringify(savedOrders))
     }
-    
+
     setShowCheckoutModal(false)
     onClose()
-    console.log('Order created successfully:', orderId)
   }
 
   if (!isOpen) return null
@@ -85,17 +84,15 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
   return (
     <>
       {/* Backdrop */}
-      <div 
-        className={`fixed inset-0 bg-black/50 z-50 transition-opacity duration-200 ${
-          isAnimating ? 'opacity-0' : 'opacity-100'
-        }`}
+      <div
+        className={`fixed inset-0 bg-black/50 z-50 transition-opacity duration-200 ${isAnimating ? 'opacity-0' : 'opacity-100'
+          }`}
         onClick={handleClose}
       />
 
       {/* Modal */}
-      <div className={`fixed right-0 top-0 h-full w-full max-w-md sm:max-w-md bg-white shadow-xl z-50 transform transition-transform duration-200 ${
-        isAnimating ? 'translate-x-full' : 'translate-x-0'
-      }`}>
+      <div className={`fixed right-0 top-0 h-full w-full max-w-md sm:max-w-md bg-white shadow-xl z-50 transform transition-transform duration-200 ${isAnimating ? 'translate-x-full' : 'translate-x-0'
+        }`}>
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <h2 className="text-lg font-semibold text-gray-900">
@@ -140,7 +137,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                   const itemKey = `${item.id}-${item.variantId}`
                   const isUpdating = updatingItems.has(itemKey)
                   const showConfirm = showRemoveConfirm === itemKey
-                  
+
                   return (
                     <div key={item.id} className={`flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-3 p-3 bg-gray-50 rounded-lg transition-all ${isUpdating ? 'opacity-50' : ''}`}>
                       {/* Product Image */}
@@ -168,9 +165,9 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                             SKU: {item.sku}
                           </p>
                         )}
-              <p className="text-red-500 font-bold text-sm">
-                {formatPrice(item.price)}
-              </p>
+                        <p className="text-red-500 font-bold text-sm">
+                          {formatPrice(item.price)}
+                        </p>
                       </div>
 
                       {/* Quantity Controls */}
@@ -238,9 +235,9 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                   <span className="text-lg font-semibold text-gray-900">
                     Tổng cộng:
                   </span>
-                        <span className="text-xl font-bold text-red-500">
-                          {formatPrice(totalPrice)}
-                        </span>
+                  <span className="text-xl font-bold text-red-500">
+                    {formatPrice(totalPrice)}
+                  </span>
                 </div>
 
                 {/* Actions */}

@@ -5,10 +5,14 @@ import { useState, useEffect } from 'react'
 interface ProductVariant {
   id: string
   product_id: string
-  name: string
-  sku: string
+  category_id?: string
+  variant_name?: string
+  name?: string // Compatibility field
+  sku?: string
   price: number
-  stock: number
+  compare_price?: number
+  stock_quantity?: number
+  stock?: number // Compatibility field
   created_at: string
   updated_at: string
 }
@@ -62,20 +66,20 @@ export default function ProductVariantSelector({
         <h3 className="text-sm font-medium text-gray-900 mb-2">
           Phân loại hàng
         </h3>
-        
+
         <div className="grid grid-cols-2 gap-2">
           {variants.map((variant) => {
             const isSelected = selectedId === variant.id
-            const isOutOfStock = variant.stock === 0
-            
+            const stock = variant.stock ?? variant.stock_quantity ?? 0
+            const isOutOfStock = stock === 0
+
             return (
               <label
                 key={variant.id}
-                className={`relative flex flex-col p-3 border rounded-lg cursor-pointer transition-all ${
-                  isSelected
+                className={`relative flex flex-col p-3 border rounded-lg cursor-pointer transition-all ${isSelected
                     ? 'border-green-500 bg-green-50'
                     : 'border-gray-200 hover:border-gray-300'
-                } ${isOutOfStock ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  } ${isOutOfStock ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 <input
                   type="radio"
@@ -86,10 +90,10 @@ export default function ProductVariantSelector({
                   disabled={isOutOfStock}
                   className="sr-only"
                 />
-                
+
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-sm font-medium text-gray-900">
-                    {variant.name}
+                    {variant.name || variant.variant_name}
                   </span>
                   {isSelected && (
                     <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
@@ -99,20 +103,19 @@ export default function ProductVariantSelector({
                     </div>
                   )}
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-bold text-red-500">
                     {formatPrice(variant.price)}
                   </span>
-                  <span className={`text-xs ${
-                    variant.stock > 10 
-                      ? 'text-green-600' 
-                      : variant.stock > 0 
-                        ? 'text-yellow-600' 
+                  <span className={`text-xs ${stock > 10
+                      ? 'text-green-600'
+                      : stock > 0
+                        ? 'text-yellow-600'
                         : 'text-red-600'
-                  }`}>
-                    {variant.stock > 0 
-                      ? `${variant.stock} còn`
+                    }`}>
+                    {stock > 0
+                      ? `${stock} còn`
                       : 'Hết hàng'
                     }
                   </span>

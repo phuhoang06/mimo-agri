@@ -1,8 +1,6 @@
-'use client'
-
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import VideoCard from './VideoCardComponent'
 
 interface Video {
   id: string
@@ -33,7 +31,7 @@ export default function RelatedVideos({ currentVideoId, category }: RelatedVideo
   const fetchRelatedVideos = async () => {
     try {
       setLoading(true)
-      
+
       // Mock data - trong thực tế sẽ lấy từ database
       const allVideos: Video[] = [
         {
@@ -108,13 +106,13 @@ export default function RelatedVideos({ currentVideoId, category }: RelatedVideo
         const otherVideos = allVideos
           .filter(video => video.id !== currentVideoId && !relatedVideos.find(rv => rv.id === video.id))
           .slice(0, 4 - relatedVideos.length)
-        
+
         relatedVideos.push(...otherVideos)
       }
 
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 500))
-      
+
       setVideos(relatedVideos)
     } catch (error) {
       console.error('Error fetching related videos:', error)
@@ -124,37 +122,14 @@ export default function RelatedVideos({ currentVideoId, category }: RelatedVideo
     }
   }
 
-  const formatViews = (views: number) => {
-    if (views >= 1000) {
-      return `${(views / 1000).toFixed(1)}K`
-    }
-    return views.toString()
-  }
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    const now = new Date()
-    const diffTime = Math.abs(now.getTime() - date.getTime())
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    
-    if (diffDays === 1) return '1 ngày trước'
-    if (diffDays < 7) return `${diffDays} ngày trước`
-    if (diffDays < 30) return `${Math.ceil(diffDays / 7)} tuần trước`
-    return `${Math.ceil(diffDays / 30)} tháng trước`
-  }
-
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Video liên quan</h3>
-        <div className="space-y-4">
+      <div className="mt-12">
+        <h3 className="text-2xl font-bold text-gray-900 mb-6">Video liên quan</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {Array.from({ length: 4 }, (_, i) => (
-            <div key={i} className="flex gap-3 animate-pulse">
-              <div className="w-24 h-16 bg-gray-200 rounded"></div>
-              <div className="flex-1">
-                <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                <div className="h-3 bg-gray-200 rounded w-2/3"></div>
-              </div>
+            <div key={i} className="bg-gray-50 rounded-2xl overflow-hidden animate-pulse">
+              <div className="aspect-video bg-gray-200"></div>
             </div>
           ))}
         </div>
@@ -167,48 +142,24 @@ export default function RelatedVideos({ currentVideoId, category }: RelatedVideo
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
-      <h3 className="font-semibold text-gray-900 mb-4">Video liên quan</h3>
-      <div className="space-y-4">
-        {videos.map((video) => (
-          <Link
-            key={video.id}
-            href={`/videos/${video.id}`}
-            className="flex gap-3 hover:bg-gray-50 p-2 rounded-lg transition-colors group"
-          >
-            <div className="relative w-24 h-16 bg-gray-200 rounded overflow-hidden flex-shrink-0">
-              <Image
-                src={video.thumbnail}
-                alt={video.title}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute bottom-1 right-1 bg-black/80 text-white text-xs px-1 py-0.5 rounded">
-                {video.duration}
-              </div>
-            </div>
-            
-            <div className="flex-1 min-w-0">
-              <h4 className="font-medium text-gray-900 text-sm line-clamp-2 group-hover:text-green-600 transition-colors">
-                {video.title}
-              </h4>
-              <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
-                <span>{formatViews(video.views)} lượt xem</span>
-                <span>•</span>
-                <span>{formatDate(video.publishedAt)}</span>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-      
-      <div className="mt-4 pt-4 border-t">
+    <div className="mt-12">
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-2xl font-bold text-gray-900">Video liên quan</h3>
         <Link
           href="/videos"
-          className="text-green-600 hover:text-green-700 text-sm font-medium transition-colors"
+          className="text-primary font-semibold hover:text-green-700 transition-colors flex items-center gap-1"
         >
-          Xem tất cả video →
+          Xem tất cả
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </Link>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {videos.map((video) => (
+          <VideoCard key={video.id} video={video} />
+        ))}
       </div>
     </div>
   )

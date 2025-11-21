@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import { ShoppingCartIcon, MagnifyingGlassIcon, PhoneIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
+import { ShoppingCartIcon, MagnifyingGlassIcon, PhoneIcon, CheckCircleIcon, Bars3Icon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
 import Logo from './Logo'
 import CartModal from './CartModal'
 import { useCart } from '@/contexts/CartContext'
@@ -18,6 +18,15 @@ export default function Header() {
   const [suggestions, setSuggestions] = useState<Array<{ id: string; name: string }>>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
   const debounceRef = useRef<number | null>(null)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const triggerSearch = () => {
     const q = searchQuery.trim()
@@ -38,8 +47,9 @@ export default function Header() {
       const q = searchQuery.trim().toLowerCase()
       const term = `%${q}%`
       const { data } = await supabase
-        .from('products')
+        .from('tb_agricultural_product')
         .select('id, name')
+        .eq('status', 'active')
         .ilike('name', term)
         .limit(30)
 
@@ -63,274 +73,171 @@ export default function Header() {
   }, [searchQuery])
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
-      {/* Top Bar */}
-      <div className="bg-gray-100 border-b border-gray-200">
+    <>
+      {/* Top Bar - Subtle & Clean */}
+      <div className="bg-gray-50 border-b border-gray-100 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-2 text-sm">
-            {/* Contact Info */}
-            <div className="hidden md:flex items-center space-x-6 text-gray-600">
-              <div className="flex items-center space-x-1">
-                <span>📍</span>
-                <span>3 Ngõ Đương Xóm 1 Đỗ Xá Phú Xuyên Hà Nội</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <span>📞</span>
-                <span>085 399 1995</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <span>📧</span>
-                <span>mimoagriculture@gmail.com</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <span>🌐</span>
-                <span>bayruoivang.com</span>
-              </div>
+          <div className="flex justify-between items-center py-1.5 text-xs text-gray-500">
+            <div className="flex items-center space-x-4">
+              <span className="flex items-center hover:text-primary transition-colors">
+                <PhoneIcon className="w-3 h-3 mr-1" /> 085 399 1995
+              </span>
+              <span className="flex items-center hover:text-primary transition-colors">
+                <span className="mr-1">📧</span> mimoagriculture@gmail.com
+              </span>
             </div>
-
-            {/* Social Links */}
             <div className="flex items-center space-x-3">
-              <a href="https://www.facebook.com/www.mimo.agri" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 transition-colors" aria-label="Facebook">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M22.675 0H1.325C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.325 24h11.495v-9.294H9.847V11.06h2.973V8.413c0-2.948 1.8-4.555 4.43-4.555 1.26 0 2.342.094 2.657.136v3.08h-1.823c-1.43 0-1.707.68-1.707 1.676v2.31h3.413l-.445 3.646h-2.968V24h5.824C23.407 24 24 23.407 24 22.674V1.326C24 .593 23.407 0 22.675 0z"/>
-                </svg>
-              </a>
-              <a href="https://www.tiktok.com/@mimo.agriculture" target="_blank" rel="noopener noreferrer" className="text-black hover:text-gray-800 transition-colors" aria-label="TikTok">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12.5 2c1.2 1.7 3 2.8 5 3v3.2c-1.6-.1-3-.6-4.2-1.5v6.8c0 3.4-2.8 6.1-6.2 6.1S1 17.9 1 14.5 3.8 8.4 7.2 8.4c.6 0 1.1.1 1.6.2v3.3c-.5-.2-1.1-.3-1.6-.3-1.6 0-2.9 1.3-2.9 2.9s1.3 2.9 2.9 2.9 2.9-1.3 2.9-2.9V2h2.4z"/>
-                </svg>
-              </a>
-              <a href="https://www.youtube.com/@MiMoAgriculture" target="_blank" rel="noopener noreferrer" className="text-red-600 hover:text-red-700 transition-colors" aria-label="YouTube">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M23.498 6.186a2.997 2.997 0 0 0-2.115-2.123C19.48 3.5 12 3.5 12 3.5s-7.48 0-9.383.563A2.997 2.997 0 0 0 .502 6.186C0 8.09 0 12 0 12s0 3.91.502 5.814a2.997 2.997 0 0 0 2.115 2.123C4.52 20.5 12 20.5 12 20.5s7.48 0 9.383-.563a2.997 2.997 0 0 0 2.115-2.123C24 15.91 24 12 24 12s0-3.91-.502-5.814zM9.545 15.568V8.432L15.818 12 9.545 15.568z"/>
-                </svg>
-              </a>
+              <a href="https://www.facebook.com/www.mimo.agri" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">Facebook</a>
+              <span className="text-gray-300">|</span>
+              <a href="https://www.tiktok.com/@mimo.agriculture" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">TikTok</a>
+              <span className="text-gray-300">|</span>
+              <a href="https://www.youtube.com/@MiMoAgriculture" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition-colors">YouTube</a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Header */}
-      <div className="bg-white border-b">
+      {/* Main Header - Sticky & Glassmorphism */}
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-effect shadow-sm py-2' : 'bg-white py-4 border-b border-gray-100'
+          }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between gap-4">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Logo size="md" showText={true} />
+              <Logo size={isScrolled ? 'sm' : 'md'} showText={!isScrolled} />
             </div>
 
-            {/* Search Bar */}
-            <div className="flex-1 max-w-2xl mx-8 hidden md:block">
-              <div className="relative">
+            {/* Navigation - Desktop */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              {[
+                { name: 'Trang chủ', href: '/' },
+                { name: 'Sản phẩm', href: '/products' },
+                { name: 'Tài liệu kỹ thuật', href: '/articles' },
+                { name: 'Kiểm tra đơn hàng', href: '/track-order' },
+                { name: 'Liên hệ', href: '/contact' },
+              ].map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-medium text-gray-700 hover:text-primary transition-colors relative group"
+                >
+                  {item.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                </Link>
+              ))}
+            </nav>
+
+            {/* Actions */}
+            <div className="flex items-center space-x-2 md:space-x-4">
+              {/* Search Trigger (Mobile/Compact) or Full Search */}
+              <div className="relative hidden md:block w-64 lg:w-80">
                 <input
                   type="text"
-                  placeholder="Nhập thông tin tìm kiếm..."
+                  placeholder="Tìm kiếm sản phẩm..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') triggerSearch() }}
-                  className="w-full px-4 py-3 pl-4 pr-12 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none transition-colors"
+                  className="w-full pl-10 pr-4 py-2 bg-gray-100 border-transparent focus:bg-white focus:border-primary focus:ring-2 focus:ring-green-100 rounded-full text-sm transition-all"
                 />
-                <button onClick={triggerSearch} className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition-colors">
-                  <MagnifyingGlassIcon className="w-5 h-5" />
-                </button>
+                <MagnifyingGlassIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+
+                {/* Suggestions Dropdown */}
                 {showSuggestions && suggestions.length > 0 && (
-                  <ul className="absolute z-50 mt-2 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-64 overflow-auto">
-                    {suggestions.map(s => (
-                      <li key={s.id}>
-                        <button
-                          onClick={() => {
-                            router.push(`/products?search=${encodeURIComponent(s.name)}`)
-                            setShowSuggestions(false)
-                          }}
-                          className="w-full text-left px-3 py-2 hover:bg-green-50"
-                        >
-                          {s.name}
-                        </button>
-                      </li>
-                    ))}
-                    <li className="border-t">
-                      <button onClick={triggerSearch} className="w-full text-left px-3 py-2 text-sm text-gray-600 hover:bg-green-50">Xem tất cả kết quả cho “{searchQuery}”</button>
-                    </li>
-                  </ul>
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50">
+                    <ul>
+                      {suggestions.map(s => (
+                        <li key={s.id}>
+                          <button
+                            onClick={() => {
+                              router.push(`/products?search=${encodeURIComponent(s.name)}`)
+                              setShowSuggestions(false)
+                            }}
+                            className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 flex items-center space-x-2"
+                          >
+                            <MagnifyingGlassIcon className="w-4 h-4 text-gray-400" />
+                            <span className="truncate">{s.name}</span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </div>
-            </div>
 
-            {/* Right Side Info */}
-            <div className="hidden lg:flex items-center space-x-6">
-              {/* Shipping Info */}
-              <div className="flex items-center space-x-2 text-green-600">
-                <div className="p-2 bg-green-100 rounded-lg">
-                  <CheckCircleIcon className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="font-semibold text-sm">Miễn phí vận chuyển</div>
-                  <div className="text-xs text-gray-600">cho đơn hàng từ 200k</div>
-                </div>
-              </div>
+              {/* Mobile Search Toggle */}
+              <button className="md:hidden p-2 text-gray-600 hover:text-primary">
+                <MagnifyingGlassIcon className="w-6 h-6" />
+              </button>
 
-              {/* Hotline */}
-              <div className="flex items-center space-x-2">
-                <div className="p-2 bg-red-100 rounded-lg">
-                  <PhoneIcon className="w-6 h-6 text-red-600" />
-                </div>
-                <div>
-                  <div className="text-xs text-gray-600">Hotline</div>
-                  <div className="font-bold text-red-600 text-lg">085 399 1995</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation Bar */}
-      <div className="bg-green-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-around h-12">
-            {/* Main Navigation - Center aligned */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="hover:text-green-200 transition-colors font-medium">
-                Trang chủ
-              </Link>
-              <Link href="/products" className="hover:text-green-200 transition-colors font-medium">
-                Sản phẩm
-              </Link>
-              <Link href="/articles" className="hover:text-green-200 transition-colors font-medium">
-                Tài liệu kỹ thuật
-              </Link>
-              <Link href="/track-order" className="hover:text-green-200 transition-colors font-medium">
-                Kiểm tra đơn hàng
-              </Link>
-              <Link href="/contact" className="hover:text-green-200 transition-colors font-medium">
-                Liên Hệ Mua Hàng
-              </Link>
-            </nav>
-
-            {/* Mobile Navigation Toggle */}
-            <div className="md:hidden">
-              <span className="font-medium text-sm">Menu Chính</span>
-            </div>
-
-            {/* Shopping Cart - Right side */}
-            <div className="flex items-center">
+              {/* Cart */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 text-white hover:text-green-200 transition-colors group"
+                className="relative p-2 text-gray-600 hover:text-primary transition-colors"
               >
                 <ShoppingCartIcon className="w-6 h-6" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold animate-pulse">
+                  <span className="absolute top-0 right-0 bg-accent text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
                     {totalItems > 99 ? '99+' : totalItems}
                   </span>
                 )}
-                {/* Tooltip */}
-                <div className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                  Giỏ hàng ({totalItems} sản phẩm)
-                </div>
               </button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t">
-          <div className="px-4 py-6 space-y-4">
-            {/* Mobile Search */}
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Nhập thông tin tìm kiếm..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => { if (e.key === 'Enter') triggerSearch() }}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
-              />
-              <button onClick={triggerSearch} className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-500 text-white p-2 rounded-lg">
-                <MagnifyingGlassIcon className="w-5 h-5" />
-              </button>
-              {showSuggestions && suggestions.length > 0 && (
-                <ul className="absolute z-50 mt-2 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-64 overflow-auto">
-                  {suggestions.map(s => (
-                    <li key={s.id}>
-                      <button
-                        onClick={() => {
-                          router.push(`/products?search=${encodeURIComponent(s.name)}`)
-                          setShowSuggestions(false)
-                        }}
-                        className="w-full text-left px-3 py-2 hover:bg-green-50"
-                      >
-                        {s.name}
-                      </button>
-                    </li>
-                  ))}
-                  <li className="border-t">
-                    <button onClick={triggerSearch} className="w-full text-left px-3 py-2 text-sm text-gray-600 hover:bg-green-50">Xem tất cả kết quả cho “{searchQuery}”</button>
-                  </li>
-                </ul>
-              )}
-            </div>
-
-            {/* Mobile Navigation Links */}
-            <nav className="flex flex-col space-y-3">
-              <Link href="/" className="text-gray-800 hover:text-green-600 transition-colors font-medium">
-                Trang chủ
-              </Link>
-              <Link href="/products" className="text-gray-800 hover:text-green-600 transition-colors font-medium">
-                Sản phẩm
-              </Link>
-              <Link href="/articles" className="text-gray-800 hover:text-green-600 transition-colors font-medium">
-                Tài liệu kỹ thuật
-              </Link>
-              <Link href="/track-order" className="text-gray-800 hover:text-green-600 transition-colors font-medium">
-                Kiểm tra đơn hàng
-              </Link>
-              <Link href="/contact" className="text-gray-800 hover:text-green-600 transition-colors font-medium">
-                Liên Hệ Mua Hàng
-              </Link>
-              
-              {/* Mobile Cart */}
+              {/* Mobile Menu Button */}
               <button
-                onClick={() => {
-                  setIsCartOpen(true)
-                  setIsMenuOpen(false)
-                }}
-                className="flex items-center space-x-2 text-gray-800 hover:text-green-600 transition-colors font-medium"
+                className="lg:hidden p-2 text-gray-600"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                <ShoppingCartIcon className="w-5 h-5" />
-                <span>Giỏ hàng</span>
-                {totalItems > 0 && (
-                  <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                    {totalItems > 99 ? '99+' : totalItems}
-                  </span>
+                {isMenuOpen ? (
+                  <XMarkIcon className="w-6 h-6" />
+                ) : (
+                  <Bars3Icon className="w-6 h-6" />
                 )}
               </button>
-            </nav>
-
-            {/* Mobile Contact Info */}
-            <div className="pt-4 border-t space-y-2 text-sm text-gray-600">
-              <div>📞 085 399 1995</div>
-              <div>📧 mimoagriculture@gmail.com</div>
-              <div>🚚 Miễn phí vận chuyển cho đơn từ 200k</div>
             </div>
           </div>
         </div>
-      )}
 
-      {/* Cart Modal */}
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-lg animate-slide-up">
+            <div className="p-4 space-y-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:border-primary focus:outline-none"
+                />
+                <MagnifyingGlassIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+              </div>
+
+              <nav className="flex flex-col space-y-1">
+                {[
+                  { name: 'Trang chủ', href: '/' },
+                  { name: 'Sản phẩm', href: '/products' },
+                  { name: 'Tài liệu kỹ thuật', href: '/articles' },
+                  { name: 'Kiểm tra đơn hàng', href: '/track-order' },
+                  { name: 'Liên hệ', href: '/contact' },
+                ].map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-primary rounded-lg transition-colors font-medium"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          </div>
+        )}
+      </header>
+
       <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-    </header>
+    </>
   )
 }

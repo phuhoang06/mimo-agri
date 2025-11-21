@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker deployment
   output: 'standalone',
-  
+
   // Optimize images
   images: {
     formats: ['image/webp', 'image/avif'],
@@ -41,14 +41,21 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      // Placeholder images
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
-  
+
   // Performance optimizations
   experimental: {
     optimizeCss: true,
   },
-  
+
   // Security headers
   async headers() {
     return [

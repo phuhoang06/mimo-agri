@@ -58,8 +58,8 @@ export async function POST(request: NextRequest) {
       price: item.price,
       quantity: item.quantity,
       subtotal: item.price * item.quantity,
-      variant_id: item.variantId || null,
-      variant_name: item.variantName || null
+      variant_id: item.variantId && item.variantId !== 'default' ? item.variantId : null,
+      // variant_name removed as it's not in the schema
     }))
 
     const { error: itemsError } = await supabase
@@ -116,8 +116,7 @@ export async function GET(request: NextRequest) {
           price,
           quantity,
           subtotal,
-          variant_id,
-          variant_name
+          variant_id
         )
       `)
       .eq('phone', phone)

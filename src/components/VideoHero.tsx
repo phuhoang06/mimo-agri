@@ -22,7 +22,7 @@ export default function VideoHero() {
                 <span className="block text-green-200">Nông Nghiệp Thông Minh</span>
               </h1>
               <p className="text-xl text-green-100 leading-relaxed">
-                Khám phá các video hướng dẫn chi tiết về sản phẩm nông nghiệp, 
+                Khám phá các video hướng dẫn chi tiết về sản phẩm nông nghiệp,
                 kỹ thuật trồng trọt và tips bảo vệ cây trồng hiệu quả.
               </p>
             </div>
@@ -50,7 +50,7 @@ export default function VideoHero() {
                 className="bg-white text-green-600 font-bold py-3 px-8 rounded-lg hover:bg-green-50 transition-colors flex items-center justify-center gap-2"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
+                  <path d="M8 5v14l11-7z" />
                 </svg>
                 Xem video nổi bật
               </Link>
@@ -71,7 +71,7 @@ export default function VideoHero() {
                 alt="Video nổi bật"
                 className="w-full h-full object-cover"
               />
-              
+
               {/* Play Button Overlay */}
               <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                 <Link
@@ -79,24 +79,12 @@ export default function VideoHero() {
                   className="bg-red-600 text-white rounded-full w-20 h-20 flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg"
                 >
                   <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
+                    <path d="M8 5v14l11-7z" />
                   </svg>
                 </Link>
               </div>
 
-              {/* Video Info */}
-              <div className="absolute bottom-4 left-4 right-4">
-                <div className="bg-black/70 backdrop-blur-sm rounded-lg p-3">
-                  <h3 className="font-semibold text-white text-sm line-clamp-2">
-                    Bẫy RUỒI VÀNG - Hướng dẫn sử dụng hiệu quả
-                  </h3>
-                  <div className="flex items-center gap-4 mt-2 text-xs text-gray-300">
-                    <span>5:30</span>
-                    <span>1.2K lượt xem</span>
-                    <span>2 ngày trước</span>
-                  </div>
-                </div>
-              </div>
+
             </div>
 
             {/* Floating Elements */}

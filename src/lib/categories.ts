@@ -29,14 +29,14 @@ const generateSubcategories = (name: string): string[] => {
     'tech': ['Latest News', 'Reviews', 'Tutorials', 'Industry Updates'],
     'review': ['Electronics', 'Home & Garden', 'Fashion', 'General']
   }
-  
+
   const lowerName = name.toLowerCase()
   for (const [key, subcategories] of Object.entries(subcategoryMap)) {
     if (lowerName.includes(key)) {
       return subcategories
     }
   }
-  
+
   return ['Sản phẩm chung'] // Default subcategories
 }
 
@@ -44,20 +44,19 @@ const generateSubcategories = (name: string): string[] => {
 export const fetchCategories = async (): Promise<CategoryData[]> => {
   try {
     const { data, error } = await supabase
-      .from('categories')
-      .select('id, name, type')
-      .eq('type', 'product')
-      .order('name')
+      .from('tb_product_category')
+      .select('id, category_name, category_type')
+      .order('category_name')
 
     if (error) {
-      console.error('Error fetching categories:', error)
+      console.warn('⚠️ Cannot fetch categories:', error.message)
       return []
     }
 
     return data?.map(category => ({
       id: category.id,
-      name: category.name,
-      subcategories: generateSubcategories(category.name)
+      name: category.category_name,
+      subcategories: generateSubcategories(category.category_name)
     })) || []
   } catch (error) {
     console.error('Error fetching categories:', error)
@@ -68,42 +67,39 @@ export const fetchCategories = async (): Promise<CategoryData[]> => {
 // Fetch categories with product count
 export const fetchCategoriesWithCount = async (): Promise<Category[]> => {
   try {
-    // Fetch categories
-    const { data: categories, error: categoriesError } = await supabase
-      .from('categories')
-      .select('id, name, type')
-      .eq('type', 'product')
-      .order('name')
+    // Fetch all category assignments
+    const { data: categoryAssignments, error: categoriesError } = await supabase
+      .from('tb_product_category')
+      .select('category_name, product_id')
+      .order('category_name')
 
     if (categoriesError) {
-      console.error('Error fetching categories:', categoriesError)
+      console.warn('⚠️ Cannot fetch categories:', categoriesError.message)
       return []
     }
 
-    if (!categories || categories.length === 0) {
+    if (!categoryAssignments || categoryAssignments.length === 0) {
       return []
     }
 
-    // Fetch product counts for each category
-    const categoriesWithCount: Category[] = []
-    
-    for (const category of categories) {
-      const { count, error: countError } = await supabase
-        .from('products')
-        .select('*', { count: 'exact', head: true })
-        .eq('category_id', category.id)
+    // Group by category_name and count unique products
+    const categoryMap = new Map<string, Set<string>>()
 
-      if (countError) {
-        console.error(`Error fetching count for category ${category.name}:`, countError)
-        continue
+    for (const assignment of categoryAssignments) {
+      if (!categoryMap.has(assignment.category_name)) {
+        categoryMap.set(assignment.category_name, new Set())
       }
-
-      categoriesWithCount.push({
-        id: category.id,
-        name: category.name,
-        count: count || 0
-      })
+      categoryMap.get(assignment.category_name)!.add(assignment.product_id)
     }
+
+    // Convert to Category array with counts
+    const categoriesWithCount: Category[] = Array.from(categoryMap.entries()).map(
+      ([name, productIds]) => ({
+        id: name, // Use name as ID for filtering
+        name,
+        count: productIds.size
+      })
+    )
 
     return categoriesWithCount
   } catch (error) {

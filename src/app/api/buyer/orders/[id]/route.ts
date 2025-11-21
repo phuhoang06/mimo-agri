@@ -29,8 +29,7 @@ export async function GET(
           price,
           quantity,
           subtotal,
-          variant_id,
-          variant_name
+          variant_id
         )
       `)
       .eq('id', orderId)

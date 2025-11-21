@@ -2,16 +2,17 @@
 
 import Image from 'next/image'
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [imageErrors, setImageErrors] = useState<{[key: number]: boolean}>({})
+  const [imageErrors, setImageErrors] = useState<{ [key: number]: boolean }>({})
   const [isHovered, setIsHovered] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  
+
   // Responsive banner images với fallback
   const banners = useMemo(() => [
     {
@@ -20,29 +21,32 @@ export default function HeroSection() {
       fallbackSrc: "/banners/1_final.jpg",
       mobileSrc: "/banners/resized/1_final_mobile.webp",
       alt: "Chuyên Giải Pháp Kiểm Soát Ruồi Vàng - MiMo Agriculture",
-      title: "Chuyên Giải Pháp Kiểm Soát",
-      subtitle: "Ruồi Vàng - Tăm bẫy - Dụng cụ",
-      cta: "Tìm hiểu ngay"
+      title: "Giải Pháp Kiểm Soát Ruồi Vàng",
+      subtitle: "Hiệu quả vượt trội - An toàn sinh học",
+      cta: "Tìm hiểu ngay",
+      link: "/products?category=ruoi-vang"
     },
     {
       id: 2,
       src: "/banners/resized/2_final_desktop.webp",
-      fallbackSrc: "/banners/2_final.jpg", 
+      fallbackSrc: "/banners/2_final.jpg",
       mobileSrc: "/banners/resized/2_final_mobile.webp",
       alt: "Keo Xịt Ruồi Vàng - An Toàn, Hiệu Quả, Tiết Kiệm",
-      title: "Keo Xịt Ruồi Vàng",
-      subtitle: "750ml - An Toàn - Hiệu Quả",
-      cta: "Mua ngay"
+      title: "Keo Xịt Ruồi Vàng Thế Hệ Mới",
+      subtitle: "Tiện lợi - Tiết kiệm - Bám dính cực tốt",
+      cta: "Mua ngay",
+      link: "/products/keo-xit-ruoi-vang"
     },
     {
       id: 3,
       src: "/banners/resized/banner_final_desktop.webp",
       fallbackSrc: "/banners/banner_final.jpg",
-      mobileSrc: "/banners/resized/banner_final_mobile.webp", 
+      mobileSrc: "/banners/resized/banner_final_mobile.webp",
       alt: "Hạt Giống Dụng Cụ Làm Vườn - Cuốc, Xẻng, Vòi Tưới, Đất",
-      title: "Hạt Giống & Dụng Cụ",
-      subtitle: "Cuốc - Xẻng - Vòi Tưới - Đất",
-      cta: "Khám phá"
+      title: "Dụng Cụ Làm Vườn Chuyên Nghiệp",
+      subtitle: "Đầy đủ trang thiết bị cho khu vườn của bạn",
+      cta: "Khám phá",
+      link: "/products?category=dung-cu"
     }
   ], [])
 
@@ -98,7 +102,7 @@ export default function HeroSection() {
 
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return
-    
+
     const distance = touchStart - touchEnd
     const isLeftSwipe = distance > 50
     const isRightSwipe = distance < -50
@@ -133,8 +137,8 @@ export default function HeroSection() {
   }
 
   return (
-    <div 
-      className="relative w-full h-full bg-gray-100 group"
+    <div
+      className="relative w-full h-full bg-gray-100 group overflow-hidden rounded-2xl shadow-md"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={handleTouchStart}
@@ -143,52 +147,42 @@ export default function HeroSection() {
     >
       {/* Loading State */}
       {isLoading && (
-        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center z-20">
+        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center z-20">
           <div className="flex flex-col items-center space-y-4">
-            <div className="banner-loading rounded-full h-12 w-12 border-b-2 border-green-600"></div>
-            <p className="text-gray-600 text-sm">Đang tải banner...</p>
+            <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
           </div>
         </div>
       )}
 
       {/* Banner Images */}
-      <div className="relative w-full h-full overflow-hidden">
+      <div className="relative w-full h-full">
         {banners.map((banner, index) => (
           <div
             key={banner.id}
-            className={`absolute inset-0 banner-slide ${
-              index === currentSlide 
-                ? 'opacity-100 scale-100' 
-                : 'opacity-0 scale-105'
-            }`}
+            className={`absolute inset-0 transition-all duration-700 ease-in-out transform ${index === currentSlide
+              ? 'opacity-100 translate-x-0'
+              : 'opacity-0 translate-x-8'
+              }`}
           >
             {/* Fallback content nếu có lỗi */}
             {imageErrors[banner.id] ? (
-              <div className="relative w-full h-full bg-gradient-to-br from-green-500 via-green-600 to-green-700 flex items-center justify-center">
-                <div className="text-center text-white p-8 max-w-md">
+              <div className="relative w-full h-full bg-gradient-to-br from-primary via-green-600 to-green-800 flex items-center justify-center">
+                <div className="text-center text-white p-8 max-w-md animate-fade-in">
                   <div className="mb-6">
-                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl">🌱</span>
+                    <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                      <span className="text-4xl">🌱</span>
                     </div>
-                    <h2 className="text-2xl lg:text-3xl font-bold mb-4">
+                    <h2 className="text-3xl lg:text-4xl font-bold mb-4 tracking-tight">
                       {banner.title}
                     </h2>
-                    <p className="text-lg opacity-90 mb-6">
+                    <p className="text-lg opacity-90 mb-8 font-light">
                       {banner.subtitle}
                     </p>
                   </div>
-                  
-                  <div className="space-y-4">
-                    <button className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors shadow-lg">
-                      {banner.cta}
-                    </button>
-                    <div className="text-sm opacity-75">
-                      Hotline: 0853.991.995
-                    </div>
-                    <div className="text-xs opacity-60">
-                      www.mimoagri.com
-                    </div>
-                  </div>
+
+                  <button className="bg-white text-primary px-8 py-3 rounded-full font-bold hover:bg-green-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    {banner.cta}
+                  </button>
                 </div>
               </div>
             ) : (
@@ -198,93 +192,62 @@ export default function HeroSection() {
                   src={banner.src}
                   alt={banner.alt}
                   fill
-                  className="banner-image object-cover object-center hidden md:block"
+                  className="object-cover object-center hidden md:block"
                   priority={index === 0}
                   onError={() => handleImageError(banner.id)}
                   onLoad={handleImageLoad}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1214px"
                 />
-                
+
                 {/* Mobile Image */}
                 <Image
                   src={banner.mobileSrc || banner.src}
                   alt={banner.alt}
                   fill
-                  className="banner-image object-cover object-center md:hidden"
+                  className="object-cover object-center md:hidden"
                   priority={index === 0}
                   onError={() => handleImageError(banner.id)}
                   onLoad={handleImageLoad}
                   sizes="(max-width: 768px) 100vw, 0px"
                 />
-                
-                {/* Overlay Content */}
-                <div className="absolute inset-0 banner-overlay flex items-center justify-center">
-                  <div className="text-center text-white p-6 max-w-lg">
-                    <h2 className="text-xl md:text-3xl font-bold mb-3 drop-shadow-lg">
-                      {banner.title}
-                    </h2>
-                    <p className="text-sm md:text-lg opacity-90 mb-6 drop-shadow-md">
-                      {banner.subtitle}
-                    </p>
-                    <button className="banner-cta-button bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg">
-                      {banner.cta}
-                    </button>
-                  </div>
-                </div>
+
+                {/* Text content removed as requested */}
               </div>
             )}
           </div>
         ))}
       </div>
 
-      {/* Navigation Arrows - Chỉ hiện khi hover */}
+      {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="banner-nav-button absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg z-10 opacity-0 group-hover:opacity-100"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/30 backdrop-blur-md text-white p-3 rounded-full shadow-lg z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 border border-white/20"
         aria-label="Previous slide"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
+        <ChevronLeftIcon className="w-6 h-6" />
       </button>
 
       <button
         onClick={goToNext}
-        className="banner-nav-button absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg z-10 opacity-0 group-hover:opacity-100"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/30 backdrop-blur-md text-white p-3 rounded-full shadow-lg z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 border border-white/20"
         aria-label="Next slide"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
+        <ChevronRightIcon className="w-6 h-6" />
       </button>
 
-      {/* Dots Indicator - Cải thiện design */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
+      {/* Dots Indicator */}
+      <div className="absolute bottom-6 right-6 md:right-12 flex space-x-2 z-10">
         {banners.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`banner-dot w-3 h-3 rounded-full ${
-              index === currentSlide 
-                ? 'bg-white banner-dot-active' 
-                : 'bg-white/60 hover:bg-white/80'
-            }`}
+            className={`transition-all duration-300 rounded-full ${index === currentSlide
+              ? 'w-8 h-2 bg-primary'
+              : 'w-2 h-2 bg-white/60 hover:bg-white'
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
-      </div>
-
-      {/* Progress Bar - Cải thiện design */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-black/10 z-10">
-        <div 
-          className="banner-progress h-full"
-          style={{ width: `${((currentSlide + 1) / banners.length) * 100}%` }}
-        />
-      </div>
-
-      {/* Swipe Indicator - Chỉ hiện trên mobile */}
-      <div className="absolute top-4 right-4 bg-black/50 text-white text-xs px-2 py-1 rounded-full md:hidden z-10">
-        Vuốt để xem
       </div>
     </div>
   )

@@ -37,19 +37,20 @@ export default function ProductCardList({
   }
 
   return (
-    <Link 
+    <Link
       href={`/products/${product.id}`}
-      className="block bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group cursor-pointer"
+      className="block bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group cursor-pointer border border-gray-100"
     >
-      <div className="flex flex-col sm:flex-row">
+      <div className="flex flex-col sm:flex-row h-full">
         {/* Product Image */}
-        <div className="relative w-full sm:w-48 h-48 sm:h-32 bg-gray-50 overflow-hidden flex-shrink-0">
+        <div className="relative w-full sm:w-48 h-48 sm:h-auto bg-gray-50 overflow-hidden flex-shrink-0">
           {product.image_url ? (
             <Image
               src={product.image_url}
               alt={product.name}
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              unoptimized={product.image_url.startsWith('http')}
             />
           ) : (
             <div className="flex items-center justify-center h-full bg-gradient-to-br from-green-50 to-green-100">
@@ -58,14 +59,14 @@ export default function ProductCardList({
           )}
 
           {/* Badges */}
-          <div className="absolute top-2 left-2 flex flex-col gap-1">
+          <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
             {isNew && (
-              <span className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">
+              <span className="bg-green-500/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
                 NEW
               </span>
             )}
             {isHot && (
-              <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+              <span className="bg-red-500/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
                 HOT
               </span>
             )}
@@ -73,8 +74,8 @@ export default function ProductCardList({
 
           {/* Discount Badge */}
           {discountPercent > 0 && (
-            <div className="absolute top-2 right-2">
-              <span className="bg-red-500 text-white text-sm font-bold px-2 py-1 rounded-full">
+            <div className="absolute top-3 right-3 z-10">
+              <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-lg shadow-sm">
                 -{discountPercent}%
               </span>
             </div>
@@ -82,21 +83,21 @@ export default function ProductCardList({
         </div>
 
         {/* Product Info */}
-        <div className="flex-1 p-4 flex flex-col justify-between">
+        <div className="flex-1 p-5 flex flex-col justify-between">
           <div>
-            <h3 className="font-bold text-gray-900 mb-2 text-lg leading-tight group-hover:text-green-600 transition-colors">
+            <h3 className="font-bold text-gray-800 mb-2 text-lg leading-snug group-hover:text-primary transition-colors line-clamp-2">
               {product.name}
             </h3>
-            
-            <p className="text-gray-500 text-sm mb-3 line-clamp-2 leading-relaxed">
+
+            <p className="text-gray-500 text-sm mb-4 line-clamp-2 leading-relaxed font-light">
               {product.description}
             </p>
-            
+
             {/* Price Section */}
-            <div className="mb-3">
+            <div className="mb-4">
               {discountPercent > 0 && product.min_price ? (
-                <div className="flex items-center gap-2">
-                  <span className="text-red-600 font-bold text-lg">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-red-600 font-bold text-xl">
                     {formatPrice(product.min_price, product.max_price)}₫
                   </span>
                   <span className="text-gray-400 line-through text-sm">
@@ -107,24 +108,23 @@ export default function ProductCardList({
                   </span>
                 </div>
               ) : (
-                <span className="text-red-600 font-bold text-lg">
+                <span className="text-red-600 font-bold text-xl">
                   {formatPrice(product.min_price, product.max_price)}₫
                 </span>
               )}
             </div>
           </div>
-          
+
           {/* Action Button */}
-          <button 
-            className={`w-full font-bold py-2 px-4 rounded transition-colors ${
-              isInCart(product.id, '')
-                ? 'bg-orange-500 text-white hover:bg-orange-600'
-                : 'bg-green-500 text-white hover:bg-green-600'
-            }`}
+          <button
+            className={`w-full font-semibold py-2.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 transform active:scale-95 ${isInCart(product.id, '')
+              ? 'bg-orange-50 text-orange-600 border border-orange-200 hover:bg-orange-100'
+              : 'bg-gray-50 text-gray-700 hover:bg-primary hover:text-white hover:shadow-md'
+              }`}
             onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
-              
+
               const productData = {
                 id: product.id,
                 name: product.name,
@@ -136,19 +136,24 @@ export default function ProductCardList({
                 variantId: '',
                 variantName: ''
               }
-              
+
               addToCart(productData)
             }}
           >
             {isInCart(product.id, '') ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              <>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Đã thêm ({getItemQuantity(product.id, '')})
-              </span>
+                <span>Đã thêm ({getItemQuantity(product.id, '')})</span>
+              </>
             ) : (
-              'Thêm vào giỏ'
+              <>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span>Thêm vào giỏ</span>
+              </>
             )}
           </button>
         </div>

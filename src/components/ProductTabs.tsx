@@ -6,7 +6,7 @@
 interface Product {
   id: string
   name: string
-  description: string
+  description?: string
 }
 
 interface ProductTabsProps {
@@ -55,7 +55,7 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
                     <p className="text-gray-600 text-sm">Cho đơn hàng từ 200.000₫ trở lên</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-3">
                   <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-blue-600 text-sm">⚡</span>
@@ -65,7 +65,7 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
                     <p className="text-gray-600 text-sm">1-2 ngày làm việc cho khu vực nội thành</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-3">
                   <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-orange-600 text-sm">📦</span>
@@ -90,7 +90,7 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
                     <p className="text-gray-600 text-sm">Kể từ ngày nhận hàng, với điều kiện sản phẩm còn nguyên vẹn</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-3">
                   <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-red-600 text-sm">💯</span>
@@ -100,7 +100,7 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
                     <p className="text-gray-600 text-sm">Nếu sản phẩm có lỗi từ nhà sản xuất</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-3">
                   <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-yellow-600 text-sm">🆓</span>
@@ -132,28 +132,32 @@ export default function ProductTabs({ product, activeTab, onTabChange }: Product
 
   return (
     <div className="bg-white">
-      {/* Tab Navigation - Shopee Style */}
-      <div className="border-b border-gray-200">
-        <nav className="flex">
+      {/* Tab Navigation */}
+      <div className="border-b border-gray-100">
+        <nav className="flex px-6">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`flex-1 py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === tab.id
-                  ? 'border-green-500 text-green-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
-              }`}
+              className={`py-4 px-6 font-medium text-sm transition-all relative ${activeTab === tab.id
+                ? 'text-green-600'
+                : 'text-gray-500 hover:text-gray-800'
+                }`}
             >
-              <span className="mr-1">{tab.icon}</span>
-              {tab.label}
+              <span className="flex items-center gap-2">
+                <span className="text-lg">{tab.icon}</span>
+                {tab.label}
+              </span>
+              {activeTab === tab.id && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-600 rounded-t-full" />
+              )}
             </button>
           ))}
         </nav>
       </div>
 
       {/* Tab Content */}
-      <div className="p-4">
+      <div className="p-6 lg:p-8">
         {renderTabContent()}
       </div>
     </div>
