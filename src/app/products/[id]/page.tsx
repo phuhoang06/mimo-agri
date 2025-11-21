@@ -112,7 +112,7 @@ export default function ProductDetailPage() {
         id: product.id,
         variantId: selectedVariant.id,
         name: product.name,
-        variantName: selectedVariant.name,
+        variantName: selectedVariant.variant_name,
         price: selectedVariant.price,
         image: productImages[0] || '',
         description: product.description || '',
@@ -132,7 +132,7 @@ export default function ProductDetailPage() {
     if (selectedVariant) {
       return selectedVariant.price
     }
-    return product?.min_price || 0
+    return variants[0]?.price || 0
   }
 
   if (loading) {
@@ -211,32 +211,7 @@ export default function ProductDetailPage() {
                         maximumFractionDigits: 0
                       }).format(getCurrentPrice())}
                     </span>
-                    {product.min_price && (
-                      <span className="text-lg text-gray-400 line-through">
-                        {new Intl.NumberFormat('vi-VN', {
-                          style: 'currency',
-                          currency: 'VND',
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0
-                        }).format(product.min_price * 1.3)}
-                      </span>
-                    )}
                   </div>
-                  {product.min_price && (
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="bg-red-100 text-red-700 px-2 py-1 rounded text-sm font-medium">
-                        -23%
-                      </span>
-                      <span className="text-sm text-gray-600">
-                        Tiết kiệm {new Intl.NumberFormat('vi-VN', {
-                          style: 'currency',
-                          currency: 'VND',
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0
-                        }).format((product.min_price * 1.3) - getCurrentPrice())}
-                      </span>
-                    </div>
-                  )}
                 </div>
 
                 {/* Variant Selection */}

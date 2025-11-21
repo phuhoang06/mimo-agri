@@ -1,70 +1,23 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Breadcrumb from '@/components/Breadcrumb'
-import { supabase, YoutubeVideo } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 
-export default function VideoDetailPage({ params }: { params: { id: string } }) {
-  const [video, setVideo] = useState<YoutubeVideo | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+export const dynamic = 'force-dynamic'
 
-  useEffect(() => {
-    const fetchVideo = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('youtube_video')
-          .select('*')
-          .eq('id', params.id)
-          .single()
+export default async function VideoDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
 
-        if (error || !data) {
-          setError(true)
-        } else {
-          setVideo(data)
-        }
-      } catch (err) {
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchVideo()
-  }, [params.id])
+  // Fetch video data on server
+  const { data: video, error } = await supabase
+    .from('youtube_video')
+    .select('*')
+    .eq('id', id)
+    .single()
 
   const cleanId = video?.video_id?.split('&')[0].split('?')[0]
-
-  if (loading) {
-    return (
-      <>
-        <Header />
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-pulse text-gray-500">Đang tải...</div>
-        </div>
-        <Footer />
-      </>
-    )
-  }
-
-  if (error || !video) {
-    return (
-      <>
-        <Header />
-        <div className="flex flex-col items-center justify-center min-h-screen">
-          <h1 className="text-2xl font-bold mb-4">Video không tồn tại</h1>
-          <Link href="/videos" className="text-green-600 hover:text-green-700 underline">
-            Quay lại danh sách video
-          </Link>
-        </div>
-        <Footer />
-      </>
-    )
-  }
 
   // Format duration from ISO 8601 (PT5M32S) to readable format
   const formatDuration = (duration: string) => {
@@ -82,6 +35,21 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
     result += seconds.padStart(2, '0')
 
     return result
+  }
+
+  if (error || !video) {
+    return (
+      <>
+        <Header />
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <h1 className="text-2xl font-bold mb-4">Video không tồn tại</h1>
+          <Link href="/videos" className="text-green-600 hover:text-green-700 underline">
+            Quay lại danh sách video
+          </Link>
+        </div>
+        <Footer />
+      </>
+    )
   }
 
   return (

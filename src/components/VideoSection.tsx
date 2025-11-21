@@ -5,8 +5,21 @@ import Link from 'next/link'
 import VideoCard from './VideoCardComponent'
 import { supabase, YoutubeVideo } from '@/lib/supabase'
 
+interface Video {
+  id: string
+  title: string
+  description: string
+  videoId: string
+  thumbnail: string
+  category: string
+  duration: string
+  views: number
+  publishedAt: string
+  featured: boolean
+}
+
 export default function VideoSection() {
-  const [videos, setVideos] = useState<any[]>([])
+  const [videos, setVideos] = useState<Video[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
